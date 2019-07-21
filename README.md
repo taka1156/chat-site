@@ -4,12 +4,13 @@ takaのチャットアプリです
 (https://chatapp-f1e5d.firebaseapp.com/)
 
 # 使用したもの
-- vue.js
 - HTML
 - CSS
 - JavaScript
-- Firebase(Twitter認証,hosting, realtime DB)
+- vue.js
+- vuetify
 - BootStrap4(CDN)
+- Firebase(Twitter認証,hosting, realtime DB)
 
 # 内容
 Twitterアカウントを利用してチャットをするアプリです。

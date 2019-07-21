@@ -4,6 +4,15 @@ node_modules/
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
+vue.config.js
+.postcssrc.js
+
+#　firebase関連
+firebase.json
+.firebaserc
+.firebase
+
+#バージョン関連
 package.json
 yarn.lock
 
