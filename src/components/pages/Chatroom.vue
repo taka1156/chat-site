@@ -36,11 +36,8 @@ export default {
   },
   data(){
     return {
-      isForm:false,
-      InputTitle:null,
-      InputDetail:null,
-      user:str.UserInfo,
-      ChatRoomlist:[]
+      ChatRoomlist:[],
+      user:str.UserInfo
     }
   },
   created(){
