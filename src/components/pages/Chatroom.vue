@@ -55,6 +55,7 @@ export default {
     addList(snap) {
       const ChatInfo = snap.val();
       this.ChatRoomlist.push({
+        key:snap.key,
         roomname:ChatInfo.roomname,
         user:ChatInfo.user,
         detail:ChatInfo.detail,
@@ -63,13 +64,7 @@ export default {
     },
     doMake(InputTitle,InputDetail,InputPass){
       if(this.user.uid && InputTitle.length && InputDetail.length){
-        let ID; 
-        if(this.ChatRoomlist.length < 9) {
-            ID = 'room0' + (this.ChatRoomlist.length + 1);
-        }else{
-            ID = 'room' + (this.ChatRoomlist.length+1);
-        }
-        firebase.database().ref('ChatRoom/'+ ID).set({
+        firebase.database().ref('ChatRoom').push({
           roomname:InputTitle,
           user:this.user.displayName,
           detail:InputDetail,
@@ -85,11 +80,7 @@ export default {
       }
     },
     doTalk(index){
-      if(index < 9){
-        str.RoomName = 'room0' + (index+1);
-      }else{
-        str.RoomName = 'room' + (index+1);
-      }
+      str.RoomName = this.ChatRoomlist[index].key;
       str.PassWord = this.ChatRoomlist[index].roompass;
       str.Title = this.ChatRoomlist[index].roomname;
       this.$router.push('/chatpage');

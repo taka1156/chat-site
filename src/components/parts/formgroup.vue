@@ -1,6 +1,6 @@
 <template>
 <div class = "formgroup">
-    <button type="button" class="m-2 mx-auto col-6 btn btn-success" v-on="on" @click="isForm=!isForm">チャット部屋を作る</button>
+    <button type="button" class="m-2 mx-auto col-6 btn btn-success" @click="isForm=!isForm">チャット部屋を作る</button>
 
 　      <v-layout row justify-center>
         <v-dialog v-model="isForm" persistent max-width="600px" >
@@ -18,8 +18,8 @@
                 </v-card-text>
                 <v-card-actions>
                 <v-spacer></v-spacer>
-                <v-btn color="blue darken-1" flat @click="isForm = false">閉じる</v-btn>
-                <v-btn color="blue darken-1" flat @click="isForm = false;doMake()">決定</v-btn>
+                <v-btn color="blue darken-1" flat @click="isForm=!isForm">閉じる</v-btn>
+                <v-btn color="blue darken-1" flat @click="doMake()">決定</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
@@ -39,9 +39,8 @@ export default {
     },
     methods:{
         doMake(){
-            this.$emit('doMake',this.InputTitle,this.InputDetail,this.InputPass);
             this.isForm=!this.isForm;
-            this.InputTitle=this.InputDetail=null;
+            this.$emit('doMake',this.InputTitle,this.InputDetail,this.InputPass);
         }
     }
 }
