@@ -49,7 +49,7 @@ export default{
         }
     },
     created() {
-        const db_message = firebase.database().ref(`ChatRoom/${str.RoomName}/messagelist`);
+        const db_message = firebase.database().ref(`Chat/${str.RoomName}/messagelist`);
         if (this.user) {
             this.ChatList = [];
             // message に変更があったときのハンドラを登録
@@ -80,7 +80,7 @@ export default{
         doSend(){
             if (this.user.uid && this.InputChat.length) {
             // firebase にメッセージを追加
-                firebase.database().ref(`ChatRoom/${str.RoomName}/messagelist/`).push({
+                firebase.database().ref(`Chat/${str.RoomName}/messagelist`).push({
                     name: this.user.displayName,
                     image: this.user.photoURL,
                     message:this.InputChat

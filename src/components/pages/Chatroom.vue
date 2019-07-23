@@ -61,18 +61,24 @@ export default {
     },
     doMake(InputTitle,InputDetail,InputPass){
       if(this.user.uid && InputTitle.length && InputDetail.length){
-        firebase.database().ref('ChatRoom').push({
-          roomname:InputTitle,
-          user:this.user.displayName,
+        const db_ChatRoom = firebase.database()
+        const id = db_ChatRoom.ref('ChatRoom').push().key
+
+        db_ChatRoom.ref('ChatRoom/' + id).set({        
+          roomname:InputTitle,          
+          user:this.user.displayName,                      
           detail:InputDetail,
-          roompass:InputPass,
-          messagelist:{
-              0:{
-              name: '管理者',
-              image: '',
-              message:InputTitle + 'にようこそ'
+          roompass:InputPass
+        });
+
+        db_ChatRoom.ref('Chat/' + id).set({
+            messagelist:{
+              0:{               
+                name: '管理者',               
+                image: '',               
+                message:InputTitle + 'にようこそ'             
+              }          
             }
-          }
         });
       }
     },
