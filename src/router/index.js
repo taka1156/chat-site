@@ -1,19 +1,19 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import TopPage from '@/components/pages/Top';
+import HelpPage from '@/components/pages/Help';
 import Account from '@/components/pages/Account';
 import ChatRoom from '@/components/pages/Chatroom';
 import ChatPage from '@/components/pages/Chat';
 
-Vue.use(Router)
+Vue.use(Router);
 
 export default new Router({
   routes: [
     {
       path: '/',
-      name: 'TopPage',
-      component: TopPage
+      name: 'HelpPage',
+      component: HelpPage
     },
     {
       path: '/account',

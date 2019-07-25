@@ -5,7 +5,7 @@
       <div class="d-flex flex-column">
         <div class="my-cahat" v-if="ChatObj.Chatflag == true">
           <div class="balloon1-right">
-            <Nl2br tag="p" class="text-wrap" :text="ChatObj.message"></Nl2br>
+            <Nl2br tag="p" :text="ChatObj.message"></Nl2br>
             <div class="border"></div>
              発言者:{{ChatObj.name}}
           </div>
@@ -19,7 +19,7 @@
         <div class="other-cahat" v-if="ChatObj.Chatflag == false">
           <img :src="ChatObj.image" class="icon">
           <div class="balloon1-left">
-            <Nl2br tag="p" class="text-wrap" :text="ChatObj.message"></Nl2br>
+            <Nl2br tag="p" :text="ChatObj.message"></Nl2br>
             <div class="border"></div>
             発言者:{{ChatObj.name}}
           </div>
@@ -85,6 +85,7 @@ import Nl2br from 'vue-nl2br'
   margin: 0;
   padding: 0;
   text-align: left;
+  word-wrap: break-word;
 }
 
 /*********/
@@ -117,5 +118,6 @@ import Nl2br from 'vue-nl2br'
   margin: 0;
   padding: 0;
   text-align: left;
+  word-wrap: break-word;
 }
 </style>

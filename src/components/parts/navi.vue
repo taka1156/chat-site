@@ -10,8 +10,8 @@
     <v-tabs-slider color="yellow"></v-tabs-slider>
 
     <v-tab router-link to="/">
-      Top
-      <v-icon>home</v-icon>
+      Help
+      <v-icon>help</v-icon>
     </v-tab>
 
     <v-tab router-link to="/account">

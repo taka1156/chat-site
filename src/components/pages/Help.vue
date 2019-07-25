@@ -9,8 +9,8 @@
       </p>
       <h1><主な機能></h1>
       <div class="mx-auto jumbotron">
-        <h1 class="mx-auto col-11">TOP</h1>
-        <v-icon size="50">home</v-icon>
+        <h1 class="mx-auto col-11">HELP</h1>
+        <v-icon size="50">help</v-icon>
 
         <p class="text-body text-break">
           使い方の説明のページです。<br>

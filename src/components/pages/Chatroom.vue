@@ -22,9 +22,8 @@
 </template>
 
 <script>
-import List from '@/components/parts/list'
+import List from '@/components/parts/roomlist'
 import Formgroup　from '@/components/parts/formgroup';
-import Account from '@/components/pages/Account';
 import str from '@/components/js/store';
 import * as firebase from 'firebase/app';
 import 'firebase/database';
