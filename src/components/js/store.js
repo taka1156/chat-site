@@ -1,11 +1,11 @@
 var UserInfo = {};
-var RoomName = null;
+var RoomPath = null;
 var PassWord = null;
 var Title = null;
 
 export default {
     UserInfo,
-    RoomName,
+    RoomPath,
     PassWord,
     Title
 };

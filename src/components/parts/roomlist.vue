@@ -34,9 +34,9 @@
                 ></v-divider>
             </template>
         </v-list>
-        <button type="button" class="btn " @click="prevPage()"><</button>
+        <button type="button" class="btn " @click="prevPage()">&lt;</button>
         {{ page }}/{{ MaxPage }}
-        <button type="button" class="btn " @click="nextPage()">></button>
+        <button type="button" class="btn " @click="nextPage()">&gt;</button>
     </v-card>
 </div>
 </template>

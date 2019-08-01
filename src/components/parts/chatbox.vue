@@ -1,13 +1,14 @@
 <template>
-  <div class="Chatbox">
-    <div v-if="ChatLists!=null" v-for="(ChatObj,index) in ChatLists">
+<div class="Chatbox">
+  <div v-if="ChatLists!=null">
+    <div v-for="ChatObj in ChatLists" :key="ChatObj.key">
       <!--MyChat-->
       <div class="d-flex flex-column">
         <div class="my-cahat" v-if="ChatObj.Chatflag == true">
           <div class="balloon1-right">
             <Nl2br tag="p" :text="ChatObj.message"></Nl2br>
             <div class="border"></div>
-             発言者:{{ChatObj.name}}
+              発言者:{{ChatObj.name}}
           </div>
           <img :src="ChatObj.image" class="icon">
 
@@ -25,9 +26,9 @@
           </div>
         </div>
       </div>
-
     </div>
   </div>
+</div>
 </template>
 
 <script>

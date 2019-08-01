@@ -1,7 +1,7 @@
 ﻿import Vue from 'vue';
 import App from './App';
 import router from './router';
-import Vuetify,{} from 'vuetify';
+import Vuetify from 'vuetify';
 import 'vuetify/dist/vuetify.min.css';
 Vue.use(Vuetify);
 
@@ -13,14 +13,9 @@ import * as firebase from 'firebase/app';
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-  authDomain: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-  databaseURL: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-  projectId: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-  storageBucket: "",
-  messagingSenderId: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX",
-  appId: "XXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXXX"
+  //APIkey等
 };
+
 // Initialize Firebase
 firebase.initializeApp(firebaseConfig);
 

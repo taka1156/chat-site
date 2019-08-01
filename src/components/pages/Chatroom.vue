@@ -1,24 +1,23 @@
 <template>
-<div class = "Chatroom">
-  <div v-if="this.user.uid">
-    <div class="d-flex flex-column" >
-        <Formgroup
-          @doMake = "doMake"
-        >
-        </Formgroup>
+  <div class = "Chatroom">
+    <div v-if="this.user.uid">
+      <div class="d-flex flex-column" >
+          <Formgroup
+            @doMake = "doMake"
+          >
+          </Formgroup>
 
-        <List
-          v-bind:items="ChatRoomlist"
-          v-bind:user="user.displayName"
-          @doTalk = "doTalk"
-          class = "jumbotron"
-        >
-        </List>
+          <List
+            v-bind:items="ChatRoomlist"
+            v-bind:user="user.displayName"
+            @doTalk = "doTalk"
+            class = "jumbotron"
+          >
+          </List>
+      </div>
     </div>
+    <div v-else>ログインしてください</div>
   </div>
-  <div v-else>ログインしてください</div>
-  </div>
-</div>
 </template>
 
 <script>
