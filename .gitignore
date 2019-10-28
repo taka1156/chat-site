@@ -12,10 +12,6 @@ firebase.json
 .firebaserc
 .firebase
 
-#バージョン関連
-package.json
-yarn.lock
-
 # Editor directories and files
 .idea
 .vscode
