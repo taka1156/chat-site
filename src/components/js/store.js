@@ -4,8 +4,8 @@ var PassWord = null;
 var Title = null;
 
 export default {
-    UserInfo,
-    RoomPath,
-    PassWord,
-    Title
+  UserInfo,
+  RoomPath,
+  PassWord,
+  Title
 };

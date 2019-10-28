@@ -1,19 +1,16 @@
 <template>
-  <div class = "Chatroom">
-    <div v-if="this.user.uid">
-      <div class="d-flex flex-column" >
-          <Formgroup
-            @doMake = "doMake"
-          >
-          </Formgroup>
+  <div class="ChatRoom">
+    <div v-if="user.uid">
+      <div class="d-flex flex-column">
+        <Formgroup @doMake="doMake"> </Formgroup>
 
-          <List
-            v-bind:items="ChatRoomlist"
-            v-bind:user="user.displayName"
-            @doTalk = "doTalk"
-            class = "jumbotron"
-          >
-          </List>
+        <List
+          class="jumbotron"
+          :items="ChatRoomlist"
+          :user="user.displayName"
+          @doTalk="doTalk"
+        >
+        </List>
       </div>
     </div>
     <div v-else>ログインしてください</div>
@@ -21,71 +18,72 @@
 </template>
 
 <script>
-import List from '@/components/parts/roomlist'
-import Formgroup　from '@/components/parts/formgroup';
+import List from '@/components/parts/roomlist';
+import Formgroup from '@/components/parts/formgroup';
 import str from '@/components/js/store';
 import * as firebase from 'firebase/app';
 import 'firebase/database';
 
 export default {
-  components:{
+  name: 'ChatRoom',
+  components: {
     Formgroup,
     List
   },
-  data(){
+  data() {
     return {
-      ChatRoomlist:[],
-      user:str.UserInfo
-    }
+      ChatRoomlist: [],
+      user: str.UserInfo
+    };
   },
-  created(){
-    const db_ChatRoom = firebase.database().ref('ChatRoom');
+  created() {
+    const chatRoom = firebase.database().ref('ChatRoom');
     if (this.user) {
-        db_ChatRoom.limitToLast(30).on('child_added', this.addList);
+      chatRoom.limitToLast(30).on('child_added', this.addList);
     } else {
-        db_ChatRoom.limitToLast(30).off('child_added', this.addList);
+      chatRoom.limitToLast(30).off('child_added', this.addList);
     }
   },
-  methods:{
+  methods: {
     addList(snap) {
       const ChatInfo = snap.val();
       this.ChatRoomlist.push({
-        key:snap.key,
-        roomname:ChatInfo.roomname,
-        user:ChatInfo.user,
-        detail:ChatInfo.detail,
-        roompass:ChatInfo.roompass
+        key: snap.key,
+        roomname: ChatInfo.roomname,
+        user: ChatInfo.user,
+        detail: ChatInfo.detail,
+        roompass: ChatInfo.roompass
       });
     },
-    doMake(InputTitle,InputDetail,InputPass){
-      if(this.user.uid && InputTitle.length && InputDetail.length){
-        const db_ChatRoom = firebase.database()
-        const id = db_ChatRoom.ref('ChatRoom').push().key
+    doMake(InputTitle, InputDetail, InputPass) {
+      if (this.user.uid && InputTitle.length && InputDetail.length) {
+        const chatRoom = firebase.database();
+        const id = chatRoom.ref('ChatRoom').push().key;
 
-        db_ChatRoom.ref('ChatRoom/' + id).set({        
-          roomname:InputTitle,          
-          user:this.user.displayName,                      
-          detail:InputDetail,
-          roompass:InputPass
+        chatRoom.ref('ChatRoom/' + id).set({
+          roomname: InputTitle,
+          user: this.user.displayName,
+          detail: InputDetail,
+          roompass: InputPass
         });
 
-        db_ChatRoom.ref('Chat/' + id).set({
-            messagelist:{
-              0:{               
-                name: '管理者',               
-                image: '',               
-                message:InputTitle + 'にようこそ'             
-              }          
+        chatRoom.ref('Chat/' + id).set({
+          messagelist: {
+            0: {
+              name: '管理者',
+              image: '',
+              message: InputTitle + 'にようこそ'
             }
+          }
         });
       }
     },
-    doTalk(index){
+    doTalk(index) {
       str.RoomName = this.ChatRoomlist[index].key;
       str.PassWord = this.ChatRoomlist[index].roompass;
       str.Title = this.ChatRoomlist[index].roomname;
       this.$router.push('/chatpage');
-    },
+    }
   }
-}
+};
 </script>

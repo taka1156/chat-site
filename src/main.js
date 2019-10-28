@@ -3,17 +3,21 @@ import App from './App';
 import router from './router';
 import Vuetify from 'vuetify';
 import 'vuetify/dist/vuetify.min.css';
-Vue.use(Vuetify);
-
+import firebase from 'firebase/app';
 //ナビゲーションバー
 import Navi from '@/components/parts/navi';
-Vue.component('navi-ber',Navi);
-
-import * as firebase from 'firebase/app';
+Vue.use(Vuetify);
+Vue.component('navi-ber', Navi);
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
-  //APIkey等
+  apiKey: 'AIzaSyDKRPGAZrRZtI-r7fCzy1jb791yPZd799A',
+  authDomain: 'chatapp-f1e5d.firebaseapp.com',
+  databaseURL: 'https://chatapp-f1e5d.firebaseio.com',
+  projectId: 'chatapp-f1e5d',
+  storageBucket: 'chatapp-f1e5d.appspot.com',
+  messagingSenderId: '1076128056671',
+  appId: '1:1076128056671:web:415c83c7fe1c0d26'
 };
 
 // Initialize Firebase
