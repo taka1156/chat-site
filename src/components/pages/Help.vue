@@ -14,8 +14,11 @@
 
         <p class="text-body text-break">
           使い方の説明のページです。<br />
-          もしわからなければ、<a href="https://twitter.com/taka56110">こちら</a
-          >までお願いします。
+          もしわからなければ、
+          <a href="https://twitter.com/taka_Program">
+            こちら
+          </a>
+          までお願いします。
         </p>
 
         <h1 class="mx-auto col-10">ACCOUNT</h1>

@@ -2,15 +2,13 @@
   <div class="ChatRoom">
     <div v-if="user.uid">
       <div class="d-flex flex-column">
-        <Formgroup @doMake="doMake"> </Formgroup>
-
+        <Formgroup @doMake="doMake" />
         <List
           class="jumbotron"
           :items="ChatRoomlist"
           :user="user.displayName"
           @doTalk="doTalk"
-        >
-        </List>
+        />
       </div>
     </div>
     <div v-else>ログインしてください</div>

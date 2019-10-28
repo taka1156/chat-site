@@ -3,7 +3,7 @@
     <button
       type="button"
       class="m-2 mx-auto col-6 btn btn-success"
-      @click="isForm = !isForm"
+      @click="init()"
     >
       チャット部屋を作る
     </button>
@@ -66,6 +66,10 @@ export default {
     doMake() {
       this.isForm = !this.isForm;
       this.$emit('doMake', this.InputTitle, this.InputDetail, this.InputPass);
+    },
+    init() {
+      this.InputTitle = this.InputDetail = this.InputPass = null;
+      this.isForm = !this.isForm;
     }
   }
 };

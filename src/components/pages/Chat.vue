@@ -92,7 +92,7 @@ export default {
               date: dateStr
             },
             () => {
-              this.InputChat = null; // フォームを空にする
+              this.InputChat = null;
             }
           );
       }
