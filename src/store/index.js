@@ -1,13 +1,12 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-
+import createPersistedState from 'vuex-persistedstate';
 Vue.use(Vuex);
 
 export default new Vuex.Store({
   state: {
     status: false,
-    userData: {},
-    roomInfo: null
+    userData: {}
   },
   getters: {
     userData(state) {
@@ -15,9 +14,6 @@ export default new Vuex.Store({
     },
     status(state) {
       return state.status;
-    },
-    roomInfo(state) {
-      return state.roomInfo;
     }
   },
   mutations: {
@@ -26,9 +22,12 @@ export default new Vuex.Store({
     },
     onUserStatusChanged(state, status) {
       state.status = status;
-    },
-    setRoomInfo(state, roominfo) {
-      state.roomInfo = roominfo;
     }
-  }
+  },
+  plugins: [
+    createPersistedState({
+      storage: window.sessionStorage,
+      key: 'Taka`sChatApp'
+    })
+  ]
 });

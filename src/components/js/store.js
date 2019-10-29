@@ -1,11 +1,3 @@
-var UserInfo = {};
-var RoomPath = null;
-var PassWord = null;
-var Title = null;
+let roomInfo = {};
 
-export default {
-  UserInfo,
-  RoomPath,
-  PassWord,
-  Title
-};
+export default roomInfo;

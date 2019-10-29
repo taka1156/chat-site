@@ -1,11 +1,9 @@
 <template>
   <div class="Chat">
     <h1>{{ roomInfo.name }}</h1>
-
     <div v-if="roomInfo.pass != null && islock">
       <PassForm :pass="roomInfo.pass" @doPassReset="doPassReset" />
     </div>
-
     <div v-else>
       <ChatBox :chat-lists="ChatList"></ChatBox>
       <div class="input-group">
@@ -27,6 +25,7 @@
 <script>
 import ChatBox from '@/components/parts/chatbox';
 import PassForm from '@/components/parts/passform';
+import roomstore from '@/components/js/store.js';
 import firebase from 'firebase/app';
 import 'firebase/database';
 
@@ -40,21 +39,18 @@ export default {
     return {
       InputChat: null,
       ChatList: [],
-      islock: true
+      roomInfo: roomstore.roomInfo
     };
   },
   computed: {
     userData() {
       return this.$store.getters.userData;
-    },
-    roomInfo() {
-      return this.$store.getters.roomInfo;
     }
   },
   created() {
     const Message = firebase
       .database()
-      .ref(`Chat/${this.$store.getters.roomInfo.path}/messagelist`);
+      .ref(`Chat/${this.roomInfo.path}/messagelist`);
     if (this.userData) {
       Message.limitToLast(10).on('child_added', this.addList);
     } else {
@@ -85,7 +81,7 @@ export default {
         const date = this.getDate();
         firebase
           .database()
-          .ref(`Chat/${roomInfo.path}/messagelist`)
+          .ref(`Chat/${this.roomInfo.path}/messagelist`)
           .push({
             name: this.userData.displayName,
             uid: this.userData.uid,
@@ -102,7 +98,7 @@ export default {
       });
     },
     doPassReset() {
-      this.islock = false;
+      this.roomInfo.pass = false;
     },
     getDate() {
       const today = new Date();

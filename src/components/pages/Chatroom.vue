@@ -19,6 +19,7 @@
 import List from '@/components/parts/roomlist';
 import Formgroup from '@/components/parts/formgroup';
 import firebase from 'firebase/app';
+import roomstore from '@/components/js/store.js';
 import 'firebase/database';
 
 export default {
@@ -81,12 +82,11 @@ export default {
       }
     },
     doTalk(index) {
-      const roomInfo = {
+      roomstore.roomInfo = {
         name: this.ChatRoomList[index].roomname,
         path: this.ChatRoomList[index].key,
         pass: this.ChatRoomList[index].roompass
       };
-      this.$store.commit('setRoomInfo', roomInfo);
       this.$router.push('/chatpage');
     }
   }
