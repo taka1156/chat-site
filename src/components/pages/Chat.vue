@@ -1,7 +1,7 @@
 <template>
   <div class="Chat">
     <h1>{{ roomInfo.name }}</h1>
-    <div v-if="roomInfo.pass != null && islock">
+    <div v-if="roomInfo.pass != null">
       <PassForm :pass="roomInfo.pass" @doPassReset="doPassReset" />
     </div>
     <div v-else>
@@ -98,7 +98,7 @@ export default {
       });
     },
     doPassReset() {
-      this.roomInfo.pass = false;
+      this.roomInfo.pass = null;
     },
     getDate() {
       const today = new Date();
