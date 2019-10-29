@@ -27,8 +27,9 @@
 <script>
 import ChatBox from '@/components/parts/chatbox';
 import PassForm from '@/components/parts/passform';
+//Chat.vueのFireBase処理を分離し終えたら消す↓
 import str from '@/components/js/store';
-import * as firebase from 'firebase/app';
+import firebase from 'firebase/app';
 import 'firebase/database';
 
 export default {

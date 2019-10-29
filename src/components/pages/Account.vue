@@ -9,14 +9,7 @@
           LogOut
         </button>
       </div>
-      <!--<List
-        class="jumbotron"
-        :items="ChatRoomList"
-        :user="userData.displayName"
-        @doTalk="doTalk"
-      />-->
     </div>
-
     <div v-else>
       <button class="mx-auto btn btn-success" type="button" @click="logIn()">
         TwitterLogin

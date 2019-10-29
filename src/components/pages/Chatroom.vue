@@ -1,6 +1,6 @@
 <template>
   <div class="ChatRoom">
-    <div v-if="userData.uid">
+    <div v-if="status">
       <div class="d-flex flex-column">
         <Formgroup @doMake="doMake" />
         <List
@@ -18,7 +18,8 @@
 <script>
 import List from '@/components/parts/roomlist';
 import Formgroup from '@/components/parts/formgroup';
-import str from '@/components/js/store'; //そのうち消す
+//Chat.vueのFireBase処理を分離し終えたら消す↓
+import str from '@/components/js/store';
 import FireBase from '@/components/js/firebase.js';
 
 export default {
