@@ -1,15 +1,22 @@
 <template>
   <div class="Account">
     <h1>Your account status</h1>
-    <div v-if="user.uid">
+    <div v-if="status">
       <div class="d-flex flex-column">
-        <img :src="user.photoURL" class="mx-auto user-icon" />
-        <h1>こんにちは! {{ user.displayName }}さん</h1>
+        <img :src="userData.photoURL" class="mx-auto user-icon" />
+        <h1>こんにちは! {{ userData.displayName }}さん</h1>
         <button class="mx-auto btn btn-success" type="button" @click="logOut()">
           LogOut
         </button>
       </div>
+      <!--<List
+        class="jumbotron"
+        :items="ChatRoomList"
+        :user="userData.displayName"
+        @doTalk="doTalk"
+      />-->
     </div>
+
     <div v-else>
       <button class="mx-auto btn btn-success" type="button" @click="logIn()">
         TwitterLogin
@@ -19,37 +26,33 @@
 </template>
 
 <script>
-import str from '@/components/js/store';
-import * as firebase from 'firebase/app';
-import 'firebase/auth';
+import FireBase from '@/components/js/firebase.js';
 
 export default {
   name: 'Account',
   data() {
     return {
-      user: {}
+      user: {},
+      flag: false
     };
   },
-  mounted() {
-    firebase.auth().onAuthStateChanged(user => {
-      this.user = user ? user : {};
-      str.UserInfo = this.user;
-    });
+  computed: {
+    userData() {
+      return this.$store.Auth.getters.userData;
+    },
+    status() {
+      return this.$store.Auth.getters.status;
+    }
+  },
+  created() {
+    FireBase.onAuth();
   },
   methods: {
     logIn() {
-      const provider = new firebase.auth.TwitterAuthProvider();
-      firebase
-        .auth()
-        .signInWithRedirect(provider)
-        .then();
+      FireBase.logIn();
     },
     logOut() {
-      firebase
-        .auth()
-        .signOut()
-        .then()
-        .catch(err => alert(err));
+      FireBase.logOut();
     }
   }
 };

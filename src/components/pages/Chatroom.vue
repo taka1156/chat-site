@@ -1,12 +1,12 @@
 <template>
   <div class="ChatRoom">
-    <div v-if="user.uid">
+    <div v-if="userData.uid">
       <div class="d-flex flex-column">
         <Formgroup @doMake="doMake" />
         <List
           class="jumbotron"
-          :items="ChatRoomlist"
-          :user="user.displayName"
+          :items="ChatRoomList"
+          :user="userData.displayName"
           @doTalk="doTalk"
         />
       </div>
@@ -18,9 +18,8 @@
 <script>
 import List from '@/components/parts/roomlist';
 import Formgroup from '@/components/parts/formgroup';
-import str from '@/components/js/store';
-import * as firebase from 'firebase/app';
-import 'firebase/database';
+import str from '@/components/js/store'; //そのうち消す
+import FireBase from '@/components/js/firebase.js';
 
 export default {
   name: 'ChatRoom',
@@ -28,58 +27,37 @@ export default {
     Formgroup,
     List
   },
-  data() {
-    return {
-      ChatRoomlist: [],
-      user: str.UserInfo
-    };
-  },
-  created() {
-    const chatRoom = firebase.database().ref('ChatRoom');
-    if (this.user) {
-      chatRoom.limitToLast(30).on('child_added', this.addList);
-    } else {
-      chatRoom.limitToLast(30).off('child_added', this.addList);
+  computed: {
+    userData() {
+      return this.$store.Auth.getters.userData;
+    },
+    status() {
+      return this.$store.Auth.getters.status;
+    },
+    ChatRoomList() {
+      return this.$store.ChatRoom.getters.ChatRoomList;
     }
   },
+  created() {
+    this.$store.ChatRoom.commit('resetList');
+    FireBase.initDB(this.status);
+  },
   methods: {
-    addList(snap) {
-      const ChatInfo = snap.val();
-      this.ChatRoomlist.push({
-        key: snap.key,
-        roomname: ChatInfo.roomname,
-        user: ChatInfo.user,
-        detail: ChatInfo.detail,
-        roompass: ChatInfo.roompass
-      });
-    },
     doMake(InputTitle, InputDetail, InputPass) {
-      if (this.user.uid && InputTitle.length && InputDetail.length) {
-        const chatRoom = firebase.database();
-        const id = chatRoom.ref('ChatRoom').push().key;
-
-        chatRoom.ref('ChatRoom/' + id).set({
+      if (this.userData.uid && InputTitle.length && InputDetail.length) {
+        const roomInfo = {
           roomname: InputTitle,
-          user: this.user.displayName,
+          user: this.userData.displayName,
           detail: InputDetail,
           roompass: InputPass
-        });
-
-        chatRoom.ref('Chat/' + id).set({
-          messagelist: {
-            0: {
-              name: '管理者',
-              image: '',
-              message: InputTitle + 'にようこそ'
-            }
-          }
-        });
+        };
+        FireBase.doMake(roomInfo);
       }
     },
     doTalk(index) {
-      str.RoomName = this.ChatRoomlist[index].key;
-      str.PassWord = this.ChatRoomlist[index].roompass;
-      str.Title = this.ChatRoomlist[index].roomname;
+      str.RoomName = this.ChatRoomList[index].key;
+      str.PassWord = this.ChatRoomList[index].roompass;
+      str.Title = this.ChatRoomList[index].roomname;
       this.$router.push('/chatpage');
     }
   }

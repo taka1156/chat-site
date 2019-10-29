@@ -36,9 +36,11 @@
           ></v-divider>
         </template>
       </v-list>
-      <button type="button" class="btn " @click="prevPage()">&lt;</button>
-      {{ page }}/{{ MaxPage }}
-      <button type="button" class="btn " @click="nextPage()">&gt;</button>
+      <div class="mx-auto col-3 d-flex justify-content-center">
+        <p class="h4" @click="prevPage()">&lt;</p>
+        {{ page }}/{{ MaxPage }}
+        <p class="h4" @click="nextPage()">&gt;</p>
+      </div>
     </v-card>
   </div>
 </template>

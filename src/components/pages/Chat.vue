@@ -41,15 +41,18 @@ export default {
     return {
       InputChat: null,
       ChatList: [],
-      user: str.UserInfo,
       pass: str.PassWord,
       title: str.Title
     };
   },
+  computed: {
+    userData() {
+      return this.$store.Auth.getters.userData;
+    }
+  },
   created() {
     const Message = firebase.database().ref(`Chat/${str.RoomName}/messagelist`);
-    if (this.user) {
-      this.ChatList = [];
+    if (this.userData) {
       // message に変更があったときのハンドラを登録
       Message.limitToLast(10).on('child_added', this.addList);
     } else {
@@ -61,7 +64,7 @@ export default {
     addList(snap) {
       const ChatInfo = snap.val();
       let flag;
-      if (ChatInfo.uid == this.user.uid) {
+      if (ChatInfo.uid == this.userData.uid) {
         flag = true;
       } else {
         flag = false;
@@ -77,7 +80,7 @@ export default {
       this.scrollBottom();
     },
     doSend() {
-      if (this.user.uid && this.InputChat.length) {
+      if (this.userData.uid && this.InputChat.length) {
         // firebase にメッセージを追加
         const dateStr = this.getDate();
         firebase
@@ -85,9 +88,9 @@ export default {
           .ref(`Chat/${str.RoomName}/messagelist`)
           .push(
             {
-              name: this.user.displayName,
-              uid: this.user.uid,
-              image: this.user.photoURL,
+              name: this.userData.displayName,
+              uid: this.userData.uid,
+              image: this.userData.photoURL,
               message: this.InputChat,
               date: dateStr
             },
@@ -114,7 +117,6 @@ export default {
         '/' +
         today.getDate();
       let time = '[' + today.getHours() + ':' + today.getMinutes() + ']';
-      console.log(date + time);
       return date + time;
     }
   }
