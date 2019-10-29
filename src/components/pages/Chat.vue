@@ -1,9 +1,9 @@
 <template>
   <div class="Chat">
-    <h1>{{ title }}</h1>
+    <h1>{{ roomInfo.name }}</h1>
 
-    <div v-if="pass != null">
-      <PassForm :pass="pass" @doPassReset="doPassReset"></PassForm>
+    <div v-if="roomInfo.pass != null && islock">
+      <PassForm :pass="roomInfo.pass" @doPassReset="doPassReset" />
     </div>
 
     <div v-else>
@@ -27,8 +27,6 @@
 <script>
 import ChatBox from '@/components/parts/chatbox';
 import PassForm from '@/components/parts/passform';
-//Chat.vueのFireBase処理を分離し終えたら消す↓
-import str from '@/components/js/store';
 import firebase from 'firebase/app';
 import 'firebase/database';
 
@@ -42,22 +40,24 @@ export default {
     return {
       InputChat: null,
       ChatList: [],
-      pass: str.PassWord,
-      title: str.Title
+      islock: true
     };
   },
   computed: {
     userData() {
-      return this.$store.Auth.getters.userData;
+      return this.$store.getters.userData;
+    },
+    roomInfo() {
+      return this.$store.getters.roomInfo;
     }
   },
   created() {
-    const Message = firebase.database().ref(`Chat/${str.RoomName}/messagelist`);
+    const Message = firebase
+      .database()
+      .ref(`Chat/${this.$store.getters.roomInfo.path}/messagelist`);
     if (this.userData) {
-      // message に変更があったときのハンドラを登録
       Message.limitToLast(10).on('child_added', this.addList);
     } else {
-      // message に変更があったときのハンドラを解除
       Message.limitToLast(10).off('child_added', this.addList);
     }
   },
@@ -82,23 +82,18 @@ export default {
     },
     doSend() {
       if (this.userData.uid && this.InputChat.length) {
-        // firebase にメッセージを追加
-        const dateStr = this.getDate();
+        const date = this.getDate();
         firebase
           .database()
-          .ref(`Chat/${str.RoomName}/messagelist`)
-          .push(
-            {
-              name: this.userData.displayName,
-              uid: this.userData.uid,
-              image: this.userData.photoURL,
-              message: this.InputChat,
-              date: dateStr
-            },
-            () => {
-              this.InputChat = null;
-            }
-          );
+          .ref(`Chat/${roomInfo.path}/messagelist`)
+          .push({
+            name: this.userData.displayName,
+            uid: this.userData.uid,
+            image: this.userData.photoURL,
+            message: this.InputChat,
+            date: date
+          });
+        this.InputChat = null;
       }
     },
     scrollBottom() {
@@ -107,7 +102,7 @@ export default {
       });
     },
     doPassReset() {
-      this.pass = null;
+      this.islock = false;
     },
     getDate() {
       const today = new Date();

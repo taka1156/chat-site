@@ -3,10 +3,11 @@ import Vuex from 'vuex';
 
 Vue.use(Vuex);
 
-let Auth = new Vuex.Store({
+export default new Vuex.Store({
   state: {
     status: false,
-    userData: {}
+    userData: {},
+    roomInfo: null
   },
   getters: {
     userData(state) {
@@ -14,6 +15,9 @@ let Auth = new Vuex.Store({
     },
     status(state) {
       return state.status;
+    },
+    roomInfo(state) {
+      return state.roomInfo;
     }
   },
   mutations: {
@@ -22,33 +26,9 @@ let Auth = new Vuex.Store({
     },
     onUserStatusChanged(state, status) {
       state.status = status;
-    }
-  }
-});
-
-let ChatRoom = new Vuex.Store({
-  state: {
-    ChatRoomList: []
-  },
-  getters: {
-    ChatRoomList(state) {
-      return state.ChatRoomList;
-    }
-  },
-  mutations: {
-    addList(state, ChatInfo) {
-      state.ChatRoomList.push({
-        key: ChatInfo.key,
-        roomname: ChatInfo.roomname,
-        user: ChatInfo.user,
-        detail: ChatInfo.detail,
-        roompass: ChatInfo.roompass
-      });
     },
-    resetList(state) {
-      state.ChatRoomList = [];
+    setRoomInfo(state, roominfo) {
+      state.roomInfo = roominfo;
     }
   }
 });
-
-export default { Auth, ChatRoom };

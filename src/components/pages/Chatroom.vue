@@ -18,9 +18,8 @@
 <script>
 import List from '@/components/parts/roomlist';
 import Formgroup from '@/components/parts/formgroup';
-//Chat.vueのFireBase処理を分離し終えたら消す↓
-import str from '@/components/js/store';
-import FireBase from '@/components/js/firebase.js';
+import firebase from 'firebase/app';
+import 'firebase/database';
 
 export default {
   name: 'ChatRoom',
@@ -28,37 +27,66 @@ export default {
     Formgroup,
     List
   },
+  data() {
+    return {
+      ChatRoomList: []
+    };
+  },
   computed: {
     userData() {
-      return this.$store.Auth.getters.userData;
+      return this.$store.getters.userData;
     },
     status() {
-      return this.$store.Auth.getters.status;
-    },
-    ChatRoomList() {
-      return this.$store.ChatRoom.getters.ChatRoomList;
+      return this.$store.getters.status;
     }
   },
   created() {
-    this.$store.ChatRoom.commit('resetList');
-    FireBase.initDB(this.status);
+    const chatRoom = firebase.database().ref('ChatRoom');
+    if (this.userData) {
+      chatRoom.limitToLast(30).on('child_added', this.addList);
+    } else {
+      chatRoom.limitToLast(30).off('child_added', this.addList);
+    }
   },
   methods: {
+    addList(snap) {
+      const ChatInfo = snap.val();
+      this.ChatRoomList.push({
+        key: snap.key,
+        roomname: ChatInfo.roomname,
+        user: ChatInfo.user,
+        detail: ChatInfo.detail,
+        roompass: ChatInfo.roompass
+      });
+    },
     doMake(InputTitle, InputDetail, InputPass) {
       if (this.userData.uid && InputTitle.length && InputDetail.length) {
-        const roomInfo = {
+        const chatRoom = firebase.database();
+        const id = chatRoom.ref('ChatRoom').push().key;
+        chatRoom.ref('ChatRoom/' + id).set({
           roomname: InputTitle,
           user: this.userData.displayName,
           detail: InputDetail,
           roompass: InputPass
-        };
-        FireBase.doMake(roomInfo);
+        });
+        chatRoom.ref('Chat/' + id).set({
+          messagelist: {
+            0: {
+              name: '管理者',
+              image: '',
+              message: InputTitle + 'にようこそ'
+            }
+          }
+        });
       }
     },
     doTalk(index) {
-      str.RoomName = this.ChatRoomList[index].key;
-      str.PassWord = this.ChatRoomList[index].roompass;
-      str.Title = this.ChatRoomList[index].roomname;
+      const roomInfo = {
+        name: this.ChatRoomList[index].roomname,
+        path: this.ChatRoomList[index].key,
+        pass: this.ChatRoomList[index].roompass
+      };
+      this.$store.commit('setRoomInfo', roomInfo);
       this.$router.push('/chatpage');
     }
   }

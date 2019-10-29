@@ -25,16 +25,15 @@ export default {
   name: 'Account',
   data() {
     return {
-      user: {},
-      flag: false
+      user: {}
     };
   },
   computed: {
     userData() {
-      return this.$store.Auth.getters.userData;
+      return this.$store.getters.userData;
     },
     status() {
-      return this.$store.Auth.getters.status;
+      return this.$store.getters.status;
     }
   },
   created() {

@@ -1,6 +1,5 @@
 import firebase from 'firebase/app';
 import 'firebase/auth';
-import 'firebase/database';
 import store from '@/store/index.js';
 
 // Your web app's Firebase configuration
@@ -37,49 +36,8 @@ export default {
   onAuth() {
     firebase.auth().onAuthStateChanged(user => {
       user = user ? user : {};
-      store.Auth.commit('onAuthStateChanged', user);
-      store.Auth.commit('onUserStatusChanged', user.uid ? true : false);
-    });
-  },
-  //データベース(ChatRoom)
-  initDB(isUser) {
-    const chatRoom = firebase.database().ref('ChatRoom');
-    if (isUser) {
-      chatRoom.limitToLast(30).on('child_added', this.addList);
-    } else {
-      chatRoom.limitToLast(30).off('child_added', this.addList);
-    }
-  },
-  addList(snap) {
-    const ChatInfo = snap.val();
-    store.ChatRoom.commit('addList', {
-      key: snap.key,
-      roomname: ChatInfo.roomname,
-      user: ChatInfo.user,
-      detail: ChatInfo.detail,
-      roompass: ChatInfo.roompass
-    });
-  },
-  doMake(roomInfo) {
-    const chatRoom = firebase.database();
-    const id = chatRoom.ref('ChatRoom').push().key;
-
-    chatRoom.ref('ChatRoom/' + id).set({
-      roomname: roomInfo.roomname,
-      user: roomInfo.user,
-      detail: roomInfo.detail,
-      roompass: roomInfo.roompass
-    });
-
-    chatRoom.ref('Chat/' + id).set({
-      messagelist: {
-        0: {
-          name: '管理者',
-          image: '',
-          message: roomInfo.roomname + 'にようこそ'
-        }
-      }
+      store.commit('onAuthStateChanged', user);
+      store.commit('onUserStatusChanged', user.uid ? true : false);
     });
   }
-  //データベース(message)
 };
