@@ -23,7 +23,7 @@ export default {
       bgClor: 'White',
       loginType: 'local',
       path: null,
-      title: '設定',
+      title: 'Setting',
       icon: 'settings_applications'
     };
   }

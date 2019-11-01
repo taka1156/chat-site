@@ -4,7 +4,7 @@
     <div v-if="status">
       <div class="d-flex flex-column">
         <img :src="userData.photoURL" class="mx-auto user-icon" />
-        <h1>こんにちは! {{ userData.displayName }}さん</h1>
+        <p class="h2">こんにちは! {{ userData.displayName }}さん</p>
         <button
           class="mx-auto mb-3 btn btn-success"
           type="button"

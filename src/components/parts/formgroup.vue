@@ -1,10 +1,23 @@
 <template>
   <div class="formgroup">
-    <button type="button" class="mx-auto col-3 btn btn-success" @click="init()">
+    <button
+      type="button"
+      class="btn btn-success"
+      data-toggle="modal"
+      data-target="#exampleModalCenter"
+      @click="init()"
+    >
       チャット部屋を作る
     </button>
 
-    <div v-show="isForm" class="modal" tabindex="-1" role="dialog">
+    <div
+      id="exampleModalCenter"
+      class="modal fade"
+      tabindex="-1"
+      role="dialog"
+      aria-labelledby="exampleModalCenterTitle"
+      aria-hidden="true"
+    >
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
@@ -15,7 +28,7 @@
               type="button"
               class="close"
               data-dismiss="modal"
-              aria-label="閉じる"
+              aria-label="Close"
             >
               <span aria-hidden="true">&times;</span>
             </button>
@@ -31,7 +44,7 @@
             <label>概要</label>
             <input
               v-model="InputDetail"
-              type="text"
+              type="textarea"
               class="mx-auto col-10 form-control"
               placeholder="Chatの概要(10~30字)"
             />
@@ -44,14 +57,15 @@
             />
           </div>
           <div class="modal-footer">
-            <button
-              type="button"
-              class="btn btn-secondary"
-              @click="isForm = !isForm"
-            >
+            <button type="button" class="btn btn-success" data-dismiss="modal">
               閉じる
             </button>
-            <button type="button" class="btn btn-primary" @click="doMake()">
+            <button
+              type="button"
+              class="btn btn-success"
+              data-dismiss="modal"
+              @click="doMake()"
+            >
               確定
             </button>
           </div>

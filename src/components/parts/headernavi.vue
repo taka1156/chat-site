@@ -1,18 +1,20 @@
 <template>
   <div class="header">
-    <div class="bg-success mx-auto d-flex justify-content-around text-white">
+    <div
+      class="bg-success mx-auto col-12 d-flex justify-content-around text-white"
+    >
       <div class="col-1">
-        <div v-if="path !== null" class="my-auto h1" @click="jump(path)">
+        <div v-if="path !== null" class="my-auto h2" @click="jump(path)">
           &lt;
         </div>
       </div>
-      <h1 class="col-8">
+      <h1 class="h2 col-8">
         <i class="material-icons mb-2">
           {{ icon }}
         </i>
         {{ title }}
       </h1>
-      <div class="my-auto col-1">
+      <div class="my-auto col-2">
         <img
           v-if="status !== false"
           :src="userData.photoURL"
