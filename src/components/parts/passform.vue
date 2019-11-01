@@ -7,6 +7,7 @@
         type="text"
         class="form-control"
         placeholder="Chatのパスワード"
+        @keyup.enter="doCheck()"
       />
       <div class="input-group-append">
         <button class="btn btn-success" type="button" @click="doCheck()">

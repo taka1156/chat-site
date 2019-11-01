@@ -1,5 +1,5 @@
 <template>
-  <div class="header">
+  <div class="HeaderNavi">
     <div
       class="bg-success mx-auto col-12 d-flex justify-content-around text-white"
     >
