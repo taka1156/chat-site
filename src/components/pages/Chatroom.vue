@@ -1,10 +1,10 @@
 <template>
   <div class="ChatRoom">
+    <header-navi :path="path" :icon="icon" :title="title" />
     <div v-if="status">
-      <div class="d-flex flex-column">
+      <div class="d-flex flex-column jumbotron">
         <Formgroup @doMake="doMake" />
         <List
-          class="jumbotron"
           :items="ChatRoomList"
           :user="userData.displayName"
           @doTalk="doTalk"
@@ -12,6 +12,7 @@
       </div>
     </div>
     <div v-else>ログインしてください</div>
+    <footer-navi />
   </div>
 </template>
 
@@ -30,7 +31,10 @@ export default {
   },
   data() {
     return {
-      ChatRoomList: []
+      ChatRoomList: [],
+      path: '/account',
+      title: 'ChatRoom',
+      icon: 'forum'
     };
   },
   computed: {

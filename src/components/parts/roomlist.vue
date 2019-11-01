@@ -1,47 +1,37 @@
 <template>
   <div class="list">
-    <v-card class="mx-auto">
-      <div class="d-flex flex-row col-1">
+    <div class="mx-auto">
+      <div class="ml-0 col-1">
         <div @click="isPassAns = !isPassAns">
-          <v-icon v-if="isPassAns">visibility</v-icon>
-          <v-icon v-else>visibility_off</v-icon>
+          <i v-if="isPassAns" class="material-icons">visibility</i>
+          <i v-else class="material-icons">visibility_off</i>
         </div>
       </div>
-      <v-divider></v-divider>
-      <v-list two-line>
-        <template v-for="(item, index) in SliceItems">
-          <v-list-tile :key="item.RoomName" ripple @click="doTalk(index)">
-            <v-list-tile-content>
-              <v-list-tile-title>
-                <div v-if="item.roompass">
-                  <v-icon>lock</v-icon>{{ item.roomname }}
-                </div>
-                <div v-else>{{ item.roomname }}</div>
-              </v-list-tile-title>
-              <v-list-tile-sub-title class="text--primary"
-                >スレ主:{{ item.user }}</v-list-tile-sub-title
-              >
-              <v-list-tile-sub-title>
-                <div v-if="user == item.user && item.roompass && isPassAns">
-                  PASS[{{ item.roompass }}]
-                </div>
-                <div v-else>{{ item.detail }}</div>
-              </v-list-tile-sub-title>
-            </v-list-tile-content>
-          </v-list-tile>
-
-          <v-divider
-            v-if="index + 1 < SliceItems.length"
-            :key="index"
-          ></v-divider>
-        </template>
-      </v-list>
+      <div class="border" />
+      <div class="list-group">
+        <div v-for="(item, index) in SliceItems" :key="index">
+          <article
+            class="article-color mt-2 mx-auto text-left list-group-item flex-column align-items-start"
+            @click="doTalk(index)"
+          >
+            <div v-if="item.roompass">
+              <i class="material-icons">lock</i>{{ item.roomname }}
+            </div>
+            <div v-else>{{ item.roomname }}</div>
+            スレ主:{{ item.user }}
+            <div v-if="user === item.user && item.roompass && isPassAns">
+              PASS[{{ item.roompass }}]
+            </div>
+            <div v-else>{{ item.detail }}</div>
+          </article>
+        </div>
+      </div>
       <div class="mx-auto col-3 d-flex justify-content-center">
         <p class="h4" @click="prevPage()">&lt;</p>
         {{ page }}/{{ MaxPage }}
         <p class="h4" @click="nextPage()">&gt;</p>
       </div>
-    </v-card>
+    </div>
   </div>
 </template>
 
@@ -55,7 +45,7 @@ export default {
     return {
       isPassAns: false,
       page: 1,
-      perPage: 4
+      perPage: 10
     };
   },
   computed: {

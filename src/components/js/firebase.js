@@ -17,7 +17,7 @@ export default {
   //認証
   initAuth() {
     firebase.initializeApp(firebaseConfig);
-    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.SESSION);
+    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
   },
   logIn() {
     const provider = new firebase.auth.TwitterAuthProvider();

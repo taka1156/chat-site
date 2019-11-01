@@ -1,20 +1,25 @@
 <template>
   <div class="Account">
-    <h1>Your account status</h1>
+    <header-navi :path="path" :icon="icon" :title="title" />
     <div v-if="status">
       <div class="d-flex flex-column">
         <img :src="userData.photoURL" class="mx-auto user-icon" />
         <h1>こんにちは! {{ userData.displayName }}さん</h1>
-        <button class="mx-auto btn btn-success" type="button" @click="logOut()">
+        <button
+          class="mx-auto mb-3 btn btn-success"
+          type="button"
+          @click="logOut()"
+        >
           LogOut
         </button>
       </div>
     </div>
-    <div v-else>
+    <div v-else class="mt-5">
       <button class="mx-auto btn btn-success" type="button" @click="logIn()">
         TwitterLogin
       </button>
     </div>
+    <footer-navi />
   </div>
 </template>
 
@@ -25,7 +30,10 @@ export default {
   name: 'Account',
   data() {
     return {
-      user: {}
+      user: {},
+      path: '/',
+      title: 'Account',
+      icon: 'account_box'
     };
   },
   computed: {

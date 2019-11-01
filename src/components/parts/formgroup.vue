@@ -1,54 +1,63 @@
 <template>
   <div class="formgroup">
-    <button
-      type="button"
-      class="m-2 mx-auto col-6 btn btn-success"
-      @click="init()"
-    >
+    <button type="button" class="mx-auto col-3 btn btn-success" @click="init()">
       チャット部屋を作る
     </button>
 
-    <v-layout row justify-center>
-      <v-dialog v-model="isForm" persistent max-width="600px">
-        <v-card>
-          <v-card-title
-            ><span class="headline">テーブル作成</span></v-card-title
-          >
-          <v-card-text>
-            <v-container grid-list-md>
-              <label>タイトル</label>
-              <input
-                v-model="InputTitle"
-                type="text"
-                class="mx-auto col-10 form-control"
-                placeholder="Chatのタイトル"
-              />
-              <label>概要</label>
-              <input
-                v-model="InputDetail"
-                type="text"
-                class="mx-auto col-10 form-control"
-                placeholder="Chatの概要(10~30字)"
-              />
-              <label>パスワード(任意)</label>
-              <input
-                v-model="InputPass"
-                type="password"
-                class="mx-auto col-10 form-control"
-                placeholder="Chatのパスワード(任意)"
-              />
-            </v-container>
-          </v-card-text>
-          <v-card-actions>
-            <v-spacer></v-spacer>
-            <v-btn color="blue darken-1" flat @click="isForm = !isForm"
-              >閉じる</v-btn
+    <div v-show="isForm" class="modal" tabindex="-1" role="dialog">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              テーブル作成
+            </h5>
+            <button
+              type="button"
+              class="close"
+              data-dismiss="modal"
+              aria-label="閉じる"
             >
-            <v-btn color="blue darken-1" flat @click="doMake()">決定</v-btn>
-          </v-card-actions>
-        </v-card>
-      </v-dialog>
-    </v-layout>
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <label>タイトル</label>
+            <input
+              v-model="InputTitle"
+              type="text"
+              class="mx-auto col-10 form-control"
+              placeholder="Chatのタイトル"
+            />
+            <label>概要</label>
+            <input
+              v-model="InputDetail"
+              type="text"
+              class="mx-auto col-10 form-control"
+              placeholder="Chatの概要(10~30字)"
+            />
+            <label>パスワード(任意)</label>
+            <input
+              v-model="InputPass"
+              type="password"
+              class="mx-auto col-10 form-control"
+              placeholder="Chatのパスワード(任意)"
+            />
+          </div>
+          <div class="modal-footer">
+            <button
+              type="button"
+              class="btn btn-secondary"
+              @click="isForm = !isForm"
+            >
+              閉じる
+            </button>
+            <button type="button" class="btn btn-primary" @click="doMake()">
+              確定
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 

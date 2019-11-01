@@ -1,6 +1,6 @@
 <template>
   <div class="Chat">
-    <h1>{{ roomInfo.name }}</h1>
+    <header-navi :path="path" :icon="icon" :title="title" />
     <div v-if="roomInfo.pass != null">
       <PassForm :pass="roomInfo.pass" @doPassReset="doPassReset" />
     </div>
@@ -39,7 +39,10 @@ export default {
     return {
       InputChat: null,
       ChatList: [],
-      roomInfo: roomstore.roomInfo
+      roomInfo: roomstore.roomInfo,
+      path: '/chatroom',
+      title: roomstore.roomInfo.name,
+      icon: 'chat'
     };
   },
   computed: {

@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import createPersistedState from 'vuex-persistedstate';
 Vue.use(Vuex);
 
 export default new Vuex.Store({
@@ -23,11 +22,5 @@ export default new Vuex.Store({
     onUserStatusChanged(state, status) {
       state.status = status;
     }
-  },
-  plugins: [
-    createPersistedState({
-      storage: window.sessionStorage,
-      key: 'Taka`sChatApp'
-    })
-  ]
+  }
 });

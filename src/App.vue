@@ -1,7 +1,8 @@
 <template>
   <div id="app">
-    <navi-ber />
-    <router-view />
+    <div class="mx-auto">
+      <router-view />
+    </div>
   </div>
 </template>
 
