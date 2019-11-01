@@ -4,7 +4,7 @@ import App from './App';
 import router from './router';
 import store from './store';
 import FireBase from '@/components/js/firebase.js';
-import FooterNavi from '@/components/parts/rooternavi';
+import FooterNavi from '@/components/parts/footernavi';
 import HeaderNavi from '@/components/parts/headernavi';
 Vue.component('footer-navi', FooterNavi);
 Vue.component('header-navi', HeaderNavi);

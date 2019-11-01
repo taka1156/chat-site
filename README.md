@@ -8,7 +8,6 @@ takaのチャットアプリです
 - CSS
 - JavaScript
 - vue.js
-- vuetify
 - BootStrap4(CDN)
 - Firebase(Twitter認証,hosting, realtime DB)
 
