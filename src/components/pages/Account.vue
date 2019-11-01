@@ -12,6 +12,13 @@
         >
           LogOut
         </button>
+        <button
+          class="mx-auto mb-3 btn btn-success"
+          type="button"
+          @click="UpdateInfo()"
+        >
+          Update
+        </button>
       </div>
     </div>
     <div v-else class="mt-5">
@@ -53,6 +60,9 @@ export default {
     },
     logOut() {
       FireBase.logOut();
+    },
+    UpdateInfo() {
+      FireBase.UpdateInfo();
     }
   }
 };

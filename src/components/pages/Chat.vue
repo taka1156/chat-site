@@ -11,7 +11,7 @@
           v-model="InputChat"
           placeholder="書き込みたい内容を入れてください。"
           class="form-control"
-          @keyup.shift.enter="doSend()"
+          @keydown.ctrl.enter="doSend()"
         ></textarea>
         <div class="input-group-append">
           <button class="btn btn-success" type="button" @click="doSend()">

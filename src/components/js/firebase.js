@@ -39,5 +39,28 @@ export default {
       store.commit('onAuthStateChanged', user);
       store.commit('onUserStatusChanged', user.uid ? true : false);
     });
+  },
+  UpdateInfo() {
+    let user = firebase.auth().currentUser;
+    let userName = null;
+    let userIcon = null;
+
+    if (user != null) {
+      user.providerData.forEach(function(profile) {
+        userName = profile.displayName;
+        userIcon = profile.photoURL;
+      });
+
+      user
+        .updateProfile({
+          displayName: userName,
+          photoURL: userIcon
+        })
+        .catch(function(error) {
+          console.log(error);
+        });
+
+      this.logIn();
+    }
   }
 };
