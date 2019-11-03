@@ -1,28 +1,31 @@
 <template>
   <div class="Chatbox">
-    <div v-if="chatLists != null">
+    <div v-if="chatLists != null" class="mb-4">
       <div v-for="ChatObj in chatLists" :key="ChatObj.key">
         <!--MyChat-->
         <div class="d-flex flex-column">
-          <div v-if="ChatObj.Chatflag" class="my-cahat">
-            <div class="balloon1-right">
-              <Nl2br tag="p" :text="ChatObj.message"></Nl2br>
-              <div class="border"></div>
-              <p>発言者:{{ ChatObj.name }}</p>
+          <div v-if="ChatObj.Chatflag">
+            <div class="my-cahat">
+              <div class="balloon1-right">
+                <Nl2br tag="p" :text="ChatObj.message"></Nl2br>
+                <div class="border"></div>
+                <p>発言者:{{ ChatObj.name }}</p>
+              </div>
+              <img :src="ChatObj.image" class="icon" />
               <p>{{ ChatObj.date }}</p>
             </div>
-            <img :src="ChatObj.image" class="icon" />
           </div>
         </div>
-
         <!--OtherChat-->
         <div class="d-flex flex-column">
-          <div v-if="!ChatObj.Chatflag" class="other-cahat">
-            <img :src="ChatObj.image" class="icon" />
-            <div class="balloon1-left">
-              <Nl2br tag="p" :text="ChatObj.message"></Nl2br>
-              <div class="border"></div>
-              <p>発言者:{{ ChatObj.name }}</p>
+          <div v-if="!ChatObj.Chatflag">
+            <div class="other-cahat">
+              <img :src="ChatObj.image" class="icon" />
+              <div class="balloon1-left">
+                <Nl2br tag="p" :text="ChatObj.message"></Nl2br>
+                <div class="border"></div>
+                <p>発言者:{{ ChatObj.name }}</p>
+              </div>
               <p>{{ ChatObj.date }}</p>
             </div>
           </div>
@@ -64,7 +67,7 @@ export default {
 .balloon1-right {
   position: relative;
   display: inline-block;
-  margin: 1.5em 15px 2.5em 0;
+  margin: 1.5em 15px 0 0;
   padding: 7px 10px;
   min-width: 120px;
   max-width: 80%;
@@ -97,7 +100,7 @@ export default {
 .balloon1-left {
   position: relative;
   display: inline-block;
-  margin: 1.5em 0 2.5em 15px;
+  margin: 1.5em 0 0 15px;
   padding: 7px 10px;
   min-width: 120px;
   max-width: 80%;

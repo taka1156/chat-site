@@ -30,8 +30,7 @@ export default new Router({
     {
       name: 'Setting',
       path: '/setting',
-      component: SettingPage,
-      meta: { Auth: true }
+      component: SettingPage
     },
     {
       name: 'ChatPage',

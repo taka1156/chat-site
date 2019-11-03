@@ -11,7 +11,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const ExtractTextPlugin = require('extract-text-webpack-plugin')
 const OptimizeCSSPlugin = require('optimize-css-assets-webpack-plugin')
 const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
-
 const env = require('../config/prod.env')
 
 const webpackConfig = merge(baseWebpackConfig, {
@@ -46,6 +45,10 @@ const webpackConfig = merge(baseWebpackConfig, {
     }
   },
   plugins: [
+    /*new webpack.optimize.AggressiveSplittingPlugin({
+      maxSize:230
+    }),*/
+    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /ja/),
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
     new webpack.DefinePlugin({
       'process.env': env

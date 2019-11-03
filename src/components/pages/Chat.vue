@@ -1,23 +1,13 @@
 <template>
   <div class="Chat">
     <header-navi :path="path" :icon="icon" :title="title" />
-    <div v-if="roomInfo.pass != null">
-      <PassForm :pass="roomInfo.pass" @doPassReset="doPassReset" />
-    </div>
-    <div v-else>
-      <ChatBox :chat-lists="ChatList"></ChatBox>
-      <div class="input-group">
-        <textarea
-          v-model="InputChat"
-          placeholder="書き込みたい内容を入れてください。"
-          class="form-control"
-          @keydown.ctrl.enter="doSend()"
-        ></textarea>
-        <div class="input-group-append">
-          <button class="btn btn-success" type="button" @click="doSend()">
-            Send
-          </button>
-        </div>
+    <div class="mx-auto jumbotron mt-3">
+      <div v-if="roomInfo.pass != null">
+        <PassForm :pass="roomInfo.pass" @doPassReset="doPassReset" />
+      </div>
+      <div v-else>
+        <ChatBox :chat-lists="ChatList"></ChatBox>
+        <ChatForm @doSend="doSend" />
       </div>
     </div>
   </div>
@@ -26,19 +16,22 @@
 <script>
 import ChatBox from '@/components/parts/chatbox';
 import PassForm from '@/components/parts/passform';
+import ChatForm from '@/components/parts/chatfrom';
 import roomstore from '@/components/js/store.js';
-import firebase from 'firebase/app';
+import * as firebase from 'firebase/app';
 import 'firebase/database';
+const moment = require('moment');
+moment.locale('ja');
 
 export default {
   name: 'Chat',
   components: {
     PassForm,
+    ChatForm,
     ChatBox
   },
   data() {
     return {
-      InputChat: null,
       ChatList: [],
       roomInfo: roomstore.roomInfo,
       path: '/chatroom',
@@ -80,8 +73,8 @@ export default {
       });
       this.scrollBottom();
     },
-    doSend() {
-      if (this.userData.uid && this.InputChat.length) {
+    doSend(inputMessage) {
+      if (this.userData.uid) {
         const date = this.getDate();
         firebase
           .database()
@@ -90,7 +83,7 @@ export default {
             name: this.userData.displayName,
             uid: this.userData.uid,
             image: this.userData.photoURL,
-            message: this.InputChat,
+            message: inputMessage,
             date: date
           });
         this.InputChat = null;
@@ -105,30 +98,21 @@ export default {
       this.roomInfo.pass = null;
     },
     getDate() {
-      const today = new Date();
-      let date =
-        today.getFullYear() +
-        '/' +
-        (today.getMonth() + 1) +
-        '/' +
-        today.getDate();
-      let time = '[' + today.getHours() + ':' + today.getMinutes() + ']';
-      return date + time;
+      const today = moment().format('YYYY/MM/DD hh:mm');
+      return today;
     }
   }
 };
 </script>
 
 <style scoped>
-.input-group {
-  position: fixed;
-  bottom: 0px;
-  width: 100%;
-}
-
 textarea {
   font-size: 16px; /*フォームの拡大防止*/
   height: 35px;
   resize: none;
+}
+
+.jumbotron {
+  background-color: rgba(0, 0, 0, 0);
 }
 </style>

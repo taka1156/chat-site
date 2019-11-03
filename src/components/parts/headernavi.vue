@@ -1,7 +1,7 @@
 <template>
   <div class="HeaderNavi">
     <div
-      class="bg-success mx-auto col-12 d-flex justify-content-around text-white"
+      class="bg-success mx-auto col-12 d-flex justify-content-around text-white fixed-top"
     >
       <div class="col-1">
         <div v-if="path !== null" class="my-auto h2" @click="jump(path)">
@@ -9,7 +9,7 @@
         </div>
       </div>
       <h1 class="h2 col-8">
-        <i class="material-icons mb-2">
+        <i class="material-icons">
           {{ icon }}
         </i>
         {{ title }}
@@ -42,13 +42,6 @@ export default {
     },
     status() {
       return this.$store.getters.status;
-    }
-  },
-  watch: {
-    status() {
-      if (this.status !== false) {
-        this.$router.push('/chatroom');
-      }
     }
   },
   methods: {

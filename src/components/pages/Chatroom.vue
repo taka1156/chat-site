@@ -1,17 +1,18 @@
 <template>
   <div class="ChatRoom">
     <header-navi :path="path" :icon="icon" :title="title" />
-    <div v-if="status">
-      <div class="d-flex flex-column jumbotron">
-        <Formgroup @doMake="doMake" />
-        <List
-          :items="ChatRoomList"
-          :user="userData.displayName"
-          @doTalk="doTalk"
-        />
+    <div class="mx-auto jumbotron mt-3">
+      <div v-if="status">
+        <div class="d-flex flex-column jumbotron">
+          <Formgroup @doMake="doMake" />
+          <List
+            :items="ChatRoomList"
+            :user="userData.displayName"
+            @doTalk="doTalk"
+          />
+        </div>
       </div>
     </div>
-    <div v-else>ログインしてください</div>
     <footer-navi />
   </div>
 </template>
@@ -19,8 +20,8 @@
 <script>
 import List from '@/components/parts/roomlist';
 import Formgroup from '@/components/parts/formgroup';
-import firebase from 'firebase/app';
 import roomstore from '@/components/js/store.js';
+import * as firebase from 'firebase/app';
 import 'firebase/database';
 
 export default {
@@ -96,3 +97,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.jumbotron {
+  background-color: rgba(0, 0, 0, 0);
+}
+</style>

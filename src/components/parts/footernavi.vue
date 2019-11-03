@@ -1,39 +1,47 @@
 <template>
   <div class="FooterNavi">
-    <ul class="bg-success nav nav-fill fixed-bottom mb-0">
-      <li class="nav-item col-3 border">
-        <router-link to="/" class="nav-link d-flex flex-column">
-          <div class="mx-auto">
-            <i class="material-icons">help</i>
-            <p class="small">Help</p>
-          </div>
-        </router-link>
-      </li>
-      <li class="nav-item col-3 border">
-        <router-link to="/account" class="nav-link d-flex flex-column">
-          <div class="mx-auto">
-            <i class="material-icons">account_box</i>
-            <p class="small">Account</p>
-          </div>
-        </router-link>
-      </li>
-      <li class="nav-item col-3 border">
-        <router-link to="/chatroom" class="nav-link mx-auto d-flex flex-column">
-          <div class="mx-auto">
-            <i class="material-icons">forum</i>
-            <p class="small">Chat</p>
-          </div>
-        </router-link>
-      </li>
-      <li class="nav-item col-3 border">
-        <router-link to="/Setting" class="nav-link d-flex flex-column">
-          <div class="mx-auto">
-            <i class="material-icons">settings_applications</i>
-            <p class="small">Setting</p>
-          </div>
-        </router-link>
-      </li>
-    </ul>
+    <div class="bg-success d-flex justify-content-between fixed-bottom mb-0">
+      <router-link
+        to="/"
+        class="navi-items col-3 border border-secondary"
+        exact
+      >
+        <div class="d-flex flex-column">
+          <i class="material-icons">help</i>
+          Help
+        </div>
+      </router-link>
+      <router-link
+        to="/account"
+        class="navi-items col-3 border border-secondary"
+        exact
+      >
+        <div class="d-flex flex-column">
+          <i class="material-icons">account_box</i>
+          Account
+        </div>
+      </router-link>
+      <router-link
+        to="/chatroom"
+        class="navi-items col-3 border border-secondary"
+        exact
+      >
+        <div class="d-flex flex-column">
+          <i class="material-icons">forum</i>
+          Chat
+        </div>
+      </router-link>
+      <router-link
+        to="/setting"
+        class="navi-items col-3  border border-secondary"
+        exact
+      >
+        <div class="d-flex flex-column">
+          <i class="material-icons">settings_applications</i>
+          Setting
+        </div>
+      </router-link>
+    </div>
   </div>
 </template>
 
@@ -42,6 +50,12 @@ a,
 a:hover {
   display: block;
   color: white;
+  text-decoration: none;
+}
+
+.router-link-active,
+.router-link-active:hover {
+  color: black;
   text-decoration: none;
 }
 

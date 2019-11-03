@@ -1,5 +1,6 @@
 <template>
   <div class="formgroup">
+    <!--button-->
     <button
       type="button"
       class="btn btn-success"
@@ -9,7 +10,7 @@
     >
       チャット部屋を作る
     </button>
-
+    <!--modal-->
     <div
       id="exampleModalCenter"
       class="modal fade"
