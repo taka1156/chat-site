@@ -21,7 +21,7 @@
         </option>
       </select>
       <button
-        class="mx-2 mt-2 col-2 btn btn-success"
+        class="mx-2 mt-2 col-3 btn btn-success"
         :style="{ 'background-color': colorSetting }"
         type="button"
         @click="doReset()"
@@ -29,7 +29,7 @@
         Reset
       </button>
       <button
-        class="mx-2 mt-2 col-2 btn btn-success"
+        class="mx-2 mt-2 col-3 btn btn-success"
         :style="{ 'background-color': colorSetting }"
         type="button"
         @click="doSetting()"
@@ -75,6 +75,9 @@ export default {
       return this.$store.getters.colorSetting;
     },
     loginSetting() {
+      if (this.$store.getters.loginSetting === null) {
+        return 'local';
+      }
       return this.$store.getters.loginSetting;
     }
   },
