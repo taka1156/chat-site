@@ -53,6 +53,7 @@ export default {
     } else {
       Message.limitToLast(10).off('child_added', this.addList);
     }
+    this.$store.commit('onSetUserSetting');
   },
   methods: {
     addList(snap) {
@@ -104,15 +105,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-textarea {
-  font-size: 16px; /*フォームの拡大防止*/
-  height: 35px;
-  resize: none;
-}
-
-.jumbotron {
-  background-color: rgba(0, 0, 0, 0);
-}
-</style>

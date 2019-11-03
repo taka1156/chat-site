@@ -53,6 +53,7 @@ export default {
     } else {
       chatRoom.limitToLast(30).off('child_added', this.addList);
     }
+    this.$store.commit('onSetUserSetting');
   },
   methods: {
     addList(snap) {
@@ -97,9 +98,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.jumbotron {
-  background-color: rgba(0, 0, 0, 0);
-}
-</style>

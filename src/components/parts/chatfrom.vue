@@ -11,6 +11,7 @@
         ></textarea>
         <button
           class="ml-5 col-2 mx-auto btn btn-success float-light"
+          :style="{ 'background-color': colorSetting }"
           type="button"
           @click="doSend()"
         >
@@ -42,6 +43,12 @@ export default {
     },
     boxHeight() {
       return `${(this.rows - 1) * ROW_PER_HEIGHT + DEFAULT_HEIGHT}px`;
+    },
+    colorSetting() {
+      if (this.$store.getters.colorSetting === null) {
+        return 'forestgreen';
+      }
+      return this.$store.getters.colorSetting;
     }
   },
   methods: {

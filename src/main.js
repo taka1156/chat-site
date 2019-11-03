@@ -6,6 +6,8 @@ import store from './store';
 import FireBase from '@/components/js/firebase.js';
 import FooterNavi from '@/components/parts/footernavi';
 import HeaderNavi from '@/components/parts/headernavi';
+import layout from '@/css/layout.css';
+Vue.use(layout);
 Vue.component('footer-navi', FooterNavi);
 Vue.component('header-navi', HeaderNavi);
 FireBase.initAuth();

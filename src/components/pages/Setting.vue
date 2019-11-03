@@ -3,23 +3,39 @@
     <header-navi :path="path" :icon="icon" :title="title" />
     <div class="mx-auto jumbotron mt-3">
       <label>UIカラー</label>
-      <input
-        v-model="uiColor"
-        type="text"
-        class="mx-auto col-10 form-control"
-      />
-      <label>背景カラー</label>
-      <input
-        v-model="bgColor"
-        type="text"
-        class="mx-auto col-10 form-control"
-      />
+      <select v-model="userSetting.uiColor" class="mx-auto col-10 form-control">
+        <option v-for="(color, index) in colorList" :key="index">
+          {{ color }}
+        </option>
+      </select>
       <label>ログイン情報の保持</label>
-      <input
-        v-model="loginType"
-        type="text"
+      <select
+        v-model="userSetting.loginType"
         class="mx-auto col-10 form-control"
-      />
+      >
+        <option
+          v-for="(type, index) in ['local', 'session', 'none']"
+          :key="index"
+        >
+          {{ type }}
+        </option>
+      </select>
+      <button
+        class="mx-2 mt-2 col-2 btn btn-success"
+        :style="{ 'background-color': colorSetting }"
+        type="button"
+        @click="doReset()"
+      >
+        Reset
+      </button>
+      <button
+        class="mx-2 mt-2 col-2 btn btn-success"
+        :style="{ 'background-color': colorSetting }"
+        type="button"
+        @click="doSetting()"
+      >
+        OK
+      </button>
     </div>
     <footer-navi />
   </div>
@@ -29,19 +45,59 @@
 export default {
   data() {
     return {
-      uiColor: 'green',
-      bgColor: 'white',
-      loginType: 'local',
+      colorList: [
+        'red',
+        'tomato',
+        'green',
+        'forestgreen',
+        'cornflowerblue',
+        'navy',
+        'gold',
+        'orange',
+        'brown',
+        'purple',
+        'pink'
+      ],
+      userSetting: {
+        uiColor: '',
+        loginType: ''
+      },
       path: null,
       title: 'Setting',
       icon: 'settings_applications'
     };
+  },
+  computed: {
+    colorSetting() {
+      if (this.$store.getters.colorSetting === null) {
+        return 'forestgreen';
+      }
+      return this.$store.getters.colorSetting;
+    },
+    loginSetting() {
+      return this.$store.getters.loginSetting;
+    }
+  },
+  created() {
+    this.$store.commit('onSetUserSetting');
+  },
+  mounted() {
+    this.userSetting.uiColor = this.colorSetting;
+    this.userSetting.loginType = this.loginSetting;
+  },
+  methods: {
+    doSetting() {
+      if (this.userSetting.uiColor !== 'forestgreen') {
+        localStorage.setItem('userSetting', JSON.stringify(this.userSetting));
+        this.$store.commit('onSetUserSetting');
+      }
+    },
+    doReset() {
+      this.userSetting.uiColor = 'forestgreen';
+      this.userSetting.loginType = 'local';
+      localStorage.setItem('userSetting', JSON.stringify(this.userSetting));
+      this.$store.commit('onSetUserSetting');
+    }
   }
 };
 </script>
-
-<style scoped>
-.jumbotron {
-  background-color: rgba(0, 0, 0, 0);
-}
-</style>

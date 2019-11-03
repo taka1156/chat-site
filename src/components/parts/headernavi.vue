@@ -1,7 +1,8 @@
 <template>
   <div class="HeaderNavi">
     <div
-      class="bg-success mx-auto col-12 d-flex justify-content-around text-white fixed-top"
+      class="mx-auto col-12 d-flex justify-content-around text-white fixed-top"
+      :style="{ 'background-color': colorSetting }"
     >
       <div class="col-1">
         <div v-if="path !== null" class="my-auto h2" @click="jump(path)">
@@ -21,7 +22,11 @@
           class="rounded-circle"
           @click="jump('/account')"
         />
-        <button v-else class="btn btn-outline-light" @click="jump('/account')">
+        <button
+          v-else
+          class="btn btn-outline-light btn-login"
+          @click="jump('/account')"
+        >
           login
         </button>
       </div>
@@ -42,6 +47,12 @@ export default {
     },
     status() {
       return this.$store.getters.status;
+    },
+    colorSetting() {
+      if (this.$store.getters.colorSetting === null) {
+        return 'forestgreen';
+      }
+      return this.$store.getters.colorSetting;
     }
   },
   methods: {
@@ -51,3 +62,9 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.btn-login {
+  border: solid 0.5px white;
+}
+</style>

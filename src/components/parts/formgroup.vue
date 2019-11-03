@@ -4,6 +4,7 @@
     <button
       type="button"
       class="btn btn-success"
+      :style="{ 'background-color': colorSetting }"
       data-toggle="modal"
       data-target="#exampleModalCenter"
       @click="init()"
@@ -58,12 +59,18 @@
             />
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-success" data-dismiss="modal">
+            <button
+              type="button"
+              class="btn btn-success"
+              :style="{ 'background-color': colorSetting }"
+              data-dismiss="modal"
+            >
               閉じる
             </button>
             <button
               type="button"
               class="btn btn-success"
+              :style="{ 'background-color': colorSetting }"
               data-dismiss="modal"
               @click="doMake()"
             >
@@ -85,6 +92,14 @@ export default {
       InputDetail: null,
       InputPass: null
     };
+  },
+  computed: {
+    colorSetting() {
+      if (this.$store.getters.colorSetting === null) {
+        return 'forestgreen';
+      }
+      return this.$store.getters.colorSetting;
+    }
   },
   methods: {
     doMake() {

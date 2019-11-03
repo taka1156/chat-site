@@ -10,7 +10,12 @@
         @keydown.ctrl.enter="doCheck()"
       />
       <div class="input-group-append">
-        <button class="btn btn-success" type="button" @click="doCheck()">
+        <button
+          class="btn btn-success"
+          :style="{ 'background-color': colorSetting }"
+          type="button"
+          @click="doCheck()"
+        >
           確定
         </button>
       </div>
@@ -29,6 +34,14 @@ export default {
       InputPass: null,
       msg: null
     };
+  },
+  computed: {
+    colorSetting() {
+      if (this.$store.getters.colorSetting === null) {
+        return 'forestgreen';
+      }
+      return this.$store.getters.colorSetting;
+    }
   },
   methods: {
     doCheck() {

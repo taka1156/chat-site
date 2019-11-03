@@ -55,6 +55,9 @@ export default {
       title: 'Help',
       icon: 'help'
     };
+  },
+  created() {
+    this.$store.commit('onSetUserSetting');
   }
 };
 </script>
@@ -62,10 +65,5 @@ export default {
 <style scoped>
 a {
   color: blue;
-}
-
-.jumbotron {
-  background-color: rgba(0, 0, 0, 0);
-  width: 80%;
 }
 </style>

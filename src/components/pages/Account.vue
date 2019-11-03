@@ -8,6 +8,7 @@
           <p class="h2">こんにちは! {{ userData.displayName }}さん</p>
           <button
             class="mx-auto mb-3 btn btn-success"
+            :style="{ 'background-color': colorSetting }"
             type="button"
             @click="logOut()"
           >
@@ -18,6 +19,7 @@
           </button>
           <button
             class="mx-auto mb-3 btn btn-success"
+            :style="{ 'background-color': colorSetting }"
             type="button"
             @click="UpdateInfo()"
           >
@@ -29,7 +31,12 @@
         </div>
       </div>
       <div v-else class="mt-5">
-        <button class="mx-auto btn btn-success" type="button" @click="logIn()">
+        <button
+          class="mx-auto btn btn-success"
+          :style="{ 'background-color': colorSetting }"
+          type="button"
+          @click="logIn()"
+        >
           <img src="@/assets/twitter.svg" height="30px" width="30px" />
           login
         </button>
@@ -57,10 +64,17 @@ export default {
     },
     status() {
       return this.$store.getters.status;
+    },
+    colorSetting() {
+      if (this.$store.getters.colorSetting === null) {
+        return 'forestgreen';
+      }
+      return this.$store.getters.colorSetting;
     }
   },
   created() {
     FireBase.onAuth();
+    this.$store.commit('onSetUserSetting');
   },
   methods: {
     logIn() {
@@ -82,9 +96,5 @@ export default {
   width: 100px;
   border-radius: 100px;
   border: solid 2px #d8d8d8;
-}
-
-.jumbotron {
-  background-color: rgba(0, 0, 0, 0);
 }
 </style>
