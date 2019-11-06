@@ -45,10 +45,11 @@ export default {
       return `${(this.rows - 1) * ROW_PER_HEIGHT + DEFAULT_HEIGHT}px`;
     },
     colorSetting() {
-      if (this.$store.getters.colorSetting === null) {
+      const color = this.$store.getters.colorSetting;
+      if (color === null) {
         return 'forestgreen';
       }
-      return this.$store.getters.colorSetting;
+      return color;
     }
   },
   methods: {

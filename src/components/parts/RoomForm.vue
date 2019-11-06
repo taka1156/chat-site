@@ -95,10 +95,11 @@ export default {
   },
   computed: {
     colorSetting() {
-      if (this.$store.getters.colorSetting === null) {
+      const color = this.$store.getters.colorSetting;
+      if (color === null) {
         return 'forestgreen';
       }
-      return this.$store.getters.colorSetting;
+      return color;
     }
   },
   methods: {
