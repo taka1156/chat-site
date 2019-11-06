@@ -5,9 +5,13 @@
       :style="{ 'background-color': colorSetting }"
     >
       <div class="col-1">
-        <div v-if="path !== null" class="my-auto h2" @click="jump(path)">
-          &lt;
-        </div>
+        <i
+          v-if="path !== null"
+          class="material-icons my-auto h2"
+          @click="jump(path)"
+        >
+          chevron_left
+        </i>
       </div>
       <h1 class="h2 col-8">
         <i class="material-icons">
@@ -49,10 +53,11 @@ export default {
       return this.$store.getters.status;
     },
     colorSetting() {
-      if (this.$store.getters.colorSetting === null) {
+      const color = this.$store.getters.colorSetting;
+      if (color === null) {
         return 'forestgreen';
       }
-      return this.$store.getters.colorSetting;
+      return color;
     }
   },
   methods: {
@@ -66,5 +71,10 @@ export default {
 <style scoped>
 .btn-login {
   border: solid 0.5px white;
+}
+
+.material-icons {
+  font-size: 30px;
+  padding-top: 10px;
 }
 </style>
