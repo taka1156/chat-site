@@ -74,7 +74,7 @@ export default {
 }
 
 .material-icons {
-  font-size: 40px;
+  font-size: 30px;
   padding-top: 10px;
 }
 </style>
