@@ -53,11 +53,11 @@ export default {
       return this.$store.getters.status;
     },
     colorSetting() {
-      const color = this.$store.getters.colorSetting;
-      if (color === null) {
+      const COLOR = this.$store.getters.colorSetting;
+      if (COLOR === null) {
         return 'forestgreen';
       }
-      return color;
+      return COLOR;
     }
   },
   methods: {

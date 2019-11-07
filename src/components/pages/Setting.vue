@@ -4,8 +4,8 @@
     <div class="mx-auto jumbotron mt-3">
       <label>UIカラー</label>
       <select v-model="userSetting.uiColor" class="mx-auto col-10 form-control">
-        <option v-for="(color, index) in colorList" :key="index">
-          {{ color }}
+        <option v-for="(choice, index) in colorList" :key="index">
+          {{ choice }}
         </option>
       </select>
       <label>ログイン情報の保持</label>
@@ -13,36 +13,24 @@
         v-model="userSetting.loginType"
         class="mx-auto col-10 form-control"
       >
-        <option
-          v-for="(type, index) in ['local', 'session', 'none']"
-          :key="index"
-        >
-          {{ type }}
+        <option v-for="(choice, index) in loginTypeList" :key="index">
+          {{ choice }}
         </option>
       </select>
-      <button
-        class="mx-2 mt-2 col-3 btn btn-success"
-        :style="{ 'background-color': colorSetting }"
-        type="button"
-        @click="doReset()"
-      >
-        Reset
-      </button>
-      <button
-        class="mx-2 mt-2 col-3 btn btn-success"
-        :style="{ 'background-color': colorSetting }"
-        type="button"
-        @click="doSetting()"
-      >
-        OK
-      </button>
+      <button-form @callFunc="resetSetting">Reset</button-form>
+      <button-form @callFunc="saveSetting">OK</button-form>
     </div>
     <footer-navi />
   </div>
 </template>
 
 <script>
+import ButtonForm from '@/components/parts/ButtonForm';
+
 export default {
+  components: {
+    'button-form': ButtonForm
+  },
   data() {
     return {
       colorList: [
@@ -58,6 +46,7 @@ export default {
         'purple',
         'pink'
       ],
+      loginTypeList: ['local', 'session', 'none'],
       userSetting: {
         uiColor: '',
         loginType: ''
@@ -69,37 +58,35 @@ export default {
   },
   computed: {
     colorSetting() {
-      if (this.$store.getters.colorSetting === null) {
+      const COLOR = this.$store.getters.colorSetting;
+      if (COLOR === null) {
         return 'forestgreen';
       }
-      return this.$store.getters.colorSetting;
+      return COLOR;
     },
     loginSetting() {
-      if (this.$store.getters.loginSetting === null) {
+      const LOGINTYPE = this.$store.getters.loginSetting;
+      if (LOGINTYPE === null) {
         return 'local';
       }
-      return this.$store.getters.loginSetting;
+      return LOGINTYPE;
     }
   },
-  created() {
-    this.$store.commit('onSetUserSetting');
-  },
   mounted() {
+    //初期値をフォームに反映
+    this.$store.commit('onSetUserSetting');
     this.userSetting.uiColor = this.colorSetting;
     this.userSetting.loginType = this.loginSetting;
   },
   methods: {
-    doSetting() {
-      if (this.userSetting.uiColor !== 'forestgreen') {
-        localStorage.setItem('userSetting', JSON.stringify(this.userSetting));
-        this.$store.commit('onSetUserSetting');
-      }
-    },
-    doReset() {
-      this.userSetting.uiColor = 'forestgreen';
-      this.userSetting.loginType = 'local';
+    saveSetting() {
       localStorage.setItem('userSetting', JSON.stringify(this.userSetting));
       this.$store.commit('onSetUserSetting');
+    },
+    resetSetting() {
+      this.userSetting.uiColor = 'forestgreen';
+      this.userSetting.loginType = 'local';
+      this.saveSetting();
     }
   }
 };
