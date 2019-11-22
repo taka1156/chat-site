@@ -1,7 +1,7 @@
 <template>
   <div class="Chat">
     <header-navi :path="path" :icon="icon" :title="title" />
-    <div class="mx-auto jumbotron mt-3">
+    <div class="mx-auto jumbotron mt-4">
       <div v-if="roomInfo.pass != null">
         <PassForm :pass="roomInfo.pass" @doPassReset="doPassReset" />
       </div>

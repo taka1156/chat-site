@@ -1,7 +1,7 @@
 <template>
   <div class="ChatRoom">
     <header-navi :path="path" :icon="icon" :title="title" />
-    <div class="mx-auto jumbotron mt-3">
+    <div class="mx-auto jumbotron mt-4">
       <div v-if="status">
         <div class="d-flex flex-column jumbotron">
           <Formgroup @doMake="doMake" />

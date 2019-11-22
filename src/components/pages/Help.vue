@@ -1,7 +1,7 @@
 <template>
   <div class="Top">
     <header-navi :path="path" :icon="icon" :title="title" />
-    <div class="mx-auto jumbotron mt-3">
+    <div class="mx-auto jumbotron mt-4">
       <h1 class="h2">ようこそ Chat アプリへ</h1>
       <img class="mx-auto col-sm-8 col-md-4" src="@/assets/undraw_chat.svg" />
       <p>

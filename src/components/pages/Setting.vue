@@ -1,7 +1,7 @@
 <template>
   <div class="Setting">
     <header-navi :path="path" :icon="icon" :title="title" />
-    <div class="mx-auto jumbotron mt-3">
+    <div class="mx-auto jumbotron mt-4">
       <label>UIカラー</label>
       <select v-model="userSetting.uiColor" class="mx-auto col-10 form-control">
         <option v-for="(choice, index) in colorList" :key="index">
@@ -17,8 +17,10 @@
           {{ choice }}
         </option>
       </select>
-      <button-form @callFunc="resetSetting">Reset</button-form>
-      <button-form @callFunc="saveSetting">OK</button-form>
+      <div class="mt-3">
+        <button-form @callFunc="resetSetting">Reset</button-form>
+        <button-form @callFunc="saveSetting">OK</button-form>
+      </div>
     </div>
     <footer-navi />
   </div>
