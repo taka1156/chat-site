@@ -29,7 +29,7 @@
 
 <script>
 import FireBase from '@/components/js/firebase.js';
-import ButtonForm from '@/components/parts/ButtonForm';
+import ButtonForm from '@/components/parts/Form/ButtonForm';
 
 export default {
   name: 'Account',

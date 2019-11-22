@@ -14,9 +14,9 @@
 </template>
 
 <script>
-import ChatBox from '@/components/parts/ChatBox';
-import PassForm from '@/components/parts/PassForm';
-import ChatForm from '@/components/parts/ChatFrom';
+import ChatBox from '@/components/parts/Display/ChatBox';
+import PassForm from '@/components/parts/Form/PassForm';
+import ChatForm from '@/components/parts/Form/ChatForm';
 import roomstore from '@/components/js/store.js';
 import * as firebase from 'firebase/app';
 import 'firebase/database';

@@ -18,8 +18,8 @@
 </template>
 
 <script>
-import List from '@/components/parts/RoomList';
-import Formgroup from '@/components/parts/RoomForm';
+import List from '@/components/parts/Display/RoomList';
+import Formgroup from '@/components/parts/Form/RoomForm';
 import roomstore from '@/components/js/store.js';
 import * as firebase from 'firebase/app';
 import 'firebase/database';
