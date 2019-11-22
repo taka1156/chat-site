@@ -1,45 +1,26 @@
 <template>
   <div class="Account">
     <header-navi :path="path" :icon="icon" :title="title" />
-    <div class="mx-auto jumbotron mt-3">
+    <div class="mx-auto jumbotron mt-4">
       <div v-if="status">
         <div class="d-flex flex-column">
           <img :src="userData.photoURL" class="mx-auto user-icon" />
           <p class="h2">こんにちは! {{ userData.displayName }}さん</p>
-          <button
-            class="mx-auto mb-3 btn btn-success"
-            :style="{ 'background-color': colorSetting }"
-            type="button"
-            @click="logOut()"
-          >
-            <div class="d-flex flex-row">
-              <i class="material-icons">exit_to_app</i>
-              LogOut
-            </div>
-          </button>
-          <button
-            class="mx-auto mb-3 btn btn-success"
-            :style="{ 'background-color': colorSetting }"
-            type="button"
-            @click="UpdateInfo()"
-          >
-            <div class="d-flex flex-row">
-              <i class="material-icons">autorenew</i>
-              Update
-            </div>
-          </button>
+          <button-form @callFunc="logOut">
+            <i class="material-icons">exit_to_app</i>
+            LogOut
+          </button-form>
+          <button-form @callFunc="updateInfo">
+            <i class="material-icons">autorenew</i>
+            Update
+          </button-form>
         </div>
       </div>
       <div v-else class="mt-5">
-        <button
-          class="mx-auto btn btn-success"
-          :style="{ 'background-color': colorSetting }"
-          type="button"
-          @click="logIn()"
-        >
+        <button-form @callFunc="logIn">
           <img src="@/assets/twitter.svg" height="30px" width="30px" />
-          login
-        </button>
+          Login
+        </button-form>
       </div>
     </div>
     <footer-navi />
@@ -48,9 +29,13 @@
 
 <script>
 import FireBase from '@/components/js/firebase.js';
+import ButtonForm from '@/components/parts/ButtonForm';
 
 export default {
   name: 'Account',
+  components: {
+    'button-form': ButtonForm
+  },
   data() {
     return {
       path: '/',
@@ -64,12 +49,6 @@ export default {
     },
     status() {
       return this.$store.getters.status;
-    },
-    colorSetting() {
-      if (this.$store.getters.colorSetting === null) {
-        return 'forestgreen';
-      }
-      return this.$store.getters.colorSetting;
     }
   },
   created() {
@@ -83,7 +62,7 @@ export default {
     logOut() {
       FireBase.logOut();
     },
-    UpdateInfo() {
+    updateInfo() {
       FireBase.UpdateInfo();
     }
   }

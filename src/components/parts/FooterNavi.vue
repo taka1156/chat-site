@@ -4,34 +4,25 @@
       class=" d-flex justify-content-between fixed-bottom mb-0"
       :style="{ 'background-color': colorSetting }"
     >
-      <router-link to="/" class="navi-items col-3 border border-secondary">
+      <router-link to="/" class="col-3 border border-secondary">
         <div class="d-flex flex-column">
           <i class="material-icons">help</i>
           Help
         </div>
       </router-link>
-      <router-link
-        to="/account"
-        class="navi-items col-3 border border-secondary"
-      >
+      <router-link to="/account" class="col-3 border border-secondary">
         <div class="d-flex flex-column">
           <i class="material-icons">account_box</i>
           Account
         </div>
       </router-link>
-      <router-link
-        to="/chatroom"
-        class="navi-items col-3 border border-secondary"
-      >
+      <router-link to="/chatroom" class="col-3 border border-secondary">
         <div class="d-flex flex-column">
           <i class="material-icons">forum</i>
           Chat
         </div>
       </router-link>
-      <router-link
-        to="/setting"
-        class="navi-items col-3  border border-secondary"
-      >
+      <router-link to="/setting" class="col-3  border border-secondary">
         <div class="d-flex flex-column">
           <i class="material-icons">settings_applications</i>
           Setting
@@ -45,11 +36,11 @@
 export default {
   computed: {
     colorSetting() {
-      const color = this.$store.getters.colorSetting;
-      if (color === null) {
+      const COLOR = this.$store.getters.colorSetting;
+      if (COLOR === null) {
         return 'forestgreen';
       }
-      return color;
+      return COLOR;
     }
   }
 };
