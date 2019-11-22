@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import ButtonForm from '@/components/parts/ButtonForm';
+import ButtonForm from '@/components/parts/Form/ButtonForm';
 
 export default {
   components: {
