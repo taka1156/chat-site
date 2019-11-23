@@ -6,11 +6,11 @@
         <div class="d-flex flex-column">
           <img :src="userData.photoURL" class="mx-auto user-icon" />
           <p class="h2">こんにちは! {{ userData.displayName }}さん</p>
-          <button-form @callFunc="logOut">
+          <button-form class="mt-3" @callFunc="logOut">
             <i class="material-icons">exit_to_app</i>
             LogOut
           </button-form>
-          <button-form @callFunc="updateInfo">
+          <button-form class="mt-3" @callFunc="updateInfo">
             <i class="material-icons">autorenew</i>
             Update
           </button-form>

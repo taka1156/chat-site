@@ -12,7 +12,7 @@
         <div v-for="(item, index) in SliceItems" :key="index">
           <article
             class="article-color mt-2 mx-auto text-left list-group-item flex-column align-items-start"
-            @click="doTalk(index)"
+            @click="moveRoom(index)"
           >
             <div v-if="item.roompass">
               <i class="material-icons">lock</i>{{ item.roomname }}
@@ -66,9 +66,9 @@ export default {
     }
   },
   methods: {
-    doTalk(index) {
+    moveRoom(index) {
       const calIndex = (this.page - 1) * this.perPage + index;
-      this.$emit('doTalk', calIndex);
+      this.$emit('moveRoom', calIndex);
     },
     prevPage() {
       this.page = Math.max(this.page - 1, 1);

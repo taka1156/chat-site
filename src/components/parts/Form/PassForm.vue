@@ -1,23 +1,18 @@
 <template>
   <div class="pass">
     <label>パスワード</label>
-    <div class="mx-auto col-10 input-group">
+    <div class="input-group">
       <input
         v-model="InputPass"
         type="text"
         class="form-control"
         placeholder="Chatのパスワード"
-        @keydown.ctrl.enter="doCheck()"
+        @keydown.ctrl.enter="checkPass()"
       />
       <div class="input-group-append">
-        <button
-          class="btn btn-success"
-          :style="{ 'background-color': colorSetting }"
-          type="button"
-          @click="doCheck()"
-        >
+        <button-form @callFunc="checkPass()">
           確定
-        </button>
+        </button-form>
       </div>
     </div>
     <div v-if="msg != null">{{ msg }}</div>
@@ -25,7 +20,13 @@
 </template>
 
 <script>
+import ButtonForm from '@/components/parts/Form/ButtonForm';
+
 export default {
+  name: 'PassForm',
+  components: {
+    'button-form': ButtonForm
+  },
   props: {
     pass: null
   },
@@ -35,17 +36,8 @@ export default {
       msg: null
     };
   },
-  computed: {
-    colorSetting() {
-      const COLOR = this.$store.getters.colorSetting;
-      if (COLOR === null) {
-        return 'forestgreen';
-      }
-      return COLOR;
-    }
-  },
   methods: {
-    doCheck() {
+    checkPass() {
       if (this.InputPass == this.pass) {
         this.$emit('doPassReset');
       } else {
