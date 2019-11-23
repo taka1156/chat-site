@@ -35,7 +35,7 @@ export default {
       ChatList: [],
       roomInfo: roomstore.roomInfo,
       path: '/chatroom',
-      title: roomstore.roomInfo.name,
+      title: 'Chat',
       icon: 'chat'
     };
   },

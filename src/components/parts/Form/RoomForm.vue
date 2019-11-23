@@ -3,7 +3,7 @@
     <!--button-->
     <button
       type="button"
-      class="btn btn-success"
+      class="btn"
       :style="{ 'background-color': colorSetting }"
       data-toggle="modal"
       data-target="#exampleModalCenter"
@@ -61,7 +61,7 @@
           <div class="modal-footer">
             <button
               type="button"
-              class="btn btn-success"
+              class="btn"
               :style="{ 'background-color': colorSetting }"
               data-dismiss="modal"
             >
@@ -69,10 +69,10 @@
             </button>
             <button
               type="button"
-              class="btn btn-success"
+              class="btn"
               :style="{ 'background-color': colorSetting }"
               data-dismiss="modal"
-              @click="doMake()"
+              @click="makeRoom()"
             >
               確定
             </button>
@@ -88,8 +88,8 @@ export default {
   data() {
     return {
       isForm: false,
-      InputTitle: null,
-      InputDetail: null,
+      InputTitle: '',
+      InputDetail: '',
       InputPass: null
     };
   },
@@ -103,12 +103,13 @@ export default {
     }
   },
   methods: {
-    doMake() {
+    makeRoom() {
       this.isForm = !this.isForm;
-      this.$emit('doMake', this.InputTitle, this.InputDetail, this.InputPass);
+      this.$emit('makeRoom', this.InputTitle, this.InputDetail, this.InputPass);
     },
     init() {
-      this.InputTitle = this.InputDetail = this.InputPass = null;
+      this.InputTitle = this.InputDetail = '';
+      this.InputPass = null;
       this.isForm = !this.isForm;
     }
   }

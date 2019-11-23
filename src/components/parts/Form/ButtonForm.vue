@@ -2,7 +2,7 @@
   <div class="ButtonForm">
     <button
       type="button"
-      class="mb-2 col-3 btn btn-success"
+      class="btn"
       :style="{ 'background-color': colorSetting }"
       @click="callFunc()"
     >

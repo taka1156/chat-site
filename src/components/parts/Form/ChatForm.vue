@@ -1,15 +1,15 @@
 <template>
   <div class="ChatForm">
     <div class="form-box" :style="{ height: boxHeight }">
-      <div class="mx-3 mt-2 mb-2">
+      <div class="my-2 d-flex justify-content-center">
         <textarea
           v-model="inputMessage"
           placeholder="ctrl + Enterで送信。"
-          class="mr-4 mb-2 col-8 form-control float-left"
+          class="col-8 form-control"
           :rows="rows"
           @keydown.ctrl.enter="doSend()"
         />
-        <button-form @callFunc="doSend">Send</button-form>
+        <button-form class="col-3" @callFunc="doSend()">Send</button-form>
       </div>
     </div>
   </div>

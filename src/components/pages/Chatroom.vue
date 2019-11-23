@@ -4,11 +4,11 @@
     <div class="mx-auto jumbotron mt-4">
       <div v-if="status">
         <div class="d-flex flex-column jumbotron">
-          <Formgroup @doMake="doMake" />
+          <Formgroup @makeRoom="makeRoom" />
           <List
             :items="ChatRoomList"
             :user="userData.displayName"
-            @doTalk="doTalk"
+            @moveRoom="moveRoom"
           />
         </div>
       </div>
@@ -66,7 +66,7 @@ export default {
         roompass: ChatInfo.roompass
       });
     },
-    doMake(InputTitle, InputDetail, InputPass) {
+    makeRoom(InputTitle, InputDetail, InputPass) {
       if (this.userData.uid && InputTitle.length && InputDetail.length) {
         const chatRoom = firebase.database();
         const id = chatRoom.ref('ChatRoom').push().key;
@@ -87,7 +87,7 @@ export default {
         });
       }
     },
-    doTalk(index) {
+    moveRoom(index) {
       roomstore.roomInfo = {
         name: this.ChatRoomList[index].roomname,
         path: this.ChatRoomList[index].key,

@@ -17,7 +17,7 @@
           {{ choice }}
         </option>
       </select>
-      <div class="mt-3">
+      <div class="mx-auto mt-3 col-6 d-flex justify-content-between">
         <button-form @callFunc="resetSetting">Reset</button-form>
         <button-form @callFunc="saveSetting">OK</button-form>
       </div>
