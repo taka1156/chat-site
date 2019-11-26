@@ -6,7 +6,7 @@
         <PassForm :pass="roomInfo.pass" @doPassReset="doPassReset" />
       </div>
       <div v-else>
-        <ChatBox :chat-lists="ChatList"></ChatBox>
+        <ChatList :chat-lists="ChatList" />
         <ChatForm @doSend="doSend" />
       </div>
     </div>
@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import ChatBox from '@/components/parts/Display/ChatBox';
+import ChatList from '@/components/parts/Display/ChatList';
 import PassForm from '@/components/parts/Form/PassForm';
 import ChatForm from '@/components/parts/Form/ChatForm';
 import roomstore from '@/components/js/store.js';
@@ -28,7 +28,7 @@ export default {
   components: {
     PassForm,
     ChatForm,
-    ChatBox
+    ChatList
   },
   data() {
     return {
@@ -59,7 +59,7 @@ export default {
     addList(snap) {
       const ChatInfo = snap.val();
       let flag;
-      if (ChatInfo.uid == this.userData.uid) {
+      if (ChatInfo.uid === this.userData.uid) {
         flag = true;
       } else {
         flag = false;
