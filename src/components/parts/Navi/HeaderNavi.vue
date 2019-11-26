@@ -26,11 +26,7 @@
           class="rounded-circle"
           @click="jump('/account')"
         />
-        <button
-          v-else
-          class="btn btn-outline-light btn-login"
-          @click="jump('/account')"
-        >
+        <button v-else class="btn btn-outline-light" @click="jump('/account')">
           login
         </button>
       </div>
@@ -69,10 +65,6 @@ export default {
 </script>
 
 <style scoped>
-.btn-login {
-  border: solid 0.5px white;
-}
-
 .material-icons {
   font-size: 30px;
   padding-top: 10px;

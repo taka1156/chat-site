@@ -55,6 +55,7 @@ export default {
   border-radius: 50px;
   border: solid 0.5px gray;
 }
+
 .my-cahat {
   text-align: right;
 }
