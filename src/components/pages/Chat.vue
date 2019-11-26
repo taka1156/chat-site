@@ -59,7 +59,7 @@ export default {
     addList(snap) {
       const ChatInfo = snap.val();
       let flag;
-      if (ChatInfo.uid == this.userData.uid) {
+      if (ChatInfo.uid === this.userData.uid) {
         flag = true;
       } else {
         flag = false;
