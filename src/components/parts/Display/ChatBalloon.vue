@@ -45,7 +45,7 @@ export default {
   margin: 1.5em 0 0 15px;
   padding: 7px 10px;
   min-width: 120px;
-  max-width: 80%;
+  max-width: 70%;
   color: #555;
   font-size: 16px;
   background: #e0edff;
