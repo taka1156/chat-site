@@ -6,43 +6,44 @@
     </button-form>
     <!--modal-->
     <div v-show="isModal">
-      <div class="bg-cover" @click="init()" />
-      <div class="modal-form mx-auto">
-        <div class="modal-header">
-          <h5 class="modal-title">
-            テーブル作成
-          </h5>
-        </div>
-        <div class="modal-body">
-          <label>タイトル</label>
-          <input
-            v-model="inputTitle"
-            type="text"
-            class="mx-auto col-10 form-control"
-            placeholder="Chatのタイトル"
-          />
-          <label>概要</label>
-          <input
-            v-model="inputDetail"
-            type="textarea"
-            class="mx-auto col-10 form-control"
-            placeholder="Chatの概要(10~30字)"
-          />
-          <label>パスワード(任意)</label>
-          <input
-            v-model="inputPass"
-            type="password"
-            class="mx-auto col-10 form-control"
-            placeholder="Chatのパスワード(任意)"
-          />
-        </div>
-        <div class="modal-footer">
-          <button-form @callFunc="init()">
-            キャンセル
-          </button-form>
-          <button-form @callFunc="makeRoom()">
-            確定
-          </button-form>
+      <div class="modal-form">
+        <div class="mx-auto col-10">
+          <div class="modal-header">
+            <h5 class="modal-title">
+              テーブル作成
+            </h5>
+          </div>
+          <div class="modal-body">
+            <label>タイトル</label>
+            <input
+              v-model="inputTitle"
+              type="text"
+              class="form-control"
+              placeholder="Chatのタイトル"
+            />
+            <label>概要</label>
+            <input
+              v-model="inputDetail"
+              type="textarea"
+              class="form-control"
+              placeholder="Chatの概要(10~30字)"
+            />
+            <label>パスワード(任意)</label>
+            <input
+              v-model="inputPass"
+              type="password"
+              class="form-control"
+              placeholder="Chatのパスワード(任意)"
+            />
+          </div>
+          <div class="modal-footer">
+            <button-form @callFunc="init()">
+              キャンセル
+            </button-form>
+            <button-form @callFunc="makeRoom()">
+              確定
+            </button-form>
+          </div>
         </div>
       </div>
     </div>
@@ -83,23 +84,13 @@ export default {
   font-size: 16px; /*フォームの拡大防止*/
 }
 
-.bg-cover {
-  height: 100vh;
-  width: 100vw;
-  top: 0;
-  left: 0;
-  z-index: 2;
-  position: fixed;
-  background-color: rgba(0, 0, 0, 0.3);
-}
-
 .modal-form {
-  height: 55%;
-  width: 70%;
-  background-color: white;
-  position: fixed;
-  top: 80px;
-  left: 15%;
+  height: 85vh;
+  width: 100vw;
+  top: 50px;
+  left: 0;
   z-index: 3;
+  position: fixed;
+  background-color: white;
 }
 </style>
