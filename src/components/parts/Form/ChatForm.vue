@@ -40,13 +40,6 @@ export default {
     },
     boxHeight() {
       return `${(this.rows - 1) * ROW_PER_HEIGHT + DEFAULT_HEIGHT}px`;
-    },
-    colorSetting() {
-      const COLOR = this.$store.getters.colorSetting;
-      if (COLOR === null) {
-        return 'forestgreen';
-      }
-      return COLOR;
     }
   },
   methods: {
