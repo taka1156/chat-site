@@ -1,82 +1,48 @@
 <template>
   <div class="formgroup">
     <!--button-->
-    <button
-      type="button"
-      class="btn"
-      :style="{ 'background-color': colorSetting }"
-      data-toggle="modal"
-      data-target="#exampleModalCenter"
-      @click="init()"
-    >
+    <button-form @callFunc="init()">
       チャット部屋を作る
-    </button>
+    </button-form>
     <!--modal-->
-    <div
-      id="exampleModalCenter"
-      class="modal fade"
-      tabindex="-1"
-      role="dialog"
-      aria-labelledby="exampleModalCenterTitle"
-      aria-hidden="true"
-    >
-      <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title">
-              テーブル作成
-            </h5>
-            <button
-              type="button"
-              class="close"
-              data-dismiss="modal"
-              aria-label="Close"
-            >
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-          <div class="modal-body">
-            <label>タイトル</label>
-            <input
-              v-model="InputTitle"
-              type="text"
-              class="mx-auto col-10 form-control"
-              placeholder="Chatのタイトル"
-            />
-            <label>概要</label>
-            <input
-              v-model="InputDetail"
-              type="textarea"
-              class="mx-auto col-10 form-control"
-              placeholder="Chatの概要(10~30字)"
-            />
-            <label>パスワード(任意)</label>
-            <input
-              v-model="InputPass"
-              type="password"
-              class="mx-auto col-10 form-control"
-              placeholder="Chatのパスワード(任意)"
-            />
-          </div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn"
-              :style="{ 'background-color': colorSetting }"
-              data-dismiss="modal"
-            >
-              閉じる
-            </button>
-            <button
-              type="button"
-              class="btn"
-              :style="{ 'background-color': colorSetting }"
-              data-dismiss="modal"
-              @click="makeRoom()"
-            >
-              確定
-            </button>
-          </div>
+    <div v-show="isModal">
+      <div class="bg-cover" @click="init()" />
+      <div class="modal-form mx-auto">
+        <div class="modal-header">
+          <h5 class="modal-title">
+            テーブル作成
+          </h5>
+        </div>
+        <div class="modal-body">
+          <label>タイトル</label>
+          <input
+            v-model="inputTitle"
+            type="text"
+            class="mx-auto col-10 form-control"
+            placeholder="Chatのタイトル"
+          />
+          <label>概要</label>
+          <input
+            v-model="inputDetail"
+            type="textarea"
+            class="mx-auto col-10 form-control"
+            placeholder="Chatの概要(10~30字)"
+          />
+          <label>パスワード(任意)</label>
+          <input
+            v-model="inputPass"
+            type="password"
+            class="mx-auto col-10 form-control"
+            placeholder="Chatのパスワード(任意)"
+          />
+        </div>
+        <div class="modal-footer">
+          <button-form @callFunc="init()">
+            キャンセル
+          </button-form>
+          <button-form @callFunc="makeRoom()">
+            確定
+          </button-form>
         </div>
       </div>
     </div>
@@ -84,33 +50,29 @@
 </template>
 
 <script>
+import ButtonForm from '@/components/parts/Form/ButtonForm';
+
 export default {
+  components: {
+    'button-form': ButtonForm
+  },
   data() {
     return {
-      isForm: false,
-      InputTitle: '',
-      InputDetail: '',
-      InputPass: null
+      isModal: false,
+      inputTitle: '',
+      inputDetail: '',
+      inputPass: null
     };
-  },
-  computed: {
-    colorSetting() {
-      const COLOR = this.$store.getters.colorSetting;
-      if (COLOR === null) {
-        return 'forestgreen';
-      }
-      return COLOR;
-    }
   },
   methods: {
     makeRoom() {
-      this.isForm = !this.isForm;
-      this.$emit('makeRoom', this.InputTitle, this.InputDetail, this.InputPass);
+      this.isModal = !this.isModal;
+      this.$emit('makeRoom', this.inputTitle, this.inputDetail, this.inputPass);
     },
     init() {
-      this.InputTitle = this.InputDetail = '';
-      this.InputPass = null;
-      this.isForm = !this.isForm;
+      this.inputTitle = this.inputDetail = '';
+      this.inputPass = null;
+      this.isModal = !this.isModal;
     }
   }
 };
@@ -119,5 +81,25 @@ export default {
 <style scoped>
 .form-control {
   font-size: 16px; /*フォームの拡大防止*/
+}
+
+.bg-cover {
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  z-index: 2;
+  position: fixed;
+  background-color: rgba(0, 0, 0, 0.3);
+}
+
+.modal-form {
+  height: 55%;
+  width: 70%;
+  background-color: white;
+  position: fixed;
+  top: 80px;
+  left: 15%;
+  z-index: 3;
 }
 </style>
