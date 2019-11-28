@@ -20,8 +20,8 @@
 
 <script>
 import FireBase from '@/components/js/firebase.js';
-import LoginForm from '@/components/parts/Form/LoginForm';
-import LogoutForm from '@/components/parts/Form/LogoutForm';
+import LoginForm from './parts/LoginForm';
+import LogoutForm from './parts/LogoutForm';
 
 export default {
   name: 'Account',

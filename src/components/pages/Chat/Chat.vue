@@ -18,9 +18,9 @@
 </template>
 
 <script>
-import ChatList from '@/components/parts/Display/ChatList';
-import PassForm from '@/components/parts/Form/PassForm';
-import ChatForm from '@/components/parts/Form/ChatForm';
+import ChatList from './parts/ChatList';
+import PassForm from './parts/PassForm';
+import ChatForm from './parts/ChatForm';
 import roomstore from '@/components/js/store.js';
 import * as firebase from 'firebase/app';
 import 'firebase/database';

@@ -1,11 +1,11 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import HelpPage from '@/components/pages/Help';
-import Account from '@/components/pages/Account';
-import ChatRoom from '@/components/pages/Chatroom';
-import SettingPage from '@/components/pages/Setting';
-import ChatPage from '@/components/pages/Chat';
+import HelpPage from '@/components/pages/Help/Help';
+import Account from '@/components/pages/Account/Account';
+import ChatRoom from '@/components/pages/Chatroom/Chatroom';
+import SettingPage from '@/components/pages/Setting/Setting';
+import ChatPage from '@/components/pages/Chat/Chat';
 
 Vue.use(Router);
 
