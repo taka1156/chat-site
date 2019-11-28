@@ -4,7 +4,7 @@
     <div class="mx-auto jumbotron mt-4">
       <div v-if="status">
         <div class="d-flex flex-column jumbotron">
-          <Formgroup @makeRoom="makeRoom" />
+          <RoomForm :colorsetting="colorSetting" @makeRoom="makeRoom" />
           <List
             :items="ChatRoomList"
             :user="userData.displayName"
@@ -19,7 +19,7 @@
 
 <script>
 import List from '@/components/parts/Display/RoomList';
-import Formgroup from '@/components/parts/Form/RoomForm';
+import RoomForm from '@/components/parts/Form/RoomForm';
 import roomstore from '@/components/js/store.js';
 import * as firebase from 'firebase/app';
 import 'firebase/database';
@@ -27,7 +27,7 @@ import 'firebase/database';
 export default {
   name: 'ChatRoom',
   components: {
-    Formgroup,
+    RoomForm,
     List
   },
   data() {
@@ -44,6 +44,13 @@ export default {
     },
     status() {
       return this.$store.getters.status;
+    },
+    colorSetting() {
+      const COLOR = this.$store.getters.colorSetting;
+      if (COLOR === null) {
+        return 'forestgreen';
+      }
+      return COLOR;
     }
   },
   created() {

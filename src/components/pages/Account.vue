@@ -3,24 +3,15 @@
     <header-navi :path="path" :icon="icon" :title="title" />
     <div class="mx-auto jumbotron mt-4">
       <div v-if="status">
-        <div class="d-flex flex-column">
-          <img :src="userData.photoURL" class="mx-auto user-icon" />
-          <p class="h2">こんにちは! {{ userData.displayName }}さん</p>
-          <button-form class="mt-3" @callFunc="logOut">
-            <i class="material-icons">exit_to_app</i>
-            LogOut
-          </button-form>
-          <button-form class="mt-3" @callFunc="updateInfo">
-            <i class="material-icons">autorenew</i>
-            Update
-          </button-form>
-        </div>
+        <LoginForm
+          :userdata="userData"
+          :colorsetting="colorSetting"
+          @logOut="logOut"
+          @updateInfo="updateInfo"
+        />
       </div>
       <div v-else class="mt-5">
-        <button-form @callFunc="logIn">
-          <img src="@/assets/twitter.svg" height="30px" width="30px" />
-          Login
-        </button-form>
+        <LogoutForm :colorsetting="colorSetting" @logIn="logIn" />
       </div>
     </div>
     <footer-navi />
@@ -29,12 +20,14 @@
 
 <script>
 import FireBase from '@/components/js/firebase.js';
-import ButtonForm from '@/components/parts/Form/ButtonForm';
+import LoginForm from '@/components/parts/Form/LoginForm';
+import LogoutForm from '@/components/parts/Form/LogoutForm';
 
 export default {
   name: 'Account',
   components: {
-    'button-form': ButtonForm
+    LoginForm,
+    LogoutForm
   },
   data() {
     return {
@@ -49,6 +42,14 @@ export default {
     },
     status() {
       return this.$store.getters.status;
+    },
+    colorSetting() {
+      const COLOR = this.$store.getters.colorSetting;
+
+      if (COLOR === null) {
+        return 'forestgreen';
+      }
+      return COLOR;
     }
   },
   created() {
@@ -68,12 +69,3 @@ export default {
   }
 };
 </script>
-
-<style scoped>
-.user-icon {
-  height: 100px;
-  width: 100px;
-  border-radius: 100px;
-  border: solid 2px #d8d8d8;
-}
-</style>

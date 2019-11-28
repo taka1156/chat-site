@@ -3,11 +3,15 @@
     <header-navi :path="path" :icon="icon" :title="title" />
     <div class="mx-auto jumbotron mt-4">
       <div v-if="roomInfo.pass != null">
-        <PassForm :pass="roomInfo.pass" @doPassReset="doPassReset" />
+        <PassForm
+          :pass="roomInfo.pass"
+          :colorsetting="colorSetting"
+          @doPassReset="doPassReset"
+        />
       </div>
       <div v-else>
         <ChatList :chat-lists="ChatList" />
-        <ChatForm @doSend="doSend" />
+        <ChatForm :colorsetting="colorSetting" @doSend="doSend" />
       </div>
     </div>
   </div>
@@ -42,6 +46,13 @@ export default {
   computed: {
     userData() {
       return this.$store.getters.userData;
+    },
+    colorSetting() {
+      const COLOR = this.$store.getters.colorSetting;
+      if (COLOR === null) {
+        return 'forestgreen';
+      }
+      return COLOR;
     }
   },
   created() {

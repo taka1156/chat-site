@@ -1,9 +1,14 @@
 <template>
   <div class="formgroup">
     <!--button-->
-    <button-form @callFunc="init()">
+    <button
+      type="button"
+      class="btn col-7"
+      :style="{ 'background-color': colorsetting }"
+      @click="init()"
+    >
       チャット部屋を作る
-    </button-form>
+    </button>
     <!--modal-->
     <div v-show="isModal">
       <div class="modal-form">
@@ -37,12 +42,22 @@
             />
           </div>
           <div class="modal-footer">
-            <button-form @callFunc="init()">
+            <button
+              type="button"
+              class="btn col-6"
+              :style="{ 'background-color': colorsetting }"
+              @click="init()"
+            >
               キャンセル
-            </button-form>
-            <button-form @callFunc="makeRoom()">
+            </button>
+            <button
+              type="button"
+              class="btn col-6"
+              :style="{ 'background-color': colorsetting }"
+              @click="makeRoom()"
+            >
               確定
-            </button-form>
+            </button>
           </div>
         </div>
       </div>
@@ -51,11 +66,9 @@
 </template>
 
 <script>
-import ButtonForm from '@/components/parts/Form/ButtonForm';
-
 export default {
-  components: {
-    'button-form': ButtonForm
+  props: {
+    colorsetting: null
   },
   data() {
     return {

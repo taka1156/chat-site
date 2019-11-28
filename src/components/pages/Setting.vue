@@ -17,9 +17,23 @@
           {{ choice }}
         </option>
       </select>
-      <div class="mx-auto mt-3 col-6 d-flex justify-content-between">
-        <button-form @callFunc="resetSetting">Reset</button-form>
-        <button-form @callFunc="saveSetting">OK</button-form>
+      <div class="mx-auto mt-3 col-8 d-flex justify-content-between">
+        <button
+          type="button"
+          class="btn col-4"
+          :style="{ 'background-color': colorSetting }"
+          @click="resetSetting()"
+        >
+          Reset
+        </button>
+        <button
+          type="button"
+          class="btn col-4"
+          :style="{ 'background-color': colorSetting }"
+          @click="saveSetting()"
+        >
+          OK
+        </button>
       </div>
     </div>
     <footer-navi />
@@ -27,12 +41,7 @@
 </template>
 
 <script>
-import ButtonForm from '@/components/parts/Form/ButtonForm';
-
 export default {
-  components: {
-    'button-form': ButtonForm
-  },
   data() {
     return {
       colorList: [
