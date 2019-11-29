@@ -7,14 +7,14 @@
         type="text"
         class="form-control"
         placeholder="Chatのパスワード"
-        @keydown.ctrl.enter="checkPass()"
+        @keydown.ctrl.enter="checkPassWord()"
       />
       <div class="input-group-append">
         <button
           type="button"
           class="btn"
           :style="{ 'background-color': colorsetting }"
-          @click="checkPass()"
+          @click="checkPassWord()"
         >
           確定
         </button>
@@ -38,9 +38,9 @@ export default {
     };
   },
   methods: {
-    checkPass() {
+    checkPassWord() {
       if (this.InputPass == this.pass) {
-        this.$emit('doPassReset');
+        this.$emit('checkPassWord');
       } else {
         this.msg = 'パスワードが違います。';
       }
