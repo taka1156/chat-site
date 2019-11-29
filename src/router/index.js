@@ -34,7 +34,7 @@ export default new Router({
     },
     {
       name: 'ChatPage',
-      path: '/chatpage',
+      path: '/chatpage/:id',
       component: ChatPage,
       meta: { Auth: true }
     }

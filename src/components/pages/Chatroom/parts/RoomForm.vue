@@ -41,6 +41,7 @@
               placeholder="Chatのパスワード(任意)"
             />
           </div>
+          <div v-if="errorMsg" class="alert alert-danger">{{ errorMsg }}</div>
           <div class="modal-footer">
             <button
               type="button"
@@ -75,17 +76,34 @@ export default {
       isModal: false,
       inputTitle: '',
       inputDetail: '',
-      inputPass: null
+      inputPass: ''
     };
+  },
+  computed: {
+    errorMsg() {
+      if (this.inputTitle.length >= 15) {
+        return 'タイトルは15字以内に収めてください';
+      } else if (this.inputDetail.length >= 30) {
+        return '詳細は30字以内に収めてください';
+      } else if (!this.inputTitle.length || !this.inputDetail.length) {
+        return 'タイトルと詳細は必ず埋めてください';
+      } else if (this.inputPass === 'NONE') {
+        return 'パスワードにNONEは指定できません';
+      } else {
+        return null;
+      }
+    }
   },
   methods: {
     makeRoom() {
+      if (this.errorMsg !== null) {
+        return;
+      }
       this.isModal = !this.isModal;
       this.$emit('makeRoom', this.inputTitle, this.inputDetail, this.inputPass);
     },
     init() {
-      this.inputTitle = this.inputDetail = '';
-      this.inputPass = null;
+      this.inputTitle = this.inputDetail = this.inputPass = '';
       this.isModal = !this.isModal;
     }
   }

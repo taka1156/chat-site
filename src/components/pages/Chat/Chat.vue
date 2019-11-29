@@ -2,9 +2,12 @@
   <div class="Chat">
     <header-navi :path="path" :icon="icon" :title="title" />
     <div class="mx-auto jumbotron mt-4">
-      <div v-if="roomInfo.pass != null">
+      <div v-if="!passState">
+        読み込み中
+      </div>
+      <div v-else-if="!passThrough">
         <PassForm
-          :pass="roomInfo.pass"
+          :pass="pass"
           :colorsetting="colorSetting"
           @doPassReset="doPassReset"
         />
@@ -21,11 +24,13 @@
 import ChatList from './parts/ChatList';
 import PassForm from './parts/PassForm';
 import ChatForm from './parts/ChatForm';
-import roomstore from '@/components/js/store.js';
+import FireBase from '@/components/js/firebase.js';
 import * as firebase from 'firebase/app';
 import 'firebase/database';
 const moment = require('moment');
 moment.locale('ja');
+
+let DB;
 
 export default {
   name: 'Chat',
@@ -37,7 +42,8 @@ export default {
   data() {
     return {
       ChatList: [],
-      roomInfo: roomstore.roomInfo,
+      pass: null,
+      passThrough: false,
       path: '/chatroom',
       title: 'Chat',
       icon: 'chat'
@@ -47,57 +53,76 @@ export default {
     userData() {
       return this.$store.getters.userData;
     },
+    status() {
+      return this.$store.getters.status;
+    },
     colorSetting() {
       const COLOR = this.$store.getters.colorSetting;
       if (COLOR === null) {
         return 'forestgreen';
       }
       return COLOR;
+    },
+    passState() {
+      if (this.pass === 'NONE') {
+        //パスワードの設定無し
+        this.doPassReset();
+        return true;
+      } else if (
+        (this.pass !== null && typeof this.pass !== 'undefined') ||
+        this.passThrough
+      ) {
+        //パスワードデータを読み込み中もしくはパスワードを突破した。
+        return true;
+      } else {
+        //読み込み中
+        return false;
+      }
     }
   },
   created() {
-    const Message = firebase
-      .database()
-      .ref(`Chat/${this.roomInfo.path}/messagelist`);
-    if (this.userData) {
-      Message.limitToLast(10).on('child_added', this.addList);
-    } else {
-      Message.limitToLast(10).off('child_added', this.addList);
-    }
+    //認証
+    FireBase.onAuth();
+    //json(WebStrageの設定情報)の読み出し
     this.$store.commit('onSetUserSetting');
+    //データベース問い合わせるためのオブジェクト
+    DB = firebase.database();
+    //パスワード取得
+    var self = this;
+    const GET_PASSWORD = DB.ref(`Chat/${this.$route.params.id}/roompass`);
+    GET_PASSWORD.once('value').then(function(snap) {
+      self.pass = snap.val();
+    });
+    //チャットデータ取得
+    const GET_MESSAGE = DB.ref(`Chat/${this.$route.params.id}/messagelist`);
+    if (this.status) {
+      GET_MESSAGE.limitToLast(10).on('child_added', this.addList);
+    } else {
+      GET_MESSAGE.limitToLast(10).off('child_added', this.addList);
+    }
   },
   methods: {
     addList(snap) {
-      const ChatInfo = snap.val();
-      let flag;
-      if (ChatInfo.uid === this.userData.uid) {
-        flag = true;
-      } else {
-        flag = false;
-      }
+      const CHAT_INFO = snap.val();
       this.ChatList.push({
         key: snap.key,
-        Chatflag: flag,
-        name: ChatInfo.name,
-        image: ChatInfo.image,
-        message: ChatInfo.message,
-        date: ChatInfo.date
+        name: CHAT_INFO.name,
+        image: CHAT_INFO.image,
+        message: CHAT_INFO.message,
+        date: CHAT_INFO.date
       });
       this.scrollBottom();
     },
     doSend(inputMessage) {
       if (this.userData.uid) {
         const date = this.getDate();
-        firebase
-          .database()
-          .ref(`Chat/${this.roomInfo.path}/messagelist`)
-          .push({
-            name: this.userData.displayName,
-            uid: this.userData.uid,
-            image: this.userData.photoURL,
-            message: inputMessage,
-            date: date
-          });
+        DB.ref(`Chat/${this.$route.params.id}/messagelist`).push({
+          name: this.userData.displayName,
+          uid: this.userData.uid,
+          image: this.userData.photoURL,
+          message: inputMessage,
+          date: date
+        });
         this.InputChat = null;
       }
     },
@@ -107,10 +132,10 @@ export default {
       });
     },
     doPassReset() {
-      this.roomInfo.pass = null;
+      this.passThrough = true;
     },
     getDate() {
-      const today = moment().format('YYYY/MM/DD hh:mm');
+      const today = moment().format('YYYY/MM/DD HH:mm');
       return today;
     }
   }
