@@ -12,12 +12,12 @@
         <PassForm
           :pass="pass"
           :colorsetting="colorSetting"
-          @doPassReset="doPassReset"
+          @checkPassWord="checkPassWord"
         />
       </div>
       <div v-else>
         <ChatList :chatlist="chatList" />
-        <ChatForm :colorsetting="colorSetting" @doSend="doSend" />
+        <ChatForm :colorsetting="colorSetting" @sendMessage="sendMessage" />
       </div>
     </div>
   </div>
@@ -69,7 +69,7 @@ export default {
     passState() {
       if (this.pass === 'NONE') {
         //パスワードの設定無し
-        this.doPassReset();
+        this.checkPassWord();
         return true;
       } else if (
         (this.pass !== null && typeof this.pass !== 'undefined') ||
@@ -116,9 +116,9 @@ export default {
       });
       this.scrollBottom();
     },
-    doSend(inputMessage) {
+    sendMessage(inputMessage) {
       if (this.userData.uid) {
-        const DATE = this.getDate();
+        const DATE = this.getDateTime();
         DB.ref(`Chat/${this.$route.params.id}/messagelist`).push({
           name: this.userData.displayName,
           uid: this.userData.uid,
@@ -134,12 +134,12 @@ export default {
         window.scrollTo(0, document.body.clientHeight);
       });
     },
-    doPassReset() {
+    checkPassWord() {
       this.passThrough = true;
     },
-    getDate() {
-      const TODAY = moment().format('YYYY/MM/DD HH:mm');
-      return TODAY;
+    getDateTime() {
+      const DATE_TIME = moment().format('YYYY/MM/DD HH:mm');
+      return DATE_TIME;
     }
   }
 };

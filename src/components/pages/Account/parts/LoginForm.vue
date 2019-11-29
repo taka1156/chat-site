@@ -1,5 +1,6 @@
 <template>
   <div class="LoginForm">
+    <!--ログイン時に表示されるUI-->
     <img :src="userdata.photoURL" class="mx-auto user-icon" />
     <p class="h2">こんにちは! {{ userdata.displayName }}さん</p>
     <button

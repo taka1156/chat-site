@@ -1,5 +1,6 @@
 <template>
   <div class="LogoutForm">
+    <!--ログアウト時に表示されるUI-->
     <button
       type="button"
       class="mx-auto mt-2 col-3 btn d-flex justify-content-center"

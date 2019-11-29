@@ -7,13 +7,13 @@
           placeholder="ctrl + Enterで送信。"
           class="col-9 form-control"
           :rows="rows"
-          @keydown.ctrl.enter="doSend()"
+          @keydown.ctrl.enter="sendMessage()"
         />
         <button
           type="button"
           class="btn h-25"
           :style="{ 'background-color': colorsetting }"
-          @click="doSend()"
+          @click="sendMessage()"
         >
           Send
         </button>
@@ -49,11 +49,11 @@ export default {
     }
   },
   methods: {
-    doSend() {
+    sendMessage() {
       if (this.inputMessage.length <= 200 && this.inputMessage.length > 0) {
         const CHAT_MESSAGE = this.inputMessage;
         this.inputMessage = '';
-        this.$emit('doSend', CHAT_MESSAGE);
+        this.$emit('sendMessage', CHAT_MESSAGE);
       }
     }
   }

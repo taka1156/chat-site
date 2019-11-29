@@ -64,7 +64,7 @@ export default {
       FireBase.logOut();
     },
     updateInfo() {
-      FireBase.UpdateInfo();
+      FireBase.updateInfo();
     }
   }
 };

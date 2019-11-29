@@ -40,7 +40,7 @@ export default {
       store.commit('onUserStatusChanged', user.uid ? true : false);
     });
   },
-  UpdateInfo() {
+  updateInfo() {
     let user = firebase.auth().currentUser;
     let userName = null;
     let userIcon = null;
