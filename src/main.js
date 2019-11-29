@@ -14,14 +14,6 @@ FireBase.initAuth();
 
 Vue.config.productionTip = false;
 
-/*router.beforeEach((to, from, next) => {
-  if (to.matched.some(record => record.meta.Auth) && !store.getters.status) {
-    next({ path: '/account', query: { redirect: to.fullPath } });
-  } else {
-    next();
-  }
-});*/
-
 new Vue({
   el: '#app',
   router,

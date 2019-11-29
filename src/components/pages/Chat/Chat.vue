@@ -2,7 +2,10 @@
   <div class="Chat">
     <header-navi :path="path" :icon="icon" :title="title" />
     <div class="mx-auto jumbotron mt-4">
-      <div v-if="!passState">
+      <div v-if="!status">
+        ログインしてください。
+      </div>
+      <div v-else-if="!passState">
         読み込み中
       </div>
       <div v-else-if="!passThrough">

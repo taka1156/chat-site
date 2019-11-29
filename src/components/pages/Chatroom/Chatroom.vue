@@ -12,6 +12,9 @@
           />
         </div>
       </div>
+      <div v-if="!status">
+        ログインしてください。
+      </div>
     </div>
     <footer-navi />
   </div>
@@ -64,7 +67,6 @@ export default {
     DB = firebase.database();
     //部屋一覧を取得
     const GET_CHATROOMLIST = DB.ref('ChatRoom');
-    FireBase.onAuth();
     if (this.userData) {
       GET_CHATROOMLIST.limitToLast(30).on('child_added', this.addList);
     } else {
