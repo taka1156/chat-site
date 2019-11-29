@@ -1,7 +1,7 @@
 <template>
   <div class="Chatbox">
-    <div v-if="chatLists != null" class="mb-4">
-      <div v-for="chatObj in chatLists" :key="chatObj.key">
+    <div v-if="chatlist != null" class="mb-4">
+      <div v-for="chatObj in chatlist" :key="chatObj.key">
         <!--Chat-->
         <chat-ballon :chatobj="chatObj" class="mb-3" />
       </div>
@@ -17,7 +17,7 @@ export default {
     'chat-ballon': ChatBalloon
   },
   props: {
-    chatLists: null
+    chatlist: null
   }
 };
 </script>

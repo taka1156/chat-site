@@ -54,27 +54,27 @@ export default {
     }
   },
   created() {
-    const chatRoom = firebase.database().ref('ChatRoom');
+    const GET_CHATROOMLIST = firebase.database().ref('ChatRoom');
     FireBase.onAuth();
     if (this.userData) {
-      chatRoom.limitToLast(30).on('child_added', this.addList);
+      GET_CHATROOMLIST.limitToLast(30).on('child_added', this.addList);
     } else {
-      chatRoom.limitToLast(30).off('child_added', this.addList);
+      GET_CHATROOMLIST.limitToLast(30).off('child_added', this.addList);
     }
     this.$store.commit('onSetUserSetting');
   },
   methods: {
     addList(snap) {
-      const ChatInfo = snap.val();
+      const CHATROOM_INFO = snap.val();
       this.ChatRoomList.push({
         slug: snap.key,
-        roomname: ChatInfo.roomname,
-        user: ChatInfo.user,
-        detail: ChatInfo.detail,
-        roompass: ChatInfo.roompass
+        roomname: CHATROOM_INFO.roomname,
+        user: CHATROOM_INFO.user,
+        detail: CHATROOM_INFO.detail,
+        roompass: CHATROOM_INFO.roompass
       });
     },
-    makeRoom(InputTitle, InputDetail, InputPass) {
+    makeRoom(InputRoomName, InputDetail, InputPass) {
       if (this.userData.uid) {
         if (InputPass.length === 0) {
           InputPass = 'NONE';
@@ -82,7 +82,7 @@ export default {
         const chatRoom = firebase.database();
         const id = chatRoom.ref('ChatRoom').push().key;
         chatRoom.ref('ChatRoom/' + id).set({
-          roomname: InputTitle,
+          roomname: InputRoomName,
           user: this.userData.displayName,
           detail: InputDetail,
           roompass: InputPass
@@ -93,7 +93,7 @@ export default {
             0: {
               name: '管理者',
               image: '',
-              message: InputTitle + 'にようこそ'
+              message: InputRoomName + 'にようこそ'
             }
           }
         });
