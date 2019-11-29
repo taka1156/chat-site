@@ -6,11 +6,14 @@
         <div class="d-flex flex-column jumbotron">
           <RoomForm :colorsetting="colorSetting" @makeRoom="makeRoom" />
           <List
-            :items="ChatRoomList"
+            :items="chatRoomList"
             :user="userData.displayName"
             @moveRoom="moveRoom"
           />
         </div>
+      </div>
+      <div v-else>
+        ログインしてください。
       </div>
     </div>
     <footer-navi />
@@ -34,7 +37,7 @@ export default {
   },
   data() {
     return {
-      ChatRoomList: [],
+      chatRoomList: [],
       path: '/account',
       title: 'ChatRoom',
       icon: 'forum'
@@ -64,7 +67,6 @@ export default {
     DB = firebase.database();
     //部屋一覧を取得
     const GET_CHATROOMLIST = DB.ref('ChatRoom');
-    FireBase.onAuth();
     if (this.userData) {
       GET_CHATROOMLIST.limitToLast(30).on('child_added', this.addList);
     } else {
@@ -73,8 +75,9 @@ export default {
   },
   methods: {
     addList(snap) {
+      //一件ずつ取り出して登録
       const CHATROOM_INFO = snap.val();
-      this.ChatRoomList.push({
+      this.chatRoomList.push({
         slug: snap.key,
         roomname: CHATROOM_INFO.roomname,
         user: CHATROOM_INFO.user,
@@ -96,7 +99,7 @@ export default {
           detail: InputDetail,
           roompass: InputPass
         });
-        //メッセージリスト(チャットをする場所)
+        //メッセージリストの書き込み(チャットをする場所)
         DB.ref('Chat/' + ID).set({
           roompass: InputPass,
           messagelist: {
@@ -110,7 +113,8 @@ export default {
       }
     },
     moveRoom(index) {
-      const ROOM_SLUG = this.ChatRoomList[index].slug;
+      //ユニークキーをURLパラメータに渡してチャットページに遷移
+      const ROOM_SLUG = this.chatRoomList[index].slug;
       this.$router.push(`/chatpage/${ROOM_SLUG}`);
     }
   }

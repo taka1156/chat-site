@@ -42,7 +42,7 @@ export default {
         return 1;
       }
       const ROW = this.inputMessage.split('\n').length;
-      return ROW < 5 ? num : 5;
+      return ROW < 5 ? ROW : 5;
     },
     boxHeight() {
       return `${(this.rows - 1) * ROW_PER_HEIGHT + DEFAULT_HEIGHT}px`;

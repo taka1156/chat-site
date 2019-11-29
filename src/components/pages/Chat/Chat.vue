@@ -2,7 +2,10 @@
   <div class="Chat">
     <header-navi :path="path" :icon="icon" :title="title" />
     <div class="mx-auto jumbotron mt-4">
-      <div v-if="!passState">
+      <div v-if="!status">
+        ログインしてください。
+      </div>
+      <div v-else-if="!passState">
         読み込み中
       </div>
       <div v-else-if="!passThrough">
@@ -95,7 +98,7 @@ export default {
     });
     //チャットデータ取得
     const GET_MESSAGE = DB.ref(`Chat/${this.$route.params.id}/messagelist`);
-    if (this.status) {
+    if (this.userData) {
       GET_MESSAGE.limitToLast(10).on('child_added', this.addList);
     } else {
       GET_MESSAGE.limitToLast(10).off('child_added', this.addList);

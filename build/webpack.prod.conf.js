@@ -30,18 +30,8 @@ const webpackConfig = merge(baseWebpackConfig, {
   },
   optimization: {
     splitChunks: {
-      cacheGroups: {
-        default: false,
-        vendor: {
-          minChunks: 2
-        },
-        manifest: {
-          minChunks: 2
-        },
-        app: {
-          minChunks: 3
-        }
-      }
+      name: 'vendor',
+      chunks: 'initial',
     }
   },
   plugins: [
