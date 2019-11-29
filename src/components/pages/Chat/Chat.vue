@@ -115,13 +115,13 @@ export default {
     },
     doSend(inputMessage) {
       if (this.userData.uid) {
-        const date = this.getDate();
+        const DATE = this.getDate();
         DB.ref(`Chat/${this.$route.params.id}/messagelist`).push({
           name: this.userData.displayName,
           uid: this.userData.uid,
           image: this.userData.photoURL,
           message: inputMessage,
-          date: date
+          date: DATE
         });
         this.InputChat = null;
       }
@@ -135,8 +135,8 @@ export default {
       this.passThrough = true;
     },
     getDate() {
-      const today = moment().format('YYYY/MM/DD HH:mm');
-      return today;
+      const TODAY = moment().format('YYYY/MM/DD HH:mm');
+      return TODAY;
     }
   }
 };
