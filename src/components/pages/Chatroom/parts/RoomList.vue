@@ -14,12 +14,14 @@
             class="article-color mt-2 mx-auto text-left list-group-item flex-column align-items-start"
             @click="moveRoom(index)"
           >
-            <div v-if="item.roompass">
+            <div v-if="item.roompass !== 'NONE'">
               <i class="material-icons">lock</i>{{ item.roomname }}
             </div>
             <div v-else>{{ item.roomname }}</div>
             スレ主:{{ item.user }}
-            <div v-if="user === item.user && item.roompass && isPassAns">
+            <div
+              v-if="user === item.user && item.roompass !== 'NONE' && isPassAns"
+            >
               PASS[{{ item.roompass }}]
             </div>
             <div v-else>{{ item.detail }}</div>

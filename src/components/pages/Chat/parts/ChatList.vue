@@ -10,7 +10,7 @@
 </template>
 
 <script>
-import ChatBalloon from '@/components/parts/Display/ChatBalloon';
+import ChatBalloon from './ChatBalloon';
 
 export default {
   components: {

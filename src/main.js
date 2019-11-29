@@ -4,8 +4,8 @@ import App from './App';
 import router from './router';
 import store from './store';
 import FireBase from '@/components/js/firebase.js';
-import FooterNavi from '@/components/parts/Navi/FooterNavi';
-import HeaderNavi from '@/components/parts/Navi/HeaderNavi';
+import FooterNavi from '@/components/Navi/FooterNavi';
+import HeaderNavi from '@/components/Navi/HeaderNavi';
 import '@/components/css/layout.css';
 
 Vue.component('footer-navi', FooterNavi);
@@ -14,13 +14,13 @@ FireBase.initAuth();
 
 Vue.config.productionTip = false;
 
-router.beforeEach((to, from, next) => {
+/*router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.Auth) && !store.getters.status) {
     next({ path: '/account', query: { redirect: to.fullPath } });
   } else {
     next();
   }
-});
+});*/
 
 new Vue({
   el: '#app',

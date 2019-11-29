@@ -10,9 +10,14 @@
         @keydown.ctrl.enter="checkPass()"
       />
       <div class="input-group-append">
-        <button-form @callFunc="checkPass()">
+        <button
+          type="button"
+          class="btn"
+          :style="{ 'background-color': colorsetting }"
+          @click="checkPass()"
+        >
           確定
-        </button-form>
+        </button>
       </div>
     </div>
     <div v-if="msg != null">{{ msg }}</div>
@@ -20,15 +25,11 @@
 </template>
 
 <script>
-import ButtonForm from '@/components/parts/Form/ButtonForm';
-
 export default {
   name: 'PassForm',
-  components: {
-    'button-form': ButtonForm
-  },
   props: {
-    pass: null
+    pass: null,
+    colorsetting: null
   },
   data() {
     return {
