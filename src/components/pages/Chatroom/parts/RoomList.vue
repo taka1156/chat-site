@@ -69,8 +69,8 @@ export default {
   },
   methods: {
     moveRoom(index) {
-      const calIndex = (this.page - 1) * this.perPage + index;
-      this.$emit('moveRoom', calIndex);
+      const CAL_INDEX = (this.page - 1) * this.perPage + index;
+      this.$emit('moveRoom', CAL_INDEX);
     },
     prevPage() {
       this.page = Math.max(this.page - 1, 1);

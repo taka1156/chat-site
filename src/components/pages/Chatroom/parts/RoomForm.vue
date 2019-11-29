@@ -12,19 +12,19 @@
     <!--modal-->
     <div v-show="isModal">
       <div class="modal-form">
-        <div class="mx-auto col-10">
+        <div class="mx-auto col-11">
           <div class="modal-header">
             <h5 class="modal-title">
-              テーブル作成
+              部屋作成
             </h5>
           </div>
           <div class="modal-body">
-            <label>タイトル</label>
+            <label>部屋名</label>
             <input
-              v-model="inputTitle"
+              v-model="inputRoomName"
               type="text"
               class="form-control"
-              placeholder="Chatのタイトル"
+              placeholder="Chatの部屋名"
             />
             <label>概要</label>
             <input
@@ -74,19 +74,19 @@ export default {
   data() {
     return {
       isModal: false,
-      inputTitle: '',
+      inputRoomName: '',
       inputDetail: '',
       inputPass: ''
     };
   },
   computed: {
     errorMsg() {
-      if (this.inputTitle.length >= 15) {
-        return 'タイトルは15字以内に収めてください';
-      } else if (this.inputDetail.length >= 30) {
-        return '詳細は30字以内に収めてください';
-      } else if (!this.inputTitle.length || !this.inputDetail.length) {
-        return 'タイトルと詳細は必ず埋めてください';
+      if (!this.inputRoomName.length || !this.inputDetail.length) {
+        return '部屋名と概要は必ず埋めてください';
+      } else if (this.inputRoomName.length > 15) {
+        return '部屋名は15字以内にしてください';
+      } else if (this.inputDetail.length > 30) {
+        return '概要は30字以内にしてください';
       } else if (this.inputPass === 'NONE') {
         return 'パスワードにNONEは指定できません';
       } else {
@@ -100,10 +100,15 @@ export default {
         return;
       }
       this.isModal = !this.isModal;
-      this.$emit('makeRoom', this.inputTitle, this.inputDetail, this.inputPass);
+      this.$emit(
+        'makeRoom',
+        this.inputRoomName,
+        this.inputDetail,
+        this.inputPass
+      );
     },
     init() {
-      this.inputTitle = this.inputDetail = this.inputPass = '';
+      this.inputRoomName = this.inputDetail = this.inputPass = '';
       this.isModal = !this.isModal;
     }
   }

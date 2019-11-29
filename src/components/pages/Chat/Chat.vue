@@ -13,7 +13,7 @@
         />
       </div>
       <div v-else>
-        <ChatList :chat-lists="ChatList" />
+        <ChatList :chatlist="chatList" />
         <ChatForm :colorsetting="colorSetting" @doSend="doSend" />
       </div>
     </div>
@@ -41,7 +41,7 @@ export default {
   },
   data() {
     return {
-      ChatList: [],
+      chatList: [],
       pass: null,
       passThrough: false,
       path: '/chatroom',
@@ -72,10 +72,10 @@ export default {
         (this.pass !== null && typeof this.pass !== 'undefined') ||
         this.passThrough
       ) {
-        //パスワードデータを読み込み中もしくはパスワードを突破した。
+        //パスワードデータを取得し終えた。もしくはパスワードがあっている。
         return true;
       } else {
-        //読み込み中
+        //パスワードデータを取得中
         return false;
       }
     }
@@ -88,7 +88,7 @@ export default {
     //データベース問い合わせるためのオブジェクト
     DB = firebase.database();
     //パスワード取得
-    var self = this;
+    let self = this;
     const GET_PASSWORD = DB.ref(`Chat/${this.$route.params.id}/roompass`);
     GET_PASSWORD.once('value').then(function(snap) {
       self.pass = snap.val();
@@ -104,7 +104,7 @@ export default {
   methods: {
     addList(snap) {
       const CHAT_INFO = snap.val();
-      this.ChatList.push({
+      this.chatList.push({
         key: snap.key,
         name: CHAT_INFO.name,
         image: CHAT_INFO.image,
@@ -115,13 +115,13 @@ export default {
     },
     doSend(inputMessage) {
       if (this.userData.uid) {
-        const date = this.getDate();
+        const DATE = this.getDate();
         DB.ref(`Chat/${this.$route.params.id}/messagelist`).push({
           name: this.userData.displayName,
           uid: this.userData.uid,
           image: this.userData.photoURL,
           message: inputMessage,
-          date: date
+          date: DATE
         });
         this.InputChat = null;
       }
@@ -135,8 +135,8 @@ export default {
       this.passThrough = true;
     },
     getDate() {
-      const today = moment().format('YYYY/MM/DD HH:mm');
-      return today;
+      const TODAY = moment().format('YYYY/MM/DD HH:mm');
+      return TODAY;
     }
   }
 };

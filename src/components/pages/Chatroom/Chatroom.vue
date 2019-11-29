@@ -24,6 +24,8 @@ import * as firebase from 'firebase/app';
 import 'firebase/database';
 import FireBase from '@/components/js/firebase.js';
 
+let DB;
+
 export default {
   name: 'ChatRoom',
   components: {
@@ -54,46 +56,54 @@ export default {
     }
   },
   created() {
-    const chatRoom = firebase.database().ref('ChatRoom');
+    //認証
+    FireBase.onAuth();
+    //json(WebStrageの設定情報)の読み出し
+    this.$store.commit('onSetUserSetting');
+    //データベース問い合わせるためのオブジェクト
+    DB = firebase.database();
+    //部屋一覧を取得
+    const GET_CHATROOMLIST = DB.ref('ChatRoom');
     FireBase.onAuth();
     if (this.userData) {
-      chatRoom.limitToLast(30).on('child_added', this.addList);
+      GET_CHATROOMLIST.limitToLast(30).on('child_added', this.addList);
     } else {
-      chatRoom.limitToLast(30).off('child_added', this.addList);
+      GET_CHATROOMLIST.limitToLast(30).off('child_added', this.addList);
     }
-    this.$store.commit('onSetUserSetting');
   },
   methods: {
     addList(snap) {
-      const ChatInfo = snap.val();
+      const CHATROOM_INFO = snap.val();
       this.ChatRoomList.push({
         slug: snap.key,
-        roomname: ChatInfo.roomname,
-        user: ChatInfo.user,
-        detail: ChatInfo.detail,
-        roompass: ChatInfo.roompass
+        roomname: CHATROOM_INFO.roomname,
+        user: CHATROOM_INFO.user,
+        detail: CHATROOM_INFO.detail,
+        roompass: CHATROOM_INFO.roompass
       });
     },
-    makeRoom(InputTitle, InputDetail, InputPass) {
+    makeRoom(InputRoomName, InputDetail, InputPass) {
       if (this.userData.uid) {
         if (InputPass.length === 0) {
           InputPass = 'NONE';
         }
-        const chatRoom = firebase.database();
-        const id = chatRoom.ref('ChatRoom').push().key;
-        chatRoom.ref('ChatRoom/' + id).set({
-          roomname: InputTitle,
+        //ユニークキーの取得
+        const ID = DB.ref('ChatRoom').push().key;
+        //部屋情報の書き込み
+        DB.ref('ChatRoom/' + ID).set({
+          roomname: InputRoomName,
           user: this.userData.displayName,
           detail: InputDetail,
           roompass: InputPass
         });
-        chatRoom.ref('Chat/' + id).set({
+        //メッセージリスト(チャットをする場所)
+        DB.ref('Chat/' + ID).set({
           roompass: InputPass,
           messagelist: {
             0: {
               name: '管理者',
               image: '',
-              message: InputTitle + 'にようこそ'
+              message: InputRoomName + 'にようこそ'
             }
           }
         });
