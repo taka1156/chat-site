@@ -126,7 +126,6 @@ export default {
           message: inputMessage,
           date: DATE
         });
-        this.InputChat = null;
       }
     },
     scrollBottom() {

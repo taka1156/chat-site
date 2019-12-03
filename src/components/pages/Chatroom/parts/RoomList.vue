@@ -14,10 +14,12 @@
             class="article-color mt-2 mx-auto text-left list-group-item flex-column align-items-start"
             @click="moveRoom(index)"
           >
-            <div v-if="item.roompass !== 'NONE'">
-              <i class="material-icons">lock</i>{{ item.roomname }}
+            <div class="d-flex justify-content-start">
+              <div v-if="item.roompass !== 'NONE'">
+                <i class="material-icons">lock</i>
+              </div>
+              {{ item.roomname }}
             </div>
-            <div v-else>{{ item.roomname }}</div>
             スレ主:{{ item.user }}
             <div
               v-if="user === item.user && item.roompass !== 'NONE' && isPassAns"
@@ -69,8 +71,8 @@ export default {
   },
   methods: {
     moveRoom(index) {
-      const CAL_INDEX = (this.page - 1) * this.perPage + index;
-      this.$emit('moveRoom', CAL_INDEX);
+      const INDEX = (this.page - 1) * this.perPage + index;
+      this.$emit('moveRoom', INDEX);
     },
     prevPage() {
       this.page = Math.max(this.page - 1, 1);
