@@ -5,7 +5,7 @@
       <div v-if="status">
         <div class="d-flex flex-column jumbotron">
           <RoomForm :colorsetting="colorSetting" @makeRoom="makeRoom" />
-          <List
+          <RoomList
             :items="chatRoomList"
             :user="userData.displayName"
             @moveRoom="moveRoom"
@@ -21,8 +21,8 @@
 </template>
 
 <script>
-import List from './parts/RoomList';
 import RoomForm from './parts/RoomForm';
+import RoomList from './parts/RoomList';
 import * as firebase from 'firebase/app';
 import 'firebase/database';
 import FireBase from '@/components/js/firebase.js';
@@ -33,7 +33,7 @@ export default {
   name: 'ChatRoom',
   components: {
     RoomForm,
-    List
+    RoomList
   },
   data() {
     return {
