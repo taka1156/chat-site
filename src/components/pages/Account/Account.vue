@@ -7,11 +7,10 @@
           :userdata="userData"
           :colorsetting="colorSetting"
           @logOut="logOut"
-          @updateInfo="updateInfo"
         />
       </div>
       <div v-else class="mt-5">
-        <LogoutForm :colorsetting="colorSetting" @logIn="logIn" />
+        <LogoutForm />
       </div>
     </div>
     <footer-navi />
@@ -57,14 +56,8 @@ export default {
     this.$store.commit('onSetUserSetting');
   },
   methods: {
-    logIn() {
-      FireBase.logIn();
-    },
     logOut() {
       FireBase.logOut();
-    },
-    updateInfo() {
-      FireBase.updateInfo();
     }
   }
 };

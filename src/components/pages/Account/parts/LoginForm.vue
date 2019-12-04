@@ -12,15 +12,6 @@
       <i class="material-icons">exit_to_app</i>
       LogOut
     </button>
-    <button
-      type="button"
-      class="mx-auto mt-2 col-3 btn d-flex justify-content-center"
-      :style="{ 'background-color': colorsetting }"
-      @click="updateInfo()"
-    >
-      <i class="material-icons">autorenew</i>
-      Update
-    </button>
   </div>
 </template>
 
@@ -33,9 +24,6 @@ export default {
   methods: {
     logOut() {
       this.$emit('logOut');
-    },
-    updateInfo() {
-      this.$emit('updateInfo');
     }
   }
 };
