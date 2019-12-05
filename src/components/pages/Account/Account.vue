@@ -1,6 +1,8 @@
 <template>
   <div class="Account">
-    <header-navi :path="path" :icon="icon" :title="title" />
+    <header>
+      <header-navi :path="path" :icon="icon" :title="title" />
+    </header>
     <div class="mx-auto jumbotron mt-4">
       <div v-if="status">
         <LogoutForm
@@ -13,7 +15,9 @@
         <LoginForm />
       </div>
     </div>
-    <footer-navi />
+    <footer>
+      <footer-navi />
+    </footer>
   </div>
 </template>
 

@@ -1,6 +1,6 @@
 <template>
   <div class="ChatForm">
-    <div class="form-box" :style="{ height: boxHeight }">
+    <form class="form-box" :style="{ height: boxHeight }">
       <div class="my-2 d-flex justify-content-around">
         <textarea
           v-model="inputMessage"
@@ -10,7 +10,7 @@
           @keydown.ctrl.enter="sendMessage()"
         />
         <button
-          type="button"
+          type="submit"
           class="btn h-25"
           :style="{ 'background-color': colorsetting }"
           @click="sendMessage()"
@@ -18,7 +18,7 @@
           Send
         </button>
       </div>
-    </div>
+    </form>
   </div>
 </template>
 

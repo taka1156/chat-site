@@ -1,25 +1,27 @@
 <template>
   <div class="pass">
-    <label>パスワード</label>
-    <div class="input-group">
-      <input
-        v-model="InputPass"
-        type="text"
-        class="form-control"
-        placeholder="Chatのパスワード"
-        @keydown.ctrl.enter="checkPassWord()"
-      />
-      <div class="input-group-append">
-        <button
-          type="button"
-          class="btn"
-          :style="{ 'background-color': colorsetting }"
-          @click="checkPassWord()"
-        >
-          確定
-        </button>
+    <form>
+      <label>パスワード</label>
+      <div class="input-group">
+        <input
+          v-model="InputPass"
+          type="text"
+          class="form-control"
+          placeholder="Chatのパスワード"
+          @keydown.ctrl.enter="checkPassWord()"
+        />
+        <div class="input-group-append">
+          <button
+            type="submit"
+            class="btn"
+            :style="{ 'background-color': colorsetting }"
+            @click="checkPassWord()"
+          >
+            確定
+          </button>
+        </div>
       </div>
-    </div>
+    </form>
     <div v-if="msg != null">{{ msg }}</div>
   </div>
 </template>

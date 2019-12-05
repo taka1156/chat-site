@@ -18,48 +18,53 @@
               部屋作成
             </h5>
           </div>
-          <div class="modal-body">
-            <label>部屋名</label>
-            <input
-              v-model="inputRoomName"
-              type="text"
-              class="form-control"
-              placeholder="Chatの部屋名"
-            />
-            <label>概要</label>
-            <input
-              v-model="inputDetail"
-              type="textarea"
-              class="form-control"
-              placeholder="Chatの概要(10~30字)"
-            />
-            <label>パスワード(任意)</label>
-            <input
-              v-model="inputPass"
-              type="password"
-              class="form-control"
-              placeholder="Chatのパスワード(任意)"
-            />
-          </div>
-          <div v-if="errorMsg" class="alert alert-danger">{{ errorMsg }}</div>
-          <div class="modal-footer">
-            <button
-              type="button"
-              class="btn col-6"
-              :style="{ 'background-color': colorsetting }"
-              @click="init()"
-            >
-              キャンセル
-            </button>
-            <button
-              type="button"
-              class="btn col-6"
-              :style="{ 'background-color': colorsetting }"
-              @click="makeRoom()"
-            >
-              確定
-            </button>
-          </div>
+          <form>
+            <div class="modal-body">
+              <label>部屋名</label>
+              <input
+                v-model="inputRoomName"
+                type="text"
+                class="form-control"
+                placeholder="Chatの部屋名"
+              />
+              <label>概要</label>
+              <input
+                v-model="inputDetail"
+                type="textarea"
+                class="form-control"
+                placeholder="Chatの概要(10~30字)"
+              />
+              <label>パスワード(任意)</label>
+              <input
+                v-model="inputPass"
+                type="password"
+                class="form-control"
+                placeholder="Chatのパスワード(任意)"
+                autocomplete
+              />
+              <div v-if="errorMsg" class="alert alert-danger">
+                {{ errorMsg }}
+              </div>
+            </div>
+            <div class="modal-footer">
+              <button
+                type="button"
+                class="btn col-6"
+                :style="{ 'background-color': colorsetting }"
+                @click="init()"
+              >
+                キャンセル
+              </button>
+              <button
+                type="submit"
+                class="btn col-6"
+                :style="{ 'background-color': colorsetting }"
+                @click="makeRoom()"
+              >
+                確定
+              </button>
+            </div>
+          </form>
         </div>
       </div>
     </div>

@@ -1,6 +1,8 @@
 <template>
   <div class="ChatRoom">
-    <header-navi :path="path" :icon="icon" :title="title" />
+    <header>
+      <header-navi :path="path" :icon="icon" :title="title" />
+    </header>
     <div class="mx-auto jumbotron mt-4">
       <div v-if="status">
         <div class="d-flex flex-column jumbotron">
@@ -16,7 +18,9 @@
         ログインしてください。
       </div>
     </div>
-    <footer-navi />
+    <footer>
+      <footer-navi />
+    </footer>
   </div>
 </template>
 
