@@ -29,10 +29,8 @@ export default {
       case 'Google':
         provider = new firebase.auth.GoogleAuthProvider();
         break;
-      case 'GitHub':
-        provider = new firebase.auth.GithubAuthProvider();
-        break;
       default:
+        provider = new firebase.auth.GithubAuthProvider();
         break;
     }
 
