@@ -12,7 +12,7 @@
         />
       </div>
       <div v-else class="mt-5">
-        <LoginForm />
+        <LoginForm @logIn="logIn" />
       </div>
     </div>
     <footer>
@@ -62,6 +62,9 @@ export default {
   methods: {
     logOut() {
       FireBase.logOut();
+    },
+    logIn(provider) {
+      FireBase.logIn(provider);
     }
   }
 };

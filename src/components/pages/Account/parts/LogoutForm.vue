@@ -5,7 +5,7 @@
     <p class="h2">こんにちは! {{ userdata.displayName }}さん</p>
     <button
       type="button"
-      class="mx-auto mt-2 col-3 btn d-flex justify-content-center"
+      class="mx-auto col-3 btn d-flex justify-content-center"
       :style="{ 'background-color': colorsetting }"
       @click="logOut()"
     >

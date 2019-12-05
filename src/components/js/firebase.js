@@ -19,7 +19,28 @@ export default {
     firebase.initializeApp(firebaseConfig);
     firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
   },
-  //ログインはFirebaseUI経由なので(src\components\pages\Account\parts\LogoutForm.vue)で処理
+  logIn(providerName) {
+    let provider;
+
+    switch (providerName) {
+      case 'Twitter':
+        provider = new firebase.auth.TwitterAuthProvider();
+        break;
+      case 'Google':
+        provider = new firebase.auth.GoogleAuthProvider();
+        break;
+      case 'GitHub':
+        provider = new firebase.auth.GithubAuthProvider();
+        break;
+      default:
+        break;
+    }
+
+    firebase
+      .auth()
+      .signInWithRedirect(provider)
+      .then();
+  },
   logOut() {
     firebase
       .auth()
