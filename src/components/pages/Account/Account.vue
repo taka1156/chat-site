@@ -3,14 +3,14 @@
     <header-navi :path="path" :icon="icon" :title="title" />
     <div class="mx-auto jumbotron mt-4">
       <div v-if="status">
-        <LoginForm
+        <LogoutForm
           :userdata="userData"
           :colorsetting="colorSetting"
           @logOut="logOut"
         />
       </div>
       <div v-else class="mt-5">
-        <LogoutForm />
+        <LoginForm />
       </div>
     </div>
     <footer-navi />
