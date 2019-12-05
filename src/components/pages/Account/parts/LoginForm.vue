@@ -28,10 +28,11 @@ export default {
           document.getElementById('loader').style.display = 'none';
         }
       },
-      //ログインプロバイダーはTwitter、Google
+      //ログインプロバイダーはTwitter、Google, Github
       signInOptions: [
+        firebase.auth.TwitterAuthProvider.PROVIDER_ID,
         firebase.auth.GoogleAuthProvider.PROVIDER_ID,
-        firebase.auth.TwitterAuthProvider.PROVIDER_ID
+        firebase.auth.GithubAuthProvider.PROVIDER_ID
       ]
     };
     //ここまで設定
