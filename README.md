@@ -1,6 +1,6 @@
 # my_chat_app
 
-takaのチャットアプリです
+takaのチャットサイトです
 (https://chatapp-f1e5d.firebaseapp.com/)
 
 # 使用したもの
@@ -18,10 +18,19 @@ takaのチャットアプリです
 - UnDraw
 
     (https://undraw.co/)
+- fontawesam
+
+    (https://fontawesome.com/)
 
 # 内容
 Twitterアカウントを利用してチャットをするアプリです。<br>
 - 2019/11/30<br>
     URLから直接チャットページに飛べるようにvue-routerの設定を変更<br>
 - 2019/12/04<br>
-    githubのセキュリティアラート対応(` js-yaml`関連)で`yarn audit`で確認した結果、`url-loader`と`css-loader`が対象とわかったので、それらを更新した。
+    githubのセキュリティアラート対応(` js-yaml`関連)で`yarn audit`で確認した結果、`url-loader`と`css-loader`が対象とわかったので、それらを更新した。<br>
+- 2019/12/05<br>
+    `firebaseui(-ja)`をつかってみました。<br>
+    また、
+    1. firebase-uiを使用している`develop-a`
+    1. firebase-uiを使わずfontawesamとSettingページのUIカラーをそのまま適用させている`develop-b`<br>
+    にそれぞれ分けました。
