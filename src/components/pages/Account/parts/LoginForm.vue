@@ -3,7 +3,8 @@
     <div v-for="(item, index) in loginProviderList" :key="index">
       <button
         type="button"
-        class="mt-2 btn btn-dark"
+        class="mt-2 btn"
+        :style="{ 'background-color': colorsetting }"
         @click="logIn(item.providerName)"
       >
         <img :src="item.providerIcon" width="30px" height="30px" />
@@ -16,6 +17,9 @@
 <script>
 export default {
   name: 'LoginForm',
+  props: {
+    colorsetting: null
+  },
   data() {
     return {
       loginProviderList: [
@@ -41,3 +45,5 @@ export default {
   }
 };
 </script>
+
+<style scoped></style>

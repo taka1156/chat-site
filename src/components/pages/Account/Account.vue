@@ -12,7 +12,7 @@
         />
       </div>
       <div v-else class="mt-5">
-        <LoginForm @logIn="logIn" />
+        <LoginForm :colorsetting="colorSetting" @logIn="logIn" />
       </div>
     </div>
     <footer>
