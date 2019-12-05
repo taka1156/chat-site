@@ -1,20 +1,23 @@
 <template>
   <div class="Account">
-    <header-navi :path="path" :icon="icon" :title="title" />
+    <header>
+      <header-navi :path="path" :icon="icon" :title="title" />
+    </header>
     <div class="mx-auto jumbotron mt-4">
       <div v-if="status">
-        <LoginForm
+        <LogoutForm
           :userdata="userData"
           :colorsetting="colorSetting"
           @logOut="logOut"
-          @updateInfo="updateInfo"
         />
       </div>
       <div v-else class="mt-5">
-        <LogoutForm :colorsetting="colorSetting" @logIn="logIn" />
+        <LoginForm />
       </div>
     </div>
-    <footer-navi />
+    <footer>
+      <footer-navi />
+    </footer>
   </div>
 </template>
 
@@ -57,14 +60,8 @@ export default {
     this.$store.commit('onSetUserSetting');
   },
   methods: {
-    logIn() {
-      FireBase.logIn();
-    },
     logOut() {
       FireBase.logOut();
-    },
-    updateInfo() {
-      FireBase.updateInfo();
     }
   }
 };

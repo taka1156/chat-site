@@ -24,6 +24,8 @@
           v-if="status !== false"
           :src="userData.photoURL"
           class="rounded-circle"
+          width="50px"
+          height="50px"
           @click="jump('/account')"
         />
         <button v-else class="btn btn-outline-light" @click="jump('/account')">

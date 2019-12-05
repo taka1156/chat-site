@@ -14,18 +14,12 @@ const firebaseConfig = {
 };
 
 export default {
-  //認証
+  //APIkeyやログインの設定
   initAuth() {
     firebase.initializeApp(firebaseConfig);
     firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL);
   },
-  logIn() {
-    const provider = new firebase.auth.TwitterAuthProvider();
-    firebase
-      .auth()
-      .signInWithRedirect(provider)
-      .then();
-  },
+  //ログインはFirebaseUI経由なので(src\components\pages\Account\parts\LogoutForm.vue)で処理
   logOut() {
     firebase
       .auth()
@@ -33,34 +27,12 @@ export default {
       .then()
       .catch(err => alert(err));
   },
+  //ログイン状態の制御
   onAuth() {
     firebase.auth().onAuthStateChanged(user => {
       user = user ? user : {};
       store.commit('onAuthStateChanged', user);
       store.commit('onUserStatusChanged', user.uid ? true : false);
     });
-  },
-  updateInfo() {
-    let user = firebase.auth().currentUser;
-    let userName = null;
-    let userIcon = null;
-
-    if (user != null) {
-      user.providerData.forEach(function(profile) {
-        userName = profile.displayName;
-        userIcon = profile.photoURL;
-      });
-
-      user
-        .updateProfile({
-          displayName: userName,
-          photoURL: userIcon
-        })
-        .catch(function(error) {
-          console.log(error);
-        });
-
-      this.logIn();
-    }
   }
 };

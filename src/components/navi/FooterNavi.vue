@@ -1,6 +1,6 @@
 <template>
   <div class="FooterNavi">
-    <div
+    <nav
       class=" d-flex justify-content-between fixed-bottom mb-0"
       :style="{ 'background-color': colorSetting }"
     >
@@ -28,7 +28,7 @@
           Setting
         </div>
       </router-link>
-    </div>
+    </nav>
   </div>
 </template>
 

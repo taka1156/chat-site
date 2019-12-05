@@ -1,6 +1,8 @@
 <template>
   <div class="Chat">
-    <header-navi :path="path" :icon="icon" :title="title" />
+    <header>
+      <header-navi :path="path" :icon="icon" :title="title" />
+    </header>
     <div class="mx-auto jumbotron mt-4">
       <div v-if="!status">
         ログインしてください。
