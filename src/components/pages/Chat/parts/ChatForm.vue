@@ -1,7 +1,15 @@
 <template>
   <div class="ChatForm">
+    <image-post
+      :is-post-modal="isPostModal"
+      :colorsetting="colorsetting"
+      @closeModal="closeModal"
+    />
     <form class="form-box" :style="{ height: boxHeight }">
       <div class="my-2 d-flex justify-content-around">
+        <i class="material-icons" @click="isPostModal = !isPostModal">
+          add_photo_alternate
+        </i>
         <textarea
           v-model="inputMessage"
           placeholder="ctrl + Enterで送信。"
@@ -23,17 +31,22 @@
 </template>
 
 <script>
+import ImagePost from './ImagePost';
 const DEFAULT_HEIGHT = 50;
 const ROW_PER_HEIGHT = 25;
 
 export default {
   name: 'ChatFrom',
+  components: {
+    'image-post': ImagePost
+  },
   props: {
     colorsetting: null
   },
   data() {
     return {
-      inputMessage: ''
+      inputMessage: '',
+      isPostModal: false
     };
   },
   computed: {
@@ -55,6 +68,9 @@ export default {
         this.inputMessage = '';
         this.$emit('sendMessage', CHAT_MESSAGE);
       }
+    },
+    closeModal(Modalflag) {
+      this.isPostModal = Modalflag;
     }
   }
 };
