@@ -4,7 +4,7 @@
       <header-navi :path="path" :icon="icon" :title="title" />
     </header>
     <div class="mx-auto jumbotron mt-4">
-      <div v-if="status">
+      <div v-if="status" class="mt-5">
         <LogoutForm
           :userdata="userData"
           :colorsetting="colorSetting"
