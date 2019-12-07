@@ -1,5 +1,6 @@
 <template>
   <div class="LoginForm">
+    <div class="mx-auto user-icon" />
     <div id="firebaseui-auth-container"></div>
     <div id="loader">Now Loading...</div>
   </div>
@@ -49,3 +50,13 @@ export default {
   }
 };
 </script>
+
+<style scoped>
+.user-icon {
+  height: 100px;
+  width: 100px;
+  border-radius: 100px;
+  border: solid 2px #d8d8d8;
+  background-color: lightgray;
+}
+</style>
