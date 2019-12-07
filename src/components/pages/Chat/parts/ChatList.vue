@@ -4,6 +4,7 @@
       <div v-for="chatObj in chatlist" :key="chatObj.key">
         <!--Chat-->
         <chat-ballon :chatobj="chatObj" class="mb-3" />
+        <!--<image-display imageurl="chatObj.imgurl" class="mb-3" />-->
       </div>
     </div>
   </div>
@@ -11,10 +12,12 @@
 
 <script>
 import ChatBalloon from './ChatBalloon';
+//import ImageDisplay from './ImageDisplay';
 
 export default {
   components: {
     'chat-ballon': ChatBalloon
+    //'image-display': ImageDisplay
   },
   props: {
     chatlist: null
