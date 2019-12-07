@@ -85,4 +85,7 @@ export default {
   right: 0px;
   bottom: 0px;
 }
+.material-icons {
+  font-size: 30px;
+}
 </style>
