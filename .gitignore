@@ -19,3 +19,4 @@ firebase.json
 *.ntvs*
 *.njsproj
 *.sln
+firebase-debug.log
