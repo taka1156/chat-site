@@ -39,9 +39,18 @@
 <script>
 export default {
   props: {
-    path: null,
-    icon: null,
-    title: null
+    path: {
+      default: null,
+      type: String
+    },
+    icon: {
+      default: null,
+      type: String
+    },
+    title: {
+      default: null,
+      type: String
+    }
   },
   computed: {
     userData() {

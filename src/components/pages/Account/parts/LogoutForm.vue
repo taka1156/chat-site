@@ -19,8 +19,14 @@
 export default {
   name: 'LogoutForm',
   props: {
-    colorsetting: null,
-    userdata: null
+    colorsetting: {
+      default: null,
+      type: String
+    },
+    userdata: {
+      default: null,
+      type: Object
+    }
   },
   methods: {
     logOut() {
