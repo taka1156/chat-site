@@ -22,7 +22,9 @@
             </div>
             スレ主:{{ item.user }}
             <div
-              v-if="user === item.user && item.roompass !== 'NONE' && isPassAns"
+              v-if="
+                username === item.user && item.roompass !== 'NONE' && isPassAns
+              "
             >
               PASS[{{ item.roompass }}]
             </div>
@@ -42,8 +44,14 @@
 <script>
 export default {
   props: {
-    items: Array,
-    user: null
+    items: {
+      default: null,
+      type: Array
+    },
+    username: {
+      default: null,
+      type: String
+    }
   },
   data() {
     return {

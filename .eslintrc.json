@@ -22,9 +22,7 @@
         }
       ],
       "camelcase": [2, { "properties": "always" }],
-      //例外設定
-      "vue/require-valid-default-prop": 0,
-      "vue/require-default-prop": 0,
+      //例外設定(require)
       "no-undef": 0
     }
   }

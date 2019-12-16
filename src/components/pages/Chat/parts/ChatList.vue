@@ -20,7 +20,10 @@ export default {
     //'image-display': ImageDisplay
   },
   props: {
-    chatlist: null
+    chatlist: {
+      default: null,
+      type: Array
+    }
   }
 };
 </script>

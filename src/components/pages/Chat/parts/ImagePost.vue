@@ -1,6 +1,6 @@
 <template>
   <div class="ImagePost">
-    <div v-show="isPostModal">
+    <div v-show="ispostmodal">
       <div class="modal-form">
         <div class="mx-auto col-11">
           <div class="modal-header">
@@ -55,11 +55,14 @@
 export default {
   name: 'ImagePost',
   props: {
-    isPostModal: {
+    ispostmodal: {
       default: false,
       type: Boolean
     },
-    colorsetting: null
+    colorsetting: {
+      default: null,
+      type: String
+    }
   },
   data() {
     return {
