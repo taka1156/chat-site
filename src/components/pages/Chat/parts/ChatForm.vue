@@ -1,7 +1,7 @@
 <template>
   <div class="ChatForm">
     <image-post
-      :is-post-modal="isPostModal"
+      :ispostmodal="isPostModal"
       :colorsetting="colorsetting"
       @closeModal="closeModal"
     />
@@ -41,7 +41,10 @@ export default {
     'image-post': ImagePost
   },
   props: {
-    colorsetting: null
+    colorsetting: {
+      default: null,
+      type: String
+    }
   },
   data() {
     return {

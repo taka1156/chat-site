@@ -30,8 +30,14 @@
 export default {
   name: 'PassForm',
   props: {
-    pass: null,
-    colorsetting: null
+    pass: {
+      default: null,
+      type: String
+    },
+    colorsetting: {
+      default: null,
+      type: String
+    }
   },
   data() {
     return {

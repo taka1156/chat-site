@@ -8,7 +8,10 @@
 export default {
   name: 'ImageDisplay',
   props: {
-    imageUrl: null
+    imageUrl: {
+      default: null,
+      type: String
+    }
   }
 };
 </script>

@@ -74,7 +74,10 @@
 <script>
 export default {
   props: {
-    colorsetting: null
+    colorsetting: {
+      default: null,
+      type: String
+    }
   },
   data() {
     return {

@@ -9,7 +9,7 @@
           <RoomForm :colorsetting="colorSetting" @makeRoom="makeRoom" />
           <RoomList
             :items="chatRoomList"
-            :user="userData.displayName"
+            :username="userData.displayName"
             @moveRoom="moveRoom"
           />
         </div>

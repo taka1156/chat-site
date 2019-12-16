@@ -21,7 +21,10 @@ export default {
     Nl2br
   },
   props: {
-    chatobj: null
+    chatobj: {
+      default: null,
+      type: Object
+    }
   }
 };
 </script>
