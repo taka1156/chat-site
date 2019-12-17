@@ -9,7 +9,7 @@
           <RoomForm :colorsetting="colorSetting" @makeRoom="makeRoom" />
           <RoomList
             :items="chatRoomList"
-            :username="userData.displayName"
+            :useruid="userData.uid"
             @moveRoom="moveRoom"
           />
         </div>
@@ -82,8 +82,9 @@ export default {
       //一件ずつ取り出して登録
       const CHATROOM_INFO = snap.val();
       this.chatRoomList.push({
-        slug: snap.key,
+        id: snap.key,
         roomname: CHATROOM_INFO.roomname,
+        uid: CHATROOM_INFO.uid,
         user: CHATROOM_INFO.user,
         detail: CHATROOM_INFO.detail,
         roompass: CHATROOM_INFO.roompass
@@ -99,6 +100,7 @@ export default {
         //部屋情報の書き込み
         DB.ref('ChatRoom/' + ID).set({
           roomname: InputRoomName,
+          uid: this.userData.uid,
           user: this.userData.displayName,
           detail: InputDetail,
           roompass: InputPass
@@ -118,8 +120,8 @@ export default {
     },
     moveRoom(index) {
       //ユニークキーをURLパラメータに渡してチャットページに遷移
-      const ROOM_SLUG = this.chatRoomList[index].slug;
-      this.$router.push(`/chatpage/${ROOM_SLUG}`);
+      const ROOM_ID = this.chatRoomList[index].id;
+      this.$router.push(`/chatpage/${ROOM_ID}`);
     }
   }
 };
