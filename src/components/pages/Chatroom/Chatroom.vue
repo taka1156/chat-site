@@ -9,7 +9,7 @@
           <RoomForm :colorsetting="colorSetting" @makeRoom="makeRoom" />
           <RoomList
             :items="chatRoomList"
-            :username="userData.displayName"
+            :useruid="userData.uid"
             @moveRoom="moveRoom"
           />
         </div>
@@ -84,6 +84,7 @@ export default {
       this.chatRoomList.push({
         id: snap.key,
         roomname: CHATROOM_INFO.roomname,
+        uid: CHATROOM_INFO.uid,
         user: CHATROOM_INFO.user,
         detail: CHATROOM_INFO.detail,
         roompass: CHATROOM_INFO.roompass
@@ -99,6 +100,7 @@ export default {
         //部屋情報の書き込み
         DB.ref('ChatRoom/' + ID).set({
           roomname: InputRoomName,
+          uid: this.userData.uid,
           user: this.userData.displayName,
           detail: InputDetail,
           roompass: InputPass
