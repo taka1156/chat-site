@@ -34,3 +34,5 @@ Twitterアカウントを利用してチャットをするアプリです。<br>
     1. firebase-uiを使用している`develop-a`
     1. firebase-uiを使わずfontawesamとSettingページのUIカラーをそのまま適用させている`develop-b`<br>
     にそれぞれ分けました。
+- 2019/12/17<br>
+   部屋の作成者かどうか判断する処理を`displayName`ではなく`uid`を使用するように変更
