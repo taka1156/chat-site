@@ -2,7 +2,7 @@
   <div class="HeaderNavi">
     <div
       class="mx-auto col-12 d-flex justify-content-around text-white fixed-top"
-      :style="{ 'background-color': colorSetting }"
+      :style="{ 'background-color': colorsetting }"
     >
       <div class="col-1">
         <i
@@ -50,6 +50,10 @@ export default {
     title: {
       default: null,
       type: String
+    },
+    colorsetting: {
+      default: null,
+      type: String
     }
   },
   computed: {
@@ -58,13 +62,6 @@ export default {
     },
     status() {
       return this.$store.getters.status;
-    },
-    colorSetting() {
-      const COLOR = this.$store.getters.colorSetting;
-      if (COLOR === null) {
-        return 'forestgreen';
-      }
-      return COLOR;
     }
   },
   methods: {

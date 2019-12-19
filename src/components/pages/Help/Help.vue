@@ -1,7 +1,12 @@
 <template>
   <div class="Top">
     <header>
-      <header-navi :path="path" :icon="icon" :title="title" />
+      <header-navi
+        :path="path"
+        :icon="icon"
+        :title="title"
+        :colorsetting="colorSetting"
+      />
     </header>
     <div class="mx-auto jumbotron mt-4">
       <h1 class="h2">ようこそ Chat アプリへ</h1>
@@ -46,7 +51,7 @@
       />
     </div>
     <footer>
-      <footer-navi />
+      <footer-navi :colorsetting="colorSetting" />
     </footer>
   </div>
 </template>
@@ -59,6 +64,15 @@ export default {
       title: 'Help',
       icon: 'help'
     };
+  },
+  computed: {
+    colorSetting() {
+      const COLOR = this.$store.getters.colorSetting;
+      if (COLOR === null) {
+        return 'forestgreen';
+      }
+      return COLOR;
+    }
   },
   created() {
     this.$store.commit('onSetUserSetting');

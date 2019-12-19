@@ -1,6 +1,11 @@
 <template>
   <div class="Setting">
-    <header-navi :path="path" :icon="icon" :title="title" />
+    <header-navi
+      :path="path"
+      :icon="icon"
+      :title="title"
+      :colorsetting="colorSetting"
+    />
     <div class="mx-auto jumbotron mt-4">
       <label>UIカラー</label>
       <select v-model="userSetting.uiColor" class="mx-auto col-10 form-control">
@@ -36,7 +41,7 @@
         </button>
       </div>
     </div>
-    <footer-navi />
+    <footer-navi :colorsetting="colorSetting" />
   </div>
 </template>
 
