@@ -1,7 +1,13 @@
 <template>
-  <div class="Top">
+  <div class="Help">
+    <!--使い方の表示-->
     <header>
-      <header-navi :path="path" :icon="icon" :title="title" />
+      <header-navi
+        :path="path"
+        :icon="icon"
+        :title="title"
+        :colorsetting="colorSetting"
+      />
     </header>
     <div class="mx-auto jumbotron mt-4">
       <h1 class="h2">ようこそ Chat アプリへ</h1>
@@ -46,19 +52,29 @@
       />
     </div>
     <footer>
-      <footer-navi />
+      <footer-navi :colorsetting="colorSetting" />
     </footer>
   </div>
 </template>
 
 <script>
 export default {
+  name: 'Help',
   data() {
     return {
       path: null,
       title: 'Help',
       icon: 'help'
     };
+  },
+  computed: {
+    colorSetting() {
+      const COLOR = this.$store.getters.colorSetting;
+      if (COLOR === null) {
+        return 'forestgreen';
+      }
+      return COLOR;
+    }
   },
   created() {
     this.$store.commit('onSetUserSetting');

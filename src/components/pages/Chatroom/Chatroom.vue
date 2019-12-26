@@ -1,7 +1,13 @@
 <template>
   <div class="ChatRoom">
+    <!--部屋一覧と部屋作成ページ-->
     <header>
-      <header-navi :path="path" :icon="icon" :title="title" />
+      <header-navi
+        :path="path"
+        :icon="icon"
+        :title="title"
+        :colorsetting="colorSetting"
+      />
     </header>
     <div class="mx-auto jumbotron mt-4">
       <div v-if="status">
@@ -19,7 +25,7 @@
       </div>
     </div>
     <footer>
-      <footer-navi />
+      <footer-navi :colorsetting="colorSetting" />
     </footer>
   </div>
 </template>

@@ -1,5 +1,6 @@
 <template>
   <div class="Chatbox">
+    <!--チャットを一覧表示-->
     <div v-if="chatlist != null" class="mb-4">
       <div v-for="chatObj in chatlist" :key="chatObj.key">
         <!--Chat-->

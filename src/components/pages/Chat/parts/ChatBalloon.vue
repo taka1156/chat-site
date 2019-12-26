@@ -1,5 +1,6 @@
 <template>
   <div class="ChatBalloon">
+    <!--吹き出しのレイアウト-->
     <div class="d-flex flex-column">
       <div class="chat-left">
         <img :src="chatobj.image" class="icon" />

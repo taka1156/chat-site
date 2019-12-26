@@ -1,5 +1,6 @@
 <template>
   <div class="LoginForm">
+    <!--ログアウト時に表示されるUI-->
     <div class="mx-auto user-icon" />
     <div id="firebaseui-auth-container"></div>
     <div id="loader">Now Loading...</div>
