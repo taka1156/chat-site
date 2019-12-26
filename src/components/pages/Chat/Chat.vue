@@ -1,7 +1,13 @@
 <template>
   <div class="Chat">
+    <!--チャットページ-->
     <header>
-      <header-navi :path="path" :icon="icon" :title="title" />
+      <header-navi
+        :path="path"
+        :icon="icon"
+        :title="title"
+        :colorsetting="colorSetting"
+      />
     </header>
     <div class="mx-auto jumbotron mt-4">
       <div v-if="!status">

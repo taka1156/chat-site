@@ -1,15 +1,26 @@
 <template>
   <div class="Setting">
-    <header-navi :path="path" :icon="icon" :title="title" />
-    <div class="mx-auto jumbotron mt-4">
-      <label>UIカラー</label>
-      <select v-model="userSetting.uiColor" class="mx-auto col-10 form-control">
+    <!--設定ページ-->
+    <header-navi
+      :path="path"
+      :icon="icon"
+      :title="title"
+      :colorsetting="colorSetting"
+    />
+    <form class="mx-auto jumbotron mt-4">
+      <label for="uiColor">UIカラー</label>
+      <select
+        id="uiColor"
+        v-model="userSetting.uiColor"
+        class="mx-auto col-10 form-control"
+      >
         <option v-for="(choice, index) in colorList" :key="index">
           {{ choice }}
         </option>
       </select>
-      <label>ログイン情報の保持</label>
+      <label for="loginType">ログイン情報の保持</label>
       <select
+        id="loginType"
         v-model="userSetting.loginType"
         class="mx-auto col-10 form-control"
       >
@@ -35,13 +46,14 @@
           OK
         </button>
       </div>
-    </div>
-    <footer-navi />
+    </form>
+    <footer-navi :colorsetting="colorSetting" />
   </div>
 </template>
 
 <script>
 export default {
+  name: 'Setting',
   data() {
     return {
       colorList: [

@@ -1,9 +1,11 @@
 <template>
   <div class="pass">
+    <!--パスワード入力画面-->
     <form>
-      <label>パスワード</label>
+      <label for="inputPass">パスワード</label>
       <div class="input-group">
         <input
+          id="inputPass"
           v-model="InputPass"
           type="text"
           class="form-control"

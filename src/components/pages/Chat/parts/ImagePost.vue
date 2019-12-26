@@ -1,12 +1,11 @@
 <template>
   <div class="ImagePost">
+    <!--画像投稿フォーム-->
     <div v-show="ispostmodal">
       <div class="modal-form">
-        <div class="mx-auto col-11">
+        <fieldset class="mx-auto col-11">
           <div class="modal-header">
-            <h5 class="modal-title">
-              画像投稿
-            </h5>
+            <legend class="modal-title">画像投稿</legend>
           </div>
           <form>
             <div class="mt-1">
@@ -45,7 +44,7 @@
               </button>
             </div>
           </form>
-        </div>
+        </fieldset>
       </div>
     </div>
   </div>

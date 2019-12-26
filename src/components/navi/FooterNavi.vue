@@ -2,7 +2,7 @@
   <div class="FooterNavi">
     <nav
       class=" d-flex justify-content-between fixed-bottom mb-0"
-      :style="{ 'background-color': colorSetting }"
+      :style="{ 'background-color': colorsetting }"
     >
       <router-link to="/" class="col-3 border border-secondary">
         <div class="d-flex flex-column">
@@ -34,13 +34,10 @@
 
 <script>
 export default {
-  computed: {
-    colorSetting() {
-      const COLOR = this.$store.getters.colorSetting;
-      if (COLOR === null) {
-        return 'forestgreen';
-      }
-      return COLOR;
+  props: {
+    colorsetting: {
+      default: null,
+      type: String
     }
   }
 };

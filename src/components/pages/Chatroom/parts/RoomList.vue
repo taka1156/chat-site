@@ -1,5 +1,6 @@
 <template>
-  <div class="list">
+  <div class="ChatList">
+    <!--チャット部屋一覧-->
     <div class="mx-auto">
       <div class="ml-0 col-1">
         <div @click="isPassAns = !isPassAns">
@@ -43,6 +44,7 @@
 
 <script>
 export default {
+  name: 'ChatList',
   props: {
     items: {
       default: null,

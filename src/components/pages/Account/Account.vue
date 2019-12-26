@@ -1,7 +1,12 @@
 <template>
   <div class="Account">
     <header>
-      <header-navi :path="path" :icon="icon" :title="title" />
+      <header-navi
+        :path="path"
+        :icon="icon"
+        :title="title"
+        :colorsetting="colorSetting"
+      />
     </header>
     <div class="mx-auto jumbotron mt-4">
       <div v-if="status" class="mt-5">
@@ -16,7 +21,7 @@
       </div>
     </div>
     <footer>
-      <footer-navi />
+      <footer-navi :colorsetting="colorSetting" />
     </footer>
   </div>
 </template>
