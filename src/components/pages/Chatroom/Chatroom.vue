@@ -1,5 +1,6 @@
 <template>
   <div class="ChatRoom">
+    <!--部屋一覧と部屋作成ページ-->
     <header>
       <header-navi
         :path="path"

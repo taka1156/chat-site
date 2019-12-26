@@ -1,5 +1,6 @@
 <template>
   <div class="Chat">
+    <!--チャットページ-->
     <header>
       <header-navi
         :path="path"

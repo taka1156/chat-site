@@ -1,5 +1,6 @@
 <template>
   <div class="ChatForm">
+    <!--チャットの入力フォーム-->
     <image-post
       :ispostmodal="isPostModal"
       :colorsetting="colorsetting"

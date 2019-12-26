@@ -1,5 +1,6 @@
 <template>
   <div class="ImageDisplay">
+    <!--チャット画面の画像表示のレイアウト-->
     <img src="imageUrl" class="img-fluid" />
   </div>
 </template>

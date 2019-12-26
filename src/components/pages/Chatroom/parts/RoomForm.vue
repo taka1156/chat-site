@@ -1,6 +1,6 @@
 <template>
-  <div class="formgroup">
-    <!--button-->
+  <div class="RoomForm">
+    <!--部屋作成のフォーム-->
     <button
       type="button"
       class="btn col-7"
@@ -9,40 +9,47 @@
     >
       チャット部屋を作る
     </button>
-    <!--modal-->
+
     <div v-show="isModal">
       <div class="modal-form">
-        <div class="mx-auto col-11">
+        <fieldset class="mx-auto col-11">
           <div class="modal-header">
-            <h5 class="modal-title">
-              部屋作成
-            </h5>
+            <legend class="modal-title">部屋作成</legend>
           </div>
           <form>
             <div class="modal-body">
-              <label>部屋名</label>
+              <label for="roomName">部屋名</label>
               <input
+                id="roomName"
                 v-model="inputRoomName"
                 type="text"
                 class="form-control"
                 placeholder="Chatの部屋名"
+                minlength="4"
+                maxlength="10"
+                required
               />
-              <label>概要</label>
+              <label for="roomDetail">概要</label>
               <input
+                id="roomDetail"
                 v-model="inputDetail"
-                type="textarea"
+                type="text"
                 class="form-control"
-                placeholder="Chatの概要(10~30字)"
+                placeholder="Chatの概要(10~20字)"
+                minlength="10"
+                maxlength="20"
+                required
               />
-              <label>パスワード(任意)</label>
+              <label for="roomPass">パスワード(任意)</label>
               <input
+                id="roomPass"
                 v-model="inputPass"
                 type="password"
                 class="form-control"
                 placeholder="Chatのパスワード(任意)"
                 autocomplete
               />
-              <div v-if="errorMsg" class="alert alert-danger">
+              <div v-if="errorMsg" class="mt-3 alert alert-danger">
                 {{ errorMsg }}
               </div>
             </div>
@@ -65,7 +72,7 @@
               </button>
             </div>
           </form>
-        </div>
+        </fieldset>
       </div>
     </div>
   </div>
@@ -73,6 +80,7 @@
 
 <script>
 export default {
+  name: 'RoomForm',
   props: {
     colorsetting: {
       default: null,
@@ -91,10 +99,10 @@ export default {
     errorMsg() {
       if (!this.inputRoomName.length || !this.inputDetail.length) {
         return '部屋名と概要は必ず埋めてください';
-      } else if (this.inputRoomName.length > 15) {
-        return '部屋名は15字以内にしてください';
-      } else if (this.inputDetail.length > 30) {
-        return '概要は30字以内にしてください';
+      } else if (this.inputRoomName.length < 4) {
+        return '部屋名は4字以上10字以下にしてください';
+      } else if (this.inputDetail.length < 10) {
+        return '概要は10字以上20字以下にしてください';
       } else if (this.inputPass === 'NONE') {
         return 'パスワードにNONEは指定できません';
       } else {

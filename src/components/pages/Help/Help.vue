@@ -1,5 +1,6 @@
 <template>
-  <div class="Top">
+  <div class="Help">
+    <!--使い方の表示-->
     <header>
       <header-navi
         :path="path"
@@ -58,6 +59,7 @@
 
 <script>
 export default {
+  name: 'Help',
   data() {
     return {
       path: null,
