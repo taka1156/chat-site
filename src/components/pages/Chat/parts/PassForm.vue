@@ -1,7 +1,7 @@
 <template>
   <div class="pass">
     <!--パスワード入力画面-->
-    <form>
+    <form @submit.prevent>
       <label for="inputPass">パスワード</label>
       <div class="input-group">
         <input
