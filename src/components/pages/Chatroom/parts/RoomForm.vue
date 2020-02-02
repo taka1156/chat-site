@@ -16,7 +16,7 @@
           <div class="modal-header">
             <legend class="modal-title">部屋作成</legend>
           </div>
-          <form>
+          <form @submit.prevent>
             <div class="modal-body">
               <label for="roomName">部屋名</label>
               <input
