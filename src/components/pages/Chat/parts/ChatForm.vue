@@ -6,7 +6,12 @@
       :colorsetting="colorsetting"
       @closeModal="closeModal"
     />
-    <form v-if="!isPostModal" class="form-box" :style="{ height: boxHeight }">
+    <form
+      v-if="!isPostModal"
+      class="form-box"
+      :style="{ height: boxHeight }"
+      @submit.prevent
+    >
       <div class="my-2 d-flex justify-content-around">
         <i class="material-icons" @click="isPostModal = !isPostModal">
           add_photo_alternate
