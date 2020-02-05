@@ -7,7 +7,7 @@
       :title="title"
       :colorsetting="colorSetting"
     />
-    <form class="mx-auto jumbotron mt-4">
+    <form class="mx-auto jumbotron mt-4" @submit.prevent>
       <label for="uiColor">UIカラー</label>
       <select
         id="uiColor"
