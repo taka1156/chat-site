@@ -7,7 +7,7 @@
           <div class="modal-header">
             <legend class="modal-title">画像投稿</legend>
           </div>
-          <form>
+          <form @submit.prevent>
             <div class="mt-1">
               <div class="modal-body">
                 <div class="d-flex flex-column">
