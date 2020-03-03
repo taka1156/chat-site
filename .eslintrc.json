@@ -1,29 +1,30 @@
 {
-    "extends": [
-      "eslint:recommended",
-      "plugin:vue/recommended",
-      "plugin:prettier/recommended",
-      "prettier/vue"
+  "parser": "vue-eslint-parser",
+  "parserOptions": {
+    "parser": "babel-eslint",
+    "sourceType": "module"
+  },
+  "extends": [
+    "eslint:recommended",
+    "plugin:vue/recommended",
+    "plugin:prettier/recommended",
+    "prettier/vue"
+  ],
+  "plugins": [
+    "vue"
+  ],
+  "env": {
+    "browser": true,
+    "es6": true
+  },
+  "globals": {},
+  "rules": {
+    "camelcase": [
+      2,
+      {
+        "properties": "always"
+      }
     ],
-    "plugins": ["vue"],
-    "parserOptions": {},
-    "env": {
-      "browser": true,
-      "es6": true
-    },
-    "globals": {},
-    "rules": {
-      "prettier/prettier": [
-        "error",
-        {
-          "semi": true,
-          "singleQuote": true,
-          "endOfLine": "lf"
-        }
-      ],
-      "camelcase": [2, { "properties": "always" }],
-      //例外設定(require)
-      "no-undef": 0
-    }
+    "vue/component-name-in-template-casing": "off"
   }
-  
+}
