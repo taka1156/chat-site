@@ -24,7 +24,7 @@
         </div>
       </div>
     </form>
-    <div v-if="msg != null">{{ msg }}</div>
+    <div v-if="msg !== null">{{ msg }}</div>
   </div>
 </template>
 
@@ -33,11 +33,11 @@ export default {
   name: 'PassForm',
   props: {
     pass: {
-      default: null,
+      default: '',
       type: String
     },
     colorsetting: {
-      default: null,
+      default: '',
       type: String
     }
   },
@@ -49,7 +49,7 @@ export default {
   },
   methods: {
     checkPassWord() {
-      if (this.InputPass == this.pass) {
+      if (this.InputPass === this.pass) {
         this.$emit('checkPassWord');
       } else {
         this.msg = 'パスワードが違います。';
