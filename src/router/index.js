@@ -1,12 +1,6 @@
 import Vue from 'vue';
 import Router from 'vue-router';
 
-import HelpPage from '@/components/pages/Help/Help';
-import Account from '@/components/pages/Account/Account';
-import ChatRoom from '@/components/pages/Chatroom/Chatroom';
-import SettingPage from '@/components/pages/Setting/Setting';
-import ChatPage from '@/components/pages/Chat/Chat';
-
 Vue.use(Router);
 
 export default new Router({
@@ -14,28 +8,28 @@ export default new Router({
     {
       name: 'HelpPage',
       path: '/',
-      component: HelpPage
+      component: () => import('@/components/pages/Help/Help')
     },
     {
       name: 'Account',
       path: '/account',
-      component: Account
+      component: () => import('@/components/pages/Account/Account')
     },
     {
       name: 'ChatRoom',
       path: '/chatroom',
-      component: ChatRoom,
+      component: () => import('@/components/pages/Chatroom/Chatroom'),
       meta: { Auth: true }
     },
     {
       name: 'Setting',
       path: '/setting',
-      component: SettingPage
+      component: () => import('@/components/pages/Setting/Setting')
     },
     {
       name: 'ChatPage',
       path: '/chatpage/:id',
-      component: ChatPage,
+      component: () => import('@/components/pages/Chat/Chat'),
       meta: { Auth: true }
     }
   ]

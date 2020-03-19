@@ -38,7 +38,6 @@ const webpackConfig = merge(baseWebpackConfig, {
     /*new webpack.optimize.AggressiveSplittingPlugin({
       maxSize:230
     }),*/
-    new webpack.ContextReplacementPlugin(/moment[\/\\]locale$/, /ja/),
     // http://vuejs.github.io/vue-loader/en/workflow/production.html
     new webpack.DefinePlugin({
       'process.env': env

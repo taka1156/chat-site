@@ -10,9 +10,9 @@
     "build": "node build/build.js"
   },
   "dependencies": {
+    "fecha": "^4.2.0",
     "firebase": "6.2.4",
     "firebaseui-ja": "1.0.0",
-    "moment": "2.24.0",
     "vue": "^2.5.2",
     "vue-nl2br": "0.1.1",
     "vue-router": "^3.0.1",
