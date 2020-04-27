@@ -38,8 +38,8 @@ import ChatForm from './parts/ChatForm';
 import FireBase from '@/components/js/firebase.js';
 import * as firebase from 'firebase/app';
 import 'firebase/database';
-const moment = require('moment');
-moment.locale('ja');
+// 参考:(https://github.com/taylorhakes/fecha#use-it)
+import { format } from 'fecha';
 
 let DB;
 
@@ -145,8 +145,7 @@ export default {
       this.passThrough = true;
     },
     getDateTime() {
-      const DATE_TIME = moment().format('YYYY/MM/DD HH:mm');
-      return DATE_TIME;
+      return format(new Date(), 'YYYY/MM/DD HH:mm');
     }
   }
 };
