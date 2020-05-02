@@ -6,7 +6,7 @@
       <div class="input-group">
         <input
           id="inputPass"
-          v-model="InputPass"
+          v-model="inputPass"
           type="text"
           class="form-control"
           placeholder="Chatのパスワード"
@@ -16,7 +16,7 @@
           <button
             type="submit"
             class="btn"
-            :style="{ 'background-color': colorsetting }"
+            :style="{ 'background-color': colorSetting }"
             @click="checkPassWord()"
           >
             確定
@@ -36,20 +36,20 @@ export default {
       default: '',
       type: String
     },
-    colorsetting: {
+    colorSetting: {
       default: '',
       type: String
     }
   },
   data() {
     return {
-      InputPass: null,
+      inputPass: null,
       msg: null
     };
   },
   methods: {
     checkPassWord() {
-      if (this.InputPass === this.pass) {
+      if (this.inputPass === this.pass) {
         this.$emit('checkPassWord');
       } else {
         this.msg = 'パスワードが違います。';

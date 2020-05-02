@@ -2,7 +2,7 @@
   <div class="FooterNavi">
     <nav
       class=" d-flex justify-content-between fixed-bottom mb-0"
-      :style="{ 'background-color': colorsetting }"
+      :style="{ 'background-color': colorSetting }"
     >
       <router-link to="/" class="col-3 border border-secondary">
         <div class="d-flex flex-column">
@@ -35,7 +35,7 @@
 <script>
 export default {
   props: {
-    colorsetting: {
+    colorSetting: {
       default: null,
       type: String
     }

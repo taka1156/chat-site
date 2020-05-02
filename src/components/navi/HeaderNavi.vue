@@ -2,9 +2,9 @@
   <div class="HeaderNavi">
     <div
       class="mx-auto col-12 d-flex justify-content-around text-white fixed-top"
-      :style="{ 'background-color': colorsetting }"
+      :style="{ 'background-color': colorSetting }"
     >
-      <div class="col-1">
+      <div class="col-2">
         <i
           v-if="path !== null"
           class="material-icons my-auto h2"
@@ -22,7 +22,7 @@
       <div class="my-auto col-2">
         <img
           v-if="status !== false"
-          :src="userData.photoURL"
+          :src="user.photoURL"
           class="rounded-circle"
           width="50px"
           height="50px"
@@ -40,28 +40,31 @@
 export default {
   props: {
     path: {
-      default: null,
-      type: String
+      type: String,
+      default: ''
     },
     icon: {
-      default: null,
-      type: String
+      type: String,
+      default: '',
+      required: true
     },
     title: {
-      default: null,
-      type: String
+      type: String,
+      default: '',
+      required: true
     },
-    colorsetting: {
-      default: null,
-      type: String
+    colorSetting: {
+      type: String,
+      default: '',
+      required: true
     }
   },
   computed: {
-    userData() {
-      return this.$store.getters.userData;
+    user() {
+      return this.$store.getters['auth/user'];
     },
     status() {
-      return this.$store.getters.status;
+      return this.$store.getters['auth/status'];
     }
   },
   methods: {

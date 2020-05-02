@@ -3,10 +3,9 @@
     <!--使い方の表示-->
     <header>
       <header-navi
-        :path="path"
         :icon="icon"
         :title="title"
-        :colorsetting="colorSetting"
+        :color-setting="colorSetting"
       />
     </header>
     <div class="mx-auto jumbotron mt-4">
@@ -52,7 +51,7 @@
       />
     </div>
     <footer>
-      <footer-navi :colorsetting="colorSetting" />
+      <footer-navi :color-setting="colorSetting" />
     </footer>
   </div>
 </template>
@@ -62,23 +61,19 @@ export default {
   name: 'Help',
   data() {
     return {
-      path: null,
       title: 'Help',
       icon: 'help'
     };
   },
   computed: {
     colorSetting() {
-      const COLOR = this.$store.getters.colorSetting;
+      const COLOR = this.$store.getters['setting/colorSetting'];
       if (COLOR === null) {
         return 'forestgreen';
       }
       return COLOR;
     }
   },
-  created() {
-    this.$store.commit('onSetUserSetting');
-  }
 };
 </script>
 

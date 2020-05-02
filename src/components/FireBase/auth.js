@@ -30,9 +30,7 @@ export default {
   //ログイン状態の制御
   onAuth() {
     firebase.auth().onAuthStateChanged(user => {
-      user = user ? user : {};
-      store.commit('onAuthStateChanged', user);
-      store.commit('onUserStatusChanged', user.uid ? true : false);
+      store.commit('auth/setUser', user ? user : null);
     });
   }
 };

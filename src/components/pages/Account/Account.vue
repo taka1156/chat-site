@@ -5,14 +5,14 @@
         :path="path"
         :icon="icon"
         :title="title"
-        :colorsetting="colorSetting"
+        :color-setting="colorSetting"
       />
     </header>
     <div class="mx-auto jumbotron mt-4">
       <div v-if="status" class="mt-5">
         <LogoutForm
-          :userdata="userData"
-          :colorsetting="colorSetting"
+          :user="user"
+          :color-setting="colorSetting"
           @logOut="logOut"
         />
       </div>
@@ -21,13 +21,13 @@
       </div>
     </div>
     <footer>
-      <footer-navi :colorsetting="colorSetting" />
+      <footer-navi :color-setting="colorSetting" />
     </footer>
   </div>
 </template>
 
 <script>
-import FireBase from '@/components/js/firebase.js';
+import auth from '@/components/FireBase/auth.js';
 import LoginForm from './parts/LoginForm';
 import LogoutForm from './parts/LogoutForm';
 
@@ -45,14 +45,14 @@ export default {
     };
   },
   computed: {
-    userData() {
-      return this.$store.getters.userData;
+    user() {
+      return this.$store.getters['auth/user'];
     },
     status() {
-      return this.$store.getters.status;
+      return this.$store.getters['auth/status'];
     },
     colorSetting() {
-      const COLOR = this.$store.getters.colorSetting;
+      const COLOR = this.$store.getters['setting/colorSetting'];
 
       if (COLOR === null) {
         return 'forestgreen';
@@ -60,13 +60,9 @@ export default {
       return COLOR;
     }
   },
-  created() {
-    FireBase.onAuth();
-    this.$store.commit('onSetUserSetting');
-  },
   methods: {
     logOut() {
-      FireBase.logOut();
+      auth.logOut();
     }
   }
 };

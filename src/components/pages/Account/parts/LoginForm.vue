@@ -18,13 +18,6 @@ export default {
     //FirebaseUIログインの設定
     const uiConfig = {
       callbacks: {
-        //アカウント情報が取得できた時の処理
-        signInSuccessWithAuthResult: function(currentUser) {
-          //vuexにユーザー情報、状態を渡す
-          store.commit('onAuthStateChanged', currentUser);
-          store.commit('onUserStatusChanged', true);
-          return true;
-        },
         //ログインボタンが表示されるまでid=loader要素を表示
         uiShown: () => {
           document.getElementById('loader').style.display = 'none';

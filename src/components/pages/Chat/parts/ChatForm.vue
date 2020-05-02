@@ -2,18 +2,18 @@
   <div class="ChatForm">
     <!--チャットの入力フォーム-->
     <image-post
-      :ispostmodal="isPostModal"
-      :colorsetting="colorsetting"
-      @closeModal="closeModal"
+      :is-open="isOpen"
+      :color-setting="colorSetting"
+      @close-modal="closeModal"
     />
     <form
-      v-if="!isPostModal"
+      v-if="!isOpen"
       class="form-box"
       :style="{ height: boxHeight }"
       @submit.prevent
     >
       <div class="my-2 d-flex justify-content-around">
-        <i class="material-icons" @click="isPostModal = !isPostModal">
+        <i class="material-icons" @click="isOpen = !isOpen">
           add_photo_alternate
         </i>
         <textarea
@@ -26,7 +26,7 @@
         <button
           type="submit"
           class="btn h-25"
-          :style="{ 'background-color': colorsetting }"
+          :style="{ 'background-color': colorSetting }"
           @click="sendMessage()"
         >
           Send
@@ -47,7 +47,7 @@ export default {
     'image-post': ImagePost
   },
   props: {
-    colorsetting: {
+    colorSetting: {
       default: null,
       type: String
     }
@@ -55,7 +55,7 @@ export default {
   data() {
     return {
       inputMessage: '',
-      isPostModal: false
+      isOpen: false
     };
   },
   computed: {

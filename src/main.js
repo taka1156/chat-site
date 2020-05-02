@@ -3,14 +3,15 @@ import Vue from 'vue';
 import App from './App';
 import router from './router';
 import store from './store';
-import FireBase from '@/components/js/firebase.js';
+import auth from '@/components/FireBase/auth.js';
 import FooterNavi from '@/components/navi/FooterNavi';
 import HeaderNavi from '@/components/navi/HeaderNavi';
 import '@/components/css/layout.css';
 
 Vue.component('footer-navi', FooterNavi);
 Vue.component('header-navi', HeaderNavi);
-FireBase.initAuth();
+auth.initAuth();
+auth.onAuth();
 
 Vue.config.productionTip = false;
 

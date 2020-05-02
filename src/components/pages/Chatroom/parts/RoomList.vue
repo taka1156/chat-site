@@ -10,7 +10,7 @@
       </div>
       <div class="border" />
       <div class="list-group">
-        <div v-for="(item, index) in SliceItems" :key="index">
+        <div v-for="(item, index) in sliceRooms" :key="index">
           <article
             class="article-color mt-2 mx-auto text-left list-group-item flex-column align-items-start"
             @click="moveRoom(index)"
@@ -24,7 +24,7 @@
             スレ主:{{ item.user }}
             <div
               v-if="
-                useruid === item.uid && item.roompass !== 'NONE' && isPassAns
+                userUid === item.uid && item.roompass !== 'NONE' && isPassAns
               "
             >
               PASS[{{ item.roompass }}]
@@ -35,7 +35,7 @@
       </div>
       <div class="mx-auto col-3 d-flex justify-content-center">
         <p class="h4" @click="prevPage()">&lt;</p>
-        {{ page }}/{{ MaxPage }}
+        {{ page }}/{{ maxPage }}
         <p class="h4" @click="nextPage()">&gt;</p>
       </div>
     </div>
@@ -46,11 +46,11 @@
 export default {
   name: 'ChatList',
   props: {
-    items: {
-      default: null,
-      type: Array
+    rooms: {
+      type: Array,
+      default: () => []
     },
-    useruid: {
+    userUid: {
       default: null,
       type: String
     }
@@ -63,19 +63,19 @@ export default {
     };
   },
   computed: {
-    SliceItems() {
-      if (this.items == null) return;
-      return this.items.slice(
+    sliceRooms() {
+      if (this.rooms == null) return;
+      return this.rooms.slice(
         (this.page - 1) * this.perPage,
         this.page * this.perPage
       );
     },
-    MaxPage() {
-      return Math.ceil(this.items.length / this.perPage); //総ページ数
+    maxPage() {
+      return Math.ceil(this.rooms.length / this.perPage); //総ページ数
     }
   },
   watch: {
-    items: function() {
+    rooms: function() {
       this.page = 1;
     }
   },
@@ -88,7 +88,7 @@ export default {
       this.page = Math.max(this.page - 1, 1);
     },
     nextPage() {
-      this.page = Math.min(this.page + 1, this.MaxPage);
+      this.page = Math.min(this.page + 1, this.maxPage);
     }
   }
 };

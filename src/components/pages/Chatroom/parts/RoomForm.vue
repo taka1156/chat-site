@@ -4,7 +4,7 @@
     <button
       type="button"
       class="btn col-7"
-      :style="{ 'background-color': colorsetting }"
+      :style="{ 'background-color': colorSetting }"
       @click="init()"
     >
       チャット部屋を作る
@@ -57,7 +57,7 @@
               <button
                 type="button"
                 class="btn col-6"
-                :style="{ 'background-color': colorsetting }"
+                :style="{ 'background-color': colorSetting }"
                 @click="init()"
               >
                 キャンセル
@@ -65,7 +65,7 @@
               <button
                 type="submit"
                 class="btn col-6"
-                :style="{ 'background-color': colorsetting }"
+                :style="{ 'background-color': colorSetting }"
                 @click="makeRoom()"
               >
                 確定
@@ -82,7 +82,7 @@
 export default {
   name: 'RoomForm',
   props: {
-    colorsetting: {
+    colorSetting: {
       default: null,
       type: String
     }
@@ -116,12 +116,14 @@ export default {
         return;
       }
       this.isModal = !this.isModal;
-      this.$emit(
-        'makeRoom',
-        this.inputRoomName,
-        this.inputDetail,
-        this.inputPass
-      );
+
+      const ROOM_INFO = {
+        name: this.inputRoomName,
+        setail: this.inputDetail,
+        pass: this.inputPass
+      };
+      
+      this.$emit('make-room', ROOM_INFO);
     },
     init() {
       this.inputRoomName = this.inputDetail = this.inputPass = '';

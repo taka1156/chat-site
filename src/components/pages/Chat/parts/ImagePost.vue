@@ -1,7 +1,7 @@
 <template>
   <div class="ImagePost">
     <!--画像投稿フォーム-->
-    <div v-show="ispostmodal">
+    <div v-show="isOpen">
       <div class="modal-form">
         <fieldset class="mx-auto col-11">
           <div class="modal-header">
@@ -29,7 +29,7 @@
               <button
                 type="button"
                 class="btn col-6"
-                :style="{ 'background-color': colorsetting }"
+                :style="{ 'background-color': colorSetting }"
                 @click="init()"
               >
                 キャンセル
@@ -37,7 +37,7 @@
               <button
                 type="submit"
                 class="btn col-6"
-                :style="{ 'background-color': colorsetting }"
+                :style="{ 'background-color': colorSetting }"
                 @click="init()"
               >
                 確定
@@ -54,11 +54,11 @@
 export default {
   name: 'ImagePost',
   props: {
-    ispostmodal: {
+    isOpen: {
       default: false,
       type: Boolean
     },
-    colorsetting: {
+    colorSetting: {
       default: null,
       type: String
     }
@@ -85,7 +85,7 @@ export default {
       reader.readAsDataURL(file);
     },
     closeModal() {
-      this.$emit('closeModal', false);
+      this.$emit('close-modal', false);
     }
   }
 };

@@ -3,12 +3,12 @@
     <!--吹き出しのレイアウト-->
     <div class="d-flex flex-column">
       <div class="chat-left">
-        <img :src="chatobj.image" class="icon" />
+        <img :src="message.image" class="icon" />
         <div class="chat-balloon">
-          <Nl2br tag="p" :text="chatobj.message"></Nl2br>
+          <Nl2br tag="p" :text="message.message"></Nl2br>
         </div>
-        <p class="m-0">発言者:{{ chatobj.name }}</p>
-        <p class="m-0">{{ chatobj.date }}</p>
+        <p class="m-0">発言者:{{ message.name }}</p>
+        <p class="m-0">{{ dateFormat(message.date) }}</p>
       </div>
     </div>
   </div>
@@ -16,15 +16,21 @@
 
 <script>
 import Nl2br from 'vue-nl2br';
+import { format } from 'fecha';
 
 export default {
   components: {
     Nl2br
   },
   props: {
-    chatobj: {
+    message: {
       default: null,
       type: Object
+    }
+  },
+  methods: {
+    dateFormat(date) {
+      return format(date, 'YYYY/MM/DD HH:mm');
     }
   }
 };

@@ -5,7 +5,7 @@
       :path="path"
       :icon="icon"
       :title="title"
-      :colorsetting="colorSetting"
+      :color-setting="colorSetting"
     />
     <form class="mx-auto jumbotron mt-4" @submit.prevent>
       <label for="uiColor">UIカラー</label>
@@ -47,7 +47,7 @@
         </button>
       </div>
     </form>
-    <footer-navi :colorsetting="colorSetting" />
+    <footer-navi :color-setting="colorSetting" />
   </div>
 </template>
 
@@ -81,14 +81,14 @@ export default {
   },
   computed: {
     colorSetting() {
-      const COLOR = this.$store.getters.colorSetting;
+      const COLOR = this.$store.getters['setting/colorSetting'];
       if (COLOR === null) {
         return 'forestgreen';
       }
       return COLOR;
     },
     loginSetting() {
-      const LOGINTYPE = this.$store.getters.loginSetting;
+      const LOGINTYPE = this.$store.getters['setting/loginSetting'];
       if (LOGINTYPE === null) {
         return 'local';
       }
@@ -97,14 +97,14 @@ export default {
   },
   mounted() {
     //初期値をフォームに反映
-    this.$store.commit('onSetUserSetting');
+    this.$store.commit('setting/setUserSetting');
     this.userSetting.uiColor = this.colorSetting;
     this.userSetting.loginType = this.loginSetting;
   },
   methods: {
     saveSetting() {
       localStorage.setItem('userSetting', JSON.stringify(this.userSetting));
-      this.$store.commit('onSetUserSetting');
+      this.$store.commit('setting/setUserSetting');
     },
     resetSetting() {
       this.userSetting.uiColor = 'forestgreen';

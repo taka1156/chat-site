@@ -6,7 +6,7 @@
         :path="path"
         :icon="icon"
         :title="title"
-        :colorsetting="colorSetting"
+        :color-setting="colorSetting"
       />
     </header>
     <div class="mx-auto jumbotron mt-4">
@@ -19,13 +19,13 @@
       <div v-else-if="!passThrough">
         <PassForm
           :pass="pass"
-          :colorsetting="colorSetting"
+          :color-setting="colorSetting"
           @checkPassWord="checkPassWord"
         />
       </div>
       <div v-else>
-        <ChatList :chatlist="chatList" />
-        <ChatForm :colorsetting="colorSetting" @sendMessage="sendMessage" />
+        <ChatList :chat-list="chatList" />
+        <ChatForm :color-setting="colorSetting" @sendMessage="sendMessage" />
       </div>
     </div>
   </div>
@@ -35,13 +35,9 @@
 import ChatList from './parts/ChatList';
 import PassForm from './parts/PassForm';
 import ChatForm from './parts/ChatForm';
-import FireBase from '@/components/js/firebase.js';
-import * as firebase from 'firebase/app';
-import 'firebase/database';
+import auth from '@/components/FireBase/auth.js';
+import db from '@/components/FireBase/db.js';
 // 参考:(https://github.com/taylorhakes/fecha#use-it)
-import { format } from 'fecha';
-
-let DB;
 
 export default {
   name: 'Chat',
@@ -61,14 +57,14 @@ export default {
     };
   },
   computed: {
-    userData() {
-      return this.$store.getters.userData;
+    user() {
+      return this.$store.getters['auth/user'];
     },
     status() {
-      return this.$store.getters.status;
+      return this.$store.getters['auth/status'];
     },
     colorSetting() {
-      const COLOR = this.$store.getters.colorSetting;
+      const COLOR = this.$store.getters['setting/colorSetting'];
       if (COLOR === null) {
         return 'forestgreen';
       }
@@ -91,50 +87,19 @@ export default {
       }
     }
   },
-  created() {
-    //認証
-    FireBase.onAuth();
-    //json(WebStrageの設定情報)の読み出し
-    this.$store.commit('onSetUserSetting');
-    //データベース問い合わせるためのオブジェクト
-    DB = firebase.database();
-    //パスワード取得
-    let self = this;
-    const GET_PASSWORD = DB.ref(`Chat/${this.$route.params.id}/roompass`);
-    GET_PASSWORD.once('value').then(function(snap) {
-      self.pass = snap.val();
-    });
-    //チャットデータ取得
-    const GET_MESSAGE = DB.ref(`Chat/${this.$route.params.id}/messagelist`);
-    if (this.userData) {
-      GET_MESSAGE.limitToLast(10).on('child_added', this.addList);
-    } else {
-      GET_MESSAGE.limitToLast(10).off('child_added', this.addList);
-    }
-  },
   methods: {
     addList(snap) {
-      const CHAT_INFO = snap.val();
-      this.chatList.push({
-        key: snap.key,
-        name: CHAT_INFO.name,
-        image: CHAT_INFO.image,
-        message: CHAT_INFO.message,
-        date: CHAT_INFO.date
-      });
       this.scrollBottom();
     },
     sendMessage(inputMessage) {
-      if (this.userData.uid) {
-        const DATE = this.getDateTime();
-        DB.ref(`Chat/${this.$route.params.id}/messagelist`).push({
-          name: this.userData.displayName,
-          uid: this.userData.uid,
-          image: this.userData.photoURL,
-          message: inputMessage,
-          date: DATE
-        });
-      }
+      const MESSAGE = {
+        name: this.user.displayName,
+        uid: this.user.uid,
+        image: this.user.photoURL,
+        message: inputMessage,
+        date: new Date()
+      };
+      db.postChat(MESSAGE);
     },
     scrollBottom() {
       this.$nextTick(() => {
@@ -143,9 +108,6 @@ export default {
     },
     checkPassWord() {
       this.passThrough = true;
-    },
-    getDateTime() {
-      return format(new Date(), 'YYYY/MM/DD HH:mm');
     }
   }
 };

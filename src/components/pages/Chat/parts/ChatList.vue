@@ -2,9 +2,9 @@
   <div class="Chatbox">
     <!--チャットを一覧表示-->
     <div v-if="chatlist != null" class="mb-4">
-      <div v-for="chatObj in chatlist" :key="chatObj.key">
+      <div v-for="(message, index) in chatList" :key="index">
         <!--Chat-->
-        <chat-ballon :chatobj="chatObj" class="mb-3" />
+        <chat-ballon :message="message" class="mb-3" />
         <!--<image-display imageurl="chatObj.imgurl" class="mb-3" />-->
       </div>
     </div>
@@ -21,9 +21,9 @@ export default {
     //'image-display': ImageDisplay
   },
   props: {
-    chatlist: {
-      default: null,
-      type: Array
+    chatList: {
+      type: Array,
+      default: () => []
     }
   }
 };
