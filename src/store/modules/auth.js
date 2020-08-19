@@ -4,7 +4,6 @@ const state = {
 
 const getters = {
   user(state) {
-    console.log(state.user)
     return state.user;
   },
   status(state) {

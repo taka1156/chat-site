@@ -3,12 +3,12 @@
     <!--吹き出しのレイアウト-->
     <div class="d-flex flex-column">
       <div class="chat-left">
-        <img :src="message.image" class="icon" />
+        <img :src="chat.img" class="icon" />
         <div class="chat-balloon">
-          <Nl2br tag="p" :text="message.message"></Nl2br>
+          <Nl2br tag="p" :text="chat.message"></Nl2br>
         </div>
-        <p class="m-0">発言者:{{ message.name }}</p>
-        <p class="m-0">{{ dateFormat(message.date) }}</p>
+        <p class="m-0">発言者:{{ chat.name }}</p>
+        <p class="m-0">{{ dateFormat(chat.date) }}</p>
       </div>
     </div>
   </div>
@@ -23,14 +23,16 @@ export default {
     Nl2br
   },
   props: {
-    message: {
-      default: null,
-      type: Object
+    chat: {
+      type: Object,
+      default: () => {},
+      require: true
     }
   },
   methods: {
-    dateFormat(date) {
-      return format(date, 'YYYY/MM/DD HH:mm');
+    dateFormat({seconds}) {
+      const datetime = new Date(seconds * 1000).toLocaleString();
+      return datetime.slice(0, -3);
     }
   }
 };

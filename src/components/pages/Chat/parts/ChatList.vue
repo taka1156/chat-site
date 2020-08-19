@@ -1,10 +1,10 @@
 <template>
   <div class="Chatbox">
     <!--チャットを一覧表示-->
-    <div v-if="chatlist != null" class="mb-4">
-      <div v-for="(message, index) in chatList" :key="index">
+    <div v-if="chatList.length !== 0" class="mb-4">
+      <div v-for="(chat, index) in reverseChatList" :key="index">
         <!--Chat-->
-        <chat-ballon :message="message" class="mb-3" />
+        <chat-ballon :chat="chat" class="mb-3" />
         <!--<image-display imageurl="chatObj.imgurl" class="mb-3" />-->
       </div>
     </div>
@@ -23,7 +23,13 @@ export default {
   props: {
     chatList: {
       type: Array,
-      default: () => []
+      default: () => [],
+      required: true
+    }
+  },
+  computed: {
+    reverseChatList() {
+       return this.chatList.reverse();
     }
   }
 };

@@ -21,7 +21,7 @@
               <label for="roomName">部屋名</label>
               <input
                 id="roomName"
-                v-model="inputRoomName"
+                v-model="roomName"
                 type="text"
                 class="form-control"
                 placeholder="Chatの部屋名"
@@ -32,7 +32,7 @@
               <label for="roomDetail">概要</label>
               <input
                 id="roomDetail"
-                v-model="inputDetail"
+                v-model="detail"
                 type="text"
                 class="form-control"
                 placeholder="Chatの概要(10~20字)"
@@ -43,7 +43,7 @@
               <label for="roomPass">パスワード(任意)</label>
               <input
                 id="roomPass"
-                v-model="inputPass"
+                v-model="pass"
                 type="password"
                 class="form-control"
                 placeholder="Chatのパスワード(任意)"
@@ -90,20 +90,20 @@ export default {
   data() {
     return {
       isModal: false,
-      inputRoomName: '',
-      inputDetail: '',
-      inputPass: ''
+      roomName: '',
+      detail: '',
+      pass: ''
     };
   },
   computed: {
     errorMsg() {
-      if (!this.inputRoomName.length || !this.inputDetail.length) {
+      if (!this.roomName.length || !this.detail.length) {
         return '部屋名と概要は必ず埋めてください';
-      } else if (this.inputRoomName.length < 4) {
+      } else if (this.roomName.length < 4) {
         return '部屋名は4字以上10字以下にしてください';
-      } else if (this.inputDetail.length < 10) {
+      } else if (this.detail.length < 10) {
         return '概要は10字以上20字以下にしてください';
-      } else if (this.inputPass === 'NONE') {
+      } else if (this.pass === 'NONE') {
         return 'パスワードにNONEは指定できません';
       } else {
         return null;
@@ -116,17 +116,20 @@ export default {
         return;
       }
       this.isModal = !this.isModal;
-
+      // パスワードがなければ初期値で埋める(入力はなし)
+      if (this.pass.length === 0) {
+        this.pass = 'NONE';
+      }
+     // 部屋情報
       const ROOM_INFO = {
-        name: this.inputRoomName,
-        setail: this.inputDetail,
-        pass: this.inputPass
+        roomName: this.roomName,
+        detail: this.detail,
+        pass: this.pass
       };
-      
       this.$emit('make-room', ROOM_INFO);
     },
     init() {
-      this.inputRoomName = this.inputDetail = this.inputPass = '';
+      this.roomName = this.detail = this.pass = '';
       this.isModal = !this.isModal;
     }
   }

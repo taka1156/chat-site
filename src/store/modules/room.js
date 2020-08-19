@@ -1,9 +1,13 @@
 const state = {
-  rooms: [],　// 部屋一覧
-  selectRooms: {} //入室した部屋(チャット画面に入った)
+  roomsNum: 0, //　現在の部屋の総数
+  rooms: [], // 部屋一覧
+  selectRoom: {}, //入室した部屋(チャット画面に入った)
 };
 
 const getters = {
+  roomsNum(state) {
+    return state.roomsNum;
+  },
   rooms(state) {
     return state.rooms;
   },
@@ -14,15 +18,17 @@ const getters = {
 };
 
 const mutations = {
-  setRooms(state, rooms) {
-    // 部屋一覧の登録
-    for (let room of rooms) {
-      state.rooms.push(room);
-    }
+  // 部屋の最大数を登録
+  setRoomsNum(state, roomsNum) {
+    state.roomsNum = roomsNum;
+  },
+  setRooms(state, room) {
+    // 部屋の登録
+    state.rooms.push(room);
   },
   setRoom(state, roomNo) {
     // 入室
-    state.selectRooms = state.rooms[roomNo];
+    state.selectRoom = state.rooms[roomNo];
   }
 };
 

@@ -53,7 +53,6 @@ export default {
     },
     colorSetting() {
       const COLOR = this.$store.getters['setting/colorSetting'];
-
       if (COLOR === null) {
         return 'forestgreen';
       }

@@ -10,18 +10,20 @@
       />
     </header>
     <div class="mx-auto jumbotron mt-4">
-      <div v-if="status">
-        <div class="d-flex flex-column jumbotron">
-          <RoomForm :color-setting="colorSetting" @make-room="makeRoom" />
+      <div class="d-flex flex-column jumbotron">
+        <RoomForm :color-setting="colorSetting" @make-room="makeRoom" />
+        <div v-if="displayStatus === ''">
           <RoomList
-            :items="chatRoomList"
             :user-uid="user.uid"
-            @moveRoom="moveRoom"
+            :rooms="rooms"
+            :color-setting="colorSetting"
+            @move-room="moveRoom"
           />
+          <infinite-loading @infinite="infiniteHandler"></infinite-loading>
         </div>
-      </div>
-      <div v-else>
-        ログインしてください。
+        <div v-else>
+          {{ displayStatus }}
+        </div>
       </div>
     </div>
     <footer>
@@ -34,7 +36,7 @@
 import RoomForm from './parts/RoomForm';
 import RoomList from './parts/RoomList';
 import auth from '@/components/FireBase/auth.js';
-import db from '@/components/FireBase/db.js';
+import { getRooms, postRoom } from '@/components/FireBase/db.js';
 
 export default {
   name: 'ChatRoom',
@@ -46,8 +48,19 @@ export default {
     return {
       path: '/account',
       title: 'ChatRoom',
-      icon: 'forum'
+      icon: 'forum',
+      date: {
+        seconds: 9999999999,
+        nanoseconds: 999999999
+      },
+      isLoaded: false, // load, loading, loaded
+      rooms: []
     };
+  },
+  async mounted() {
+    if(this.status) {
+      await this.init();
+    }
   },
   computed: {
     user() {
@@ -55,6 +68,21 @@ export default {
     },
     status() {
       return this.$store.getters['auth/status'];
+    },
+    displayStatus() {
+      if (!this.status) {
+        return 'ログインしてください。';
+      } else {
+        if (this.rooms.length === 0) {
+          if (this.isLoaded) {
+            return 'データがありません。'
+          } else {
+            return '読み込み中。';
+          }
+        }  else {
+          return '';
+        }
+      }
     },
     colorSetting() {
       const COLOR = this.$store.getters['setting/colorSetting'];
@@ -65,16 +93,52 @@ export default {
     }
   },
   methods: {
-    makeRoom(roomInfo) {
-      if (roomInfo.pass.length === 0) {
-        roomInfo.pass = 'NONE';
+    // 初期化
+    async init() {
+      this.rooms = [];
+      this.isLoaded = false;
+      this.date = {
+        seconds: 9999999999,
+        nanoseconds: 999999999
+      };
+      await this.next(this.date);
+    },
+    // 無限スクロール
+    async infiniteHandler($state) {
+      if (!this.isLoaded) {
+        await this.next(this.date);
+        $state.loaded();
+      } else {
+        $state.complete();
       }
-      // 部屋情報をpost
-      db.postRoom(roomInfo);
+    },
+    // ページング
+    async next(date) {
+      const { rooms, lastDate, isEnd } = await getRooms(date);
+      if (isEnd) {
+        this.isLoaded = true;
+      } else {
+        this.rooms.push(...rooms);
+        this.date = lastDate;
+      }
+    },
+    async makeRoom({ roomName, detail, pass }) {
+      // ユーザー情報追加
+      const roomInfo = {
+        roomName: roomName,
+        detail: detail,
+        pass: pass,
+        uid: this.user.uid,
+        userName: this.user.displayName
+      };
+      // 部屋情報を投稿
+      await postRoom(roomInfo);
+      // 初期化
+      await this.init();
     },
     moveRoom(index) {
       //ユニークキーをURLパラメータに渡してチャットページに遷移
-      const ROOM_ID = this.chatRoomList[index].id;
+      const ROOM_ID = this.rooms[index].roomUid;
       this.$router.push(`/chatpage/${ROOM_ID}`);
     }
   }

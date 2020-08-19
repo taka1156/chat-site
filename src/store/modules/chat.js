@@ -14,7 +14,7 @@ const getters = {
 
 const mutations = {
   init(state) {
-    // チャットの初期化
+    // チャットの初期化(部屋移動の際)
     state.chats = [];
   },
   setChats(state, chats) {

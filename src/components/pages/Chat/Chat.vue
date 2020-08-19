@@ -10,22 +10,12 @@
       />
     </header>
     <div class="mx-auto jumbotron mt-4">
-      <div v-if="!status">
-        ログインしてください。
-      </div>
-      <div v-else-if="!passState">
-        読み込み中
-      </div>
-      <div v-else-if="!passThrough">
-        <PassForm
-          :pass="pass"
-          :color-setting="colorSetting"
-          @checkPassWord="checkPassWord"
-        />
-      </div>
-      <div v-else>
+      <div v-if="displayStatus === ''">
         <ChatList :chat-list="chatList" />
         <ChatForm :color-setting="colorSetting" @sendMessage="sendMessage" />
+      </div>
+      <div v-else>
+        {{ displayStatus }}
       </div>
     </div>
   </div>
@@ -33,28 +23,42 @@
 
 <script>
 import ChatList from './parts/ChatList';
-import PassForm from './parts/PassForm';
 import ChatForm from './parts/ChatForm';
-import auth from '@/components/FireBase/auth.js';
-import db from '@/components/FireBase/db.js';
+import { getRoom, postChat } from '@/components/FireBase/db.js';
+import firebase from 'firebase/app';
+import 'firebase/firestore';
+// import PassForm from './parts/PassForm';
 // 参考:(https://github.com/taylorhakes/fecha#use-it)
+
+const DB = firebase.firestore();
 
 export default {
   name: 'Chat',
   components: {
-    PassForm,
+    // PassForm,
     ChatForm,
     ChatList
   },
   data() {
     return {
-      chatList: [],
-      pass: null,
-      passThrough: false,
       path: '/chatroom',
       title: 'Chat',
-      icon: 'chat'
+      icon: 'chat',
+      chatList: [],
+      chatRef: null,
+      isLoaded: false
     };
+  },
+  async mounted() {
+    if (this.status) {
+      this.room = await getRoom(this.roomId);
+      console.log(this.room);
+      // イベント検知
+      const chatDocRef = await DB.collection('room').doc(this.roomId);
+      this.chatRef = chatDocRef.collection('chat').onSnapshot(() => {
+        this.getChats();
+      });
+    }
   },
   computed: {
     user() {
@@ -63,6 +67,9 @@ export default {
     status() {
       return this.$store.getters['auth/status'];
     },
+    roomId() {
+      return this.$route.params.id;
+    },
     colorSetting() {
       const COLOR = this.$store.getters['setting/colorSetting'];
       if (COLOR === null) {
@@ -70,44 +77,54 @@ export default {
       }
       return COLOR;
     },
-    passState() {
-      if (this.pass === 'NONE') {
-        //パスワードの設定無し
-        this.checkPassWord();
-        return true;
-      } else if (
-        (this.pass !== null && typeof this.pass !== 'undefined') ||
-        this.passThrough
-      ) {
-        //パスワードデータを取得し終えた。もしくはパスワードがあっている。
-        return true;
+    displayStatus() {
+      if (!this.status) {
+        return 'ログインしてください。';
       } else {
-        //パスワードデータを取得中
-        return false;
+        if (this.chat === null) {
+          if (this.isLoaded) {
+            return 'データがありません。';
+          } else {
+            return '読み込み中。';
+          }
+        } else {
+          return '';
+        }
       }
     }
   },
   methods: {
-    addList(snap) {
-      this.scrollBottom();
-    },
-    sendMessage(inputMessage) {
+    async sendMessage(inputMessage) {
       const MESSAGE = {
         name: this.user.displayName,
         uid: this.user.uid,
-        image: this.user.photoURL,
-        message: inputMessage,
-        date: new Date()
+        img: this.user.photoURL,
+        message: inputMessage
       };
-      db.postChat(MESSAGE);
+      await postChat(this.roomId, MESSAGE);
+      this.scrollBottom();
     },
     scrollBottom() {
       this.$nextTick(() => {
         window.scrollTo(0, document.body.clientHeight);
       });
     },
-    checkPassWord() {
-      this.passThrough = true;
+    async getChats() {
+      const roomDocRef = await DB.collection('room').doc(this.roomId);
+      const chatColRef = await roomDocRef.collection('chat');
+      const chatColQuery = await chatColRef.orderBy('date', 'desc').limit(20);
+
+　　　// TODO: 初期化して全てのデータを取得すると言う処理になってしまっているので差分だけ取れないか調べる
+     this.chatList = [];
+      await chatColQuery.onSnapshot(snapshot => {
+        snapshot.docChanges().forEach(change => {
+          if(change.type === 'added'){
+            this.chatList.push(change.doc.data());
+          }
+        });
+      });
+
+      this.scrollBottom();
     }
   }
 };

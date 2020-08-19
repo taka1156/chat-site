@@ -7,6 +7,8 @@ import auth from '@/components/FireBase/auth.js';
 import FooterNavi from '@/components/navi/FooterNavi';
 import HeaderNavi from '@/components/navi/HeaderNavi';
 import '@/components/css/layout.css';
+import InfiniteLoading from 'vue-infinite-loading';
+Vue.use(InfiniteLoading);
 
 Vue.component('footer-navi', FooterNavi);
 Vue.component('header-navi', HeaderNavi);

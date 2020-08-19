@@ -2,41 +2,39 @@
   <div class="ChatList">
     <!--チャット部屋一覧-->
     <div class="mx-auto">
-      <div class="ml-0 col-1">
-        <div @click="isPassAns = !isPassAns">
-          <i v-if="isPassAns" class="material-icons">visibility</i>
-          <i v-else class="material-icons">visibility_off</i>
-        </div>
+      <div v-if="rooms.length === 0">
+        部屋が登録されていません。
       </div>
-      <div class="border" />
-      <div class="list-group">
-        <div v-for="(item, index) in sliceRooms" :key="index">
-          <article
-            class="article-color mt-2 mx-auto text-left list-group-item flex-column align-items-start"
-            @click="moveRoom(index)"
-          >
-            <div class="d-flex justify-content-start">
-              <div v-if="item.roompass !== 'NONE'">
-                <i class="material-icons">lock</i>
-              </div>
-              {{ item.roomname }}
-            </div>
-            スレ主:{{ item.user }}
-            <div
-              v-if="
-                userUid === item.uid && item.roompass !== 'NONE' && isPassAns
-              "
+      <div v-else>
+        <div class="ml-0 col-1">
+          <div @click="isPassAns = !isPassAns">
+            <i v-if="isPassAns" class="material-icons">visibility</i>
+            <i v-else class="material-icons">visibility_off</i>
+          </div>
+        </div>
+        <div class="border" />
+        <div class="list-group">
+          <div v-for="(room, index) in rooms" :key="index">
+            <article
+              class="article-color mt-1 mx-auto text-left list-group-item flex-column align-items-start"
+              @click="moveRoom(index)"
             >
-              PASS[{{ item.roompass }}]
-            </div>
-            <div v-else>{{ item.detail }}</div>
-          </article>
+              <div class="d-flex justify-content-start">
+                <div v-if="room.pass !== 'NONE'">
+                  <i class="material-icons">lock</i>
+                </div>
+                {{ room.roomName }}
+              </div>
+              スレ主:{{ room.userName }}
+              <div
+                v-if="userUid === room.uid && room.pass !== 'NONE' && isPassAns"
+              >
+                PASS[{{ room.pass }}]
+              </div>
+              <div v-else>{{ room.detail }}</div>
+            </article>
+          </div>
         </div>
-      </div>
-      <div class="mx-auto col-3 d-flex justify-content-center">
-        <p class="h4" @click="prevPage()">&lt;</p>
-        {{ page }}/{{ maxPage }}
-        <p class="h4" @click="nextPage()">&gt;</p>
       </div>
     </div>
   </div>
@@ -46,49 +44,28 @@
 export default {
   name: 'ChatList',
   props: {
+    userUid: {
+      default: null,
+      type: String
+    },
     rooms: {
       type: Array,
       default: () => []
     },
-    userUid: {
-      default: null,
+    colorSetting: {
+      default: '',
       type: String
     }
   },
   data() {
     return {
       isPassAns: false,
-      page: 1,
-      perPage: 10
+      isAdded: true
     };
-  },
-  computed: {
-    sliceRooms() {
-      if (this.rooms == null) return;
-      return this.rooms.slice(
-        (this.page - 1) * this.perPage,
-        this.page * this.perPage
-      );
-    },
-    maxPage() {
-      return Math.ceil(this.rooms.length / this.perPage); //総ページ数
-    }
-  },
-  watch: {
-    rooms: function() {
-      this.page = 1;
-    }
   },
   methods: {
     moveRoom(index) {
-      const INDEX = (this.page - 1) * this.perPage + index;
-      this.$emit('moveRoom', INDEX);
-    },
-    prevPage() {
-      this.page = Math.max(this.page - 1, 1);
-    },
-    nextPage() {
-      this.page = Math.min(this.page + 1, this.maxPage);
+      this.$emit('move-room', index);
     }
   }
 };
