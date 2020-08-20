@@ -34,9 +34,9 @@
                 v-model="detail"
                 type="text"
                 class="form-control"
-                placeholder="Chatの概要(10~20字)"
+                placeholder="Chatの概要(10~30字)"
                 minlength="10"
-                maxlength="20"
+                maxlength="30"
                 required
               />
               <label for="roomPass">パスワード(任意)</label>

@@ -14,6 +14,7 @@
           :user="user"
           :color-setting="colorSetting"
           @logOut="logOut"
+          @updateUserInfo="updateUserInfo"
         />
       </div>
       <div v-else class="mt-5">
@@ -65,6 +66,9 @@ export default {
   methods: {
     logOut() {
       auth.logOut();
+    },
+    updateUserInfo() {
+      auth.updateUserInfo();
     }
   }
 };

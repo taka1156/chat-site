@@ -14,6 +14,33 @@ const logOut = () => {
     .catch(err => alert(err));
 };
 
+// ユーザー情報更新
+const updateUserInfo = () => {
+  const user = auth.currentUser;
+  let name, photoUrl;
+  name = photoUrl = '';
+
+  if (user != null) {
+    user.providerData.forEach(function(profile) {
+      name = profile.displayName;
+      photoUrl = profile.photoURL;
+    });
+  }
+
+  user
+    .updateProfile({
+      displayName: name,
+      photoURL: photoUrl
+    })
+    .then(function() {
+      alert('ユーザー情報の更新に成功しました。');
+      location.reload();
+    })
+    .catch(function(error) {
+      alert('ユーザー情報の更新に失敗しました');
+    });
+};
+
 //ログイン状態の制御
 const onAuth = () => {
   auth.onAuthStateChanged(user => {
@@ -24,5 +51,6 @@ const onAuth = () => {
 export default {
   initAuth,
   logOut,
+  updateUserInfo,
   onAuth
 };

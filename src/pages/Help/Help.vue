@@ -28,8 +28,11 @@
           ACCOUNT
           <i class="material-icons">account_box</i>
         </h3>
-        <p>ログインを管理しています。</p>
-        <p>ログインはTwitterのアカウントを使用しています</p>
+        <p>ログインやユーザー情報の更新を行うページです。</p>
+        <p>
+          ログインはTwitter、Google、Githubのアカウントを使用しています。<br>
+          ユーザー情報更新はアカウントのアイコンや名前を更新します。<br>
+        </p>
       </div>
       <div class="mx-auto mb-4">
         <h3 class="mx-auto col-10">
@@ -41,7 +44,7 @@
           チャット部屋には、任意でパスワードの設定を行うことができ、
           <i class="material-icons small">visibility</i>や
           <i class="material-icons small">visibility_off</i>
-          は、スレ主がクリックすることで、パスワードの表示/非表示をすることができます。
+          は、<br />スレ主がクリックすることで、パスワードの表示/非表示をすることができます。
         </p>
       </div>
       <p class="h3">さぁチャットを始めましょう</p>
