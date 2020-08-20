@@ -24,13 +24,12 @@
 <script>
 import ChatList from './parts/ChatList';
 import ChatForm from './parts/ChatForm';
-import { getRoom, postChat } from '@/components/FireBase/db.js';
-import firebase from 'firebase/app';
-import 'firebase/firestore';
+import auth from '@/plugins/firebase/auth.js';
+import { DB, getRoom, postChat } from '@/plugins/firebase/db.js';
 // import PassForm from './parts/PassForm';
 // 参考:(https://github.com/taylorhakes/fecha#use-it)
 
-const DB = firebase.firestore();
+const roomColRef = DB.collection('room');
 
 export default {
   name: 'Chat',
@@ -49,16 +48,13 @@ export default {
       isLoaded: false
     };
   },
-  async mounted() {
-    if (this.status) {
-      this.room = await getRoom(this.roomId);
-      console.log(this.room);
-      // イベント検知
-      const chatDocRef = await DB.collection('room').doc(this.roomId);
-      this.chatRef = chatDocRef.collection('chat').onSnapshot(() => {
-        this.getChats();
-      });
+  firestore() {
+    return {
+      chatList: roomColRef.doc(this.roomId).collection('chat').orderBy('date', 'desc').limit(20)
     }
+  },
+  created() {
+    auth.onAuth();
   },
   computed: {
     user() {
@@ -109,23 +105,6 @@ export default {
         window.scrollTo(0, document.body.clientHeight);
       });
     },
-    async getChats() {
-      const roomDocRef = await DB.collection('room').doc(this.roomId);
-      const chatColRef = await roomDocRef.collection('chat');
-      this.chatList = await chatColRef.orderBy('date', 'desc').limit(20);
-
-　　　// TODO: 初期化して全てのデータを取得すると言う処理になってしまっているので差分だけ取れないか調べる
-     /* this.chatList = [];
-      await chatColQuery.onSnapshot(snapshot => {
-        snapshot.docChanges().forEach(change => {
-          if(change.type === 'added'){
-            this.chatList.push(change.doc.data());
-          }
-        });
-      }); */
-
-      this.scrollBottom();
-    }
   }
 };
 </script>

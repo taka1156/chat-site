@@ -1,3 +1,3 @@
-import './components'
-import './firebase'
-import './infiniteloading'
+import './components';
+import './firebase';
+import './infiniteloading';

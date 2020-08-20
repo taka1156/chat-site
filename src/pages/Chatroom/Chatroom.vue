@@ -11,8 +11,8 @@
     </header>
     <div class="mx-auto jumbotron mt-4">
       <div class="d-flex flex-column jumbotron">
-        <RoomForm :color-setting="colorSetting" @make-room="makeRoom" />
         <div v-if="displayStatus === ''">
+          <RoomForm :color-setting="colorSetting" @make-room="makeRoom" />
           <RoomList
             :user-uid="user.uid"
             :rooms="rooms"
@@ -35,8 +35,8 @@
 <script>
 import RoomForm from './parts/RoomForm';
 import RoomList from './parts/RoomList';
-import auth from '@/components/FireBase/auth.js';
-import { getRooms, postRoom } from '@/components/FireBase/db.js';
+import auth from '@/plugins/firebase/auth.js';
+import { getRooms, postRoom } from '@/plugins/firebase/db.js';
 
 export default {
   name: 'ChatRoom',
@@ -49,17 +49,25 @@ export default {
       path: '/account',
       title: 'ChatRoom',
       icon: 'forum',
-      date: {
+      timestamp: {
         seconds: 9999999999,
         nanoseconds: 999999999
       },
-      isLoaded: false, // load, loading, loaded
+      isLoaded: false,
       rooms: []
     };
   },
-  async mounted() {
-    if(this.status) {
-      await this.init();
+  async created() {
+    auth.onAuth();
+    if (this.status) {
+      this.init();
+    }
+  },
+  watch:{
+   status() {
+      if (this.status && this.rooms.length === 0) {
+        this.init();
+      }
     }
   },
   computed: {
@@ -75,11 +83,11 @@ export default {
       } else {
         if (this.rooms.length === 0) {
           if (this.isLoaded) {
-            return 'データがありません。'
+            return 'データがありません。';
           } else {
-            return '読み込み中。';
+            return '読み込み中...';
           }
-        }  else {
+        } else {
           return '';
         }
       }
@@ -97,31 +105,32 @@ export default {
     async init() {
       this.rooms = [];
       this.isLoaded = false;
-      this.date = {
+      this.timestamp = {
         seconds: 9999999999,
         nanoseconds: 999999999
       };
-      await this.next(this.date);
+      await this.next();
     },
     // 無限スクロール
     async infiniteHandler($state) {
       if (!this.isLoaded) {
-        await this.next(this.date);
+        await this.next();
         $state.loaded();
       } else {
         $state.complete();
       }
     },
     // ページング
-    async next(date) {
-      const { rooms, lastDate, isEnd } = await getRooms(date);
+    async next() {
+      const { rooms, lastDate, isEnd } = await getRooms(this.timestamp);
       if (isEnd) {
         this.isLoaded = true;
       } else {
         this.rooms.push(...rooms);
-        this.date = lastDate;
+        this.timestamp = lastDate;
       }
     },
+    // 部屋作成
     async makeRoom({ roomName, detail, pass }) {
       // ユーザー情報追加
       const roomInfo = {

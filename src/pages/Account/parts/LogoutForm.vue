@@ -2,7 +2,7 @@
   <div class="LogoutForm">
     <!--ログイン時に表示されるUI-->
     <img :src="user.photoURL" class="mx-auto user-icon" />
-    <p class="h2">こんにちは! {{ user.displayName }}さん</p>
+    <p class="h2">こんにちは!<br>{{ user.displayName }}さん</p>
     <button
       type="button"
       class="mx-auto mt-2 col-3 btn d-flex justify-content-center"

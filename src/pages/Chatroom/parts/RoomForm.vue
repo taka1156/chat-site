@@ -2,7 +2,6 @@
   <div class="RoomForm">
     <!--部屋作成のフォーム-->
     <button
-      type="button"
       class="btn col-7"
       :style="{ 'background-color': colorSetting }"
       @click="init()"

@@ -27,7 +27,7 @@
 </template>
 
 <script>
-import auth from '@/components/FireBase/auth.js';
+import auth from '@/plugins/firebase/auth.js';
 import LoginForm from './parts/LoginForm';
 import LogoutForm from './parts/LogoutForm';
 
@@ -43,6 +43,9 @@ export default {
       title: 'Account',
       icon: 'account_box'
     };
+  },
+  created() {
+    auth.onAuth();
   },
   computed: {
     user() {
