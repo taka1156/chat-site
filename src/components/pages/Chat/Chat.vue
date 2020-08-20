@@ -112,17 +112,17 @@ export default {
     async getChats() {
       const roomDocRef = await DB.collection('room').doc(this.roomId);
       const chatColRef = await roomDocRef.collection('chat');
-      const chatColQuery = await chatColRef.orderBy('date', 'desc').limit(20);
+      this.chatList = await chatColRef.orderBy('date', 'desc').limit(20);
 
 　　　// TODO: 初期化して全てのデータを取得すると言う処理になってしまっているので差分だけ取れないか調べる
-     this.chatList = [];
+     /* this.chatList = [];
       await chatColQuery.onSnapshot(snapshot => {
         snapshot.docChanges().forEach(change => {
           if(change.type === 'added'){
             this.chatList.push(change.doc.data());
           }
         });
-      });
+      }); */
 
       this.scrollBottom();
     }
