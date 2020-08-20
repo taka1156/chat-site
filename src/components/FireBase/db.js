@@ -1,4 +1,5 @@
-/* 
+import firebase from 'firebase/app';
+import 'firebase/firestore';
 
 let DB = firebase.firestore();
 // ローカルの時刻は、ズレがあるのでサーバ時刻を使用
@@ -105,4 +106,3 @@ export {
   getChats,
   postChat
 };
- */
