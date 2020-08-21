@@ -8,28 +8,28 @@ export default new Router({
     {
       name: 'HelpPage',
       path: '/',
-      component: () => import('@/components/pages/Help/Help')
+      component: () => import('@/pages/Help/Help')
     },
     {
       name: 'Account',
       path: '/account',
-      component: () => import('@/components/pages/Account/Account')
+      component: () => import('@/pages/Account/Account')
     },
     {
       name: 'ChatRoom',
       path: '/chatroom',
-      component: () => import('@/components/pages/Chatroom/Chatroom'),
+      component: () => import('@/pages/Chatroom/Chatroom'),
       meta: { Auth: true }
     },
     {
       name: 'Setting',
       path: '/setting',
-      component: () => import('@/components/pages/Setting/Setting')
+      component: () => import('@/pages/Setting/Setting')
     },
     {
       name: 'ChatPage',
       path: '/chatpage/:id',
-      component: () => import('@/components/pages/Chat/Chat'),
+      component: () => import('@/pages/Chat/Chat'),
       meta: { Auth: true }
     }
   ]

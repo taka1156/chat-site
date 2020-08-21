@@ -8,7 +8,11 @@
 
 <script>
 export default {
-  name: 'App'
+  name: 'App',
+  created() {
+    //json(WebStrageの設定情報)の読み出し
+    this.$store.commit('setting/setUserSetting');
+  }
 };
 </script>
 
